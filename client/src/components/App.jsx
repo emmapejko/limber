@@ -1,6 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import Login from './Login.jsx';
+import Home from './Home.jsx';
+import NavBar from './NavBar.jsx';
 
 
 function App() {
@@ -8,7 +11,16 @@ function App() {
 
    return (
      <div>
-       <Login />
+       <BrowserRouter>
+        <Switch>
+    <Route exact path='/' >
+       <NavBar isLoggedIn={false}/>
+    </Route>
+      <Route path='/home'>
+      <NavBar isLoggedIn={true}/>
+    </Route>
+       </Switch>
+       </BrowserRouter>
      </div>
    )
 };
