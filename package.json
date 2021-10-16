@@ -22,6 +22,7 @@
   "homepage": "https://github.com/emmapejko/limber#readme",
   "dependencies": {
     "axios": "^0.23.0",
+    "bootstrap": "^5.1.3",
     "development": "^0.0.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
