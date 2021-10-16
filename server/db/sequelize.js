@@ -1,286 +1,118 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const user_model = require('./models/user.js');
+
+const { userModel, poseModel, flowModel, classModel, bodypartModel, poseFlowModel, userPoseModel, followingModel, afterPoseModel } = require('./models/index');
 const db = new Sequelize('limber', process.env.POSTGRES_USERNAME, process.env.POSTGRES_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres',
 });
 
-const User = db.define('user', user_model);
- 
-// const Landmarks = db.define('landmarks', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   kind: {
-//     type: Sequelize.STRING
-    
-//   },
-//   details: {
-//     type: Sequelize.STRING
-//   },
-//   userId: {
-//     type: Sequelize.INTEGER
-//   },
-//   fullName: {
-//     type: Sequelize.STRING
-//   },
-//   lat: {
-//     type: Sequelize.STRING
-//   },
-//   lng: {
-//     type: Sequelize.STRING
-//   },
-//   date_id: {
-//     type: Sequelize.DATE
-//   }
-// });
+const User = db.define('user', userModel, { timestamps: false });
+const Pose = db.define('pose', poseModel, { timestamps: false });
+const Flow = db.define('flow', flowModel);
+const Class = db.define('class', classModel);
+const BodyPart = db.define('bodypart', bodypartModel, { timestamps: false });
+const PoseFlow = db.define('poseFlow', poseFlowModel, { timestamps: false });
+const UserPose = db.define('userPose', userPoseModel, { timestamps: false });
+const Following = db.define('following', {}, { timestamps: false });
+const AfterPose = db.define('afterPose', {}, { timestamps: false });
+const PoseBodyPart = db.define('poseBodyPart', {}, { timestamps: false });
 
-// const Events = db.define('events', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     autoIncrement: true,
-//     primaryKey: true
-//   },
-//   eventsName: {
-//     type: Sequelize.STRING, //point back to u googleid
-//   },
-//   hostName: {
-//     type: Sequelize.STRING
-//   },
-//   details: {
-//     type: Sequelize.STRING
-//   },
-//   date_id: {
-//     type: Sequelize.DATE,
-    
-//   },
-//   time_id: {
-//     type: Sequelize.TIME,
-    
-//   },
-//   lat: {
-//     type: Sequelize.STRING
-//   },
-//   lng: {
-//     type: Sequelize.STRING
-//   }
- 
-// });
+User.hasMany(Flow);
+Flow.belongsTo(User);
 
-// const Rsvps = db.define('rsvps', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   },
-//   userId: {
-//     type: Sequelize.INTEGER //point back to user id
-//   },
-//   eventId: {
-//     type: Sequelize.INTEGER //foreign key references event id
-//   },
-//   fullName: {
-//     type: Sequelize.STRING
-//   },
-// });
+User.belongsToMany(Pose, { through: UserPose});
+Pose.belongsToMany(User, { through: UserPose});
 
-// const Message = db.define('messages', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   subject: {
-//     type: Sequelize.STRING,
-//     defaultValue: ''
-//   }, 
-//   text: {
-//     type: Sequelize.STRING
-//   },
-//   userFromId: {
-//     type: Sequelize.INTEGER,
-//     references: {
-//       model: Users,
-//       key: 'id'
-//     }
-//   },
-//   userToId: {
-//     type: Sequelize.INTEGER,
-//     references: {
-//       model: Users,
-//       key: 'id'
-//     }
-//   }
-// });
+Pose.belongsToMany(Flow, { through: PoseFlow});
+Flow.belongsToMany(Pose, { through: PoseFlow});
 
-// Message.belongsTo(Users, {foreignKey: 'userFromId', as: 'receivedFrom'});
-// Message.belongsTo(Users, {foreignKey: 'userToId', as: 'sentTo'});
+Pose.belongsToMany(BodyPart, { through: PoseBodyPart});
+BodyPart.belongsToMany(Pose, { through: PoseBodyPart});
 
+Following.belongsTo(User, { foreignKey: 'followerId'});
+Following.belongsTo(User, { foreignKey: 'followeeId'});
 
+AfterPose.belongsTo(Pose, { foreignKey: 'poseId'});
+AfterPose.belongsTo(Pose, {foreignKey: 'afterPoseId'});
 
+User.hasMany(Class);
+Class.belongsTo(User);
 
-// const Posts = db.define('posts', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   urlImage: {
-//     type: Sequelize.STRING(255)
-//   },
-//   caption: {
-//     type: Sequelize.STRING(255)
-//   },
-//   likes: {
-//     type: Sequelize.INTEGER
-//   },
-//   public_id: {
-//     type: Sequelize.STRING(255)
-//   }
-// });
-
-// const Following = db.define('following', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true
-//   },
-//   userAdding: { //user who is making the add
-//     type: Sequelize.INTEGER, //foreign key for User.id
-//     references: {
-//       model: Users,
-//       key: 'id'
-//     }
-//   },
-//   userTarget: { //user who is being followed
-//     type: Sequelize.INTEGER, //foreign key for User.id
-//     references: {
-//       model: Users,
-//       key: 'id'
-//     }
-//   } 
-// });
-
-// const Comments = db.define('comments', {
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   text: {
-//     type: Sequelize.STRING(255)
-//   },
-//   username: {
-//     type: Sequelize.STRING(255)
-//   },
-//   picture: {
-//     type: Sequelize.STRING
-//   },
-// });
-// Following.belongsTo(Users, {foreignKey: 'userAdding', as: 'followerAdder'});
-// Following.belongsTo(Users, {foreignKey: 'userTarget', as: 'followingTarget'});
-
-
-// /**
-//  * the User.hasMany relationships here etc.  i dont think any functions are using the event/rsvp schema yet
-//  */
-// Users.hasMany(Posts);
-// Posts.belongsTo(Users);
-
-// Users.hasMany(Rsvps);
-// Events.hasMany(Rsvps); 
-// Following.belongsTo(Users);
-
-// //Users.belongsToMany(Users, {as: 'Children', through: 'Following'})
-
-// //Post can have multiple comments
-// Posts.hasMany(Comments);
-// Comments.belongsTo(Posts);
 
 User.sync()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log('User connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+Flow.sync()
+  .then(() => {
+    console.log('Flow connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 
-// Landmarks.sync()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
+Pose.sync()
+  .then(() => {
+    console.log('Pose connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
-// Events.sync()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
-
-// Rsvps.sync()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
-
-// Posts.sync()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
-
-// Comments.sync()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   }).catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
- 
-// Message.sync() 
-//   .then(() => console.log('messages synced'))
-//   .catch((err) => console.log(err));
-
-// Following.sync()
-//   .then(() => {
-//     console.log('Connection has been established successfully.following');
-//   })
-//   .catch((err) => {
-//     console.error('Unable to connect to the database:', err);
-//   });
-
-//exports.User = User;
-// exports.Landmarks = Landmarks;
-// exports.Events = Events;
-// exports.Rsvps = Rsvps;
-// exports.Posts = Posts;
-// exports.Comments = Comments;
-//exports.db = db;
-// Following.sync()
-// .then(() => {
-//   console.log('Connection has been established successfully.');
-// })
-// .catch((err) => {
-//   console.error('Unable to connect to the database:', err);
-// });
+UserPose.sync()
+  .then(() => {
+    console.log('UserPose connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+PoseFlow.sync()
+  .then(() => {
+    console.log('PoseFlow connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+BodyPart.sync()
+  .then(() => {
+    console.log('BodyPart connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+PoseBodyPart.sync()
+  .then(() => {
+    console.log('PoseBodyPart connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+Following.sync()
+  .then(() => {
+    console.log('Following connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+AfterPose.sync()
+  .then(() => {
+    console.log('AfterPose connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+Class.sync()
+  .then(() => {
+    console.log('AfterPose connected to DB.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 
-module.exports = {User, db};
+module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, db};
 
-
-/** right now these match the db schema, so sequelized can be used in the fture but the original functionscan use the helpers queries in raw mysql syntax.  However, if errors happen--- Sequelize.STRING type is varchar(255) -- the varchar(40) should be updated in the schema and i do not know yet if the dats will be compatible.
- * 
- * I had to add columns in the mysql schema for updatedAt and createdAt to be compatible with sequelize.
- * 
- * I also adjuusted the primary key because I think it is a better choice to have the primary key be what is generated in the db and not referencing the googleId.  
- */

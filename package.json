@@ -17,9 +17,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/emmapejko/limber/issues"
+    "url": "https://github.com/joeemmalukeakajello/limber/issues"
   },
-  "homepage": "https://github.com/emmapejko/limber#readme",
+  "homepage": "https://github.com/joeemmalukeakajello/limber#readme",
   "dependencies": {
     "axios": "^0.23.0",
     "development": "^0.0.6",

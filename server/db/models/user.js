@@ -1,7 +1,5 @@
 const { Sequelize } = require('sequelize');
 
-
-
 const User = {
   id: {
     type: Sequelize.INTEGER,
