@@ -1,5 +1,6 @@
 const passport = require ('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { User } = require('./db/sequelize.js');
 // add schema model(e.g. Users) and connect to DB to authenticate
 require('dotenv').config();
 
@@ -10,7 +11,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => { 
   
-  Users.findOne({
+  User.findOne({
     where: { 
       id: id 
     }
@@ -27,10 +28,10 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: '/google/callback'
 }, (accessToken, refreshToken, profile, done) => {
-  const {sub, name, picture, email, family_name, given_name} = profile._json;
+  const {sub, name, picture, email} = profile._json;
  
 
-  Users.findOne({
+  User.findOne({
     where: {
       email: email
     }
@@ -38,15 +39,13 @@ passport.use(new GoogleStrategy({
     if (user) {
       return done(null, user);
     } else {
-      Users.create({
-        fullName: name,
+      User.create({
+        full_name: name,
         email: email,
-        familyName: family_name,
-        givenName: given_name,
         picture: picture,
-        googleId: sub
+        google_id: sub,
+        is_teacher: false,
 
-        
       })
         .then(newUser => done(null, newUser))
         .catch( err => console.log(err));

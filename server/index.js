@@ -4,7 +4,6 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const auth = require('./auth');
-const { ClientId } = require('./routes/clientId');
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 
@@ -21,7 +20,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('routes/clientId', ClientId)
+
 
 // client authentication for oauth2.0 --> 
 app.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
@@ -33,7 +32,7 @@ app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/
 
   app.get('/logout', (req, res) => {
     //req.session = null; ?? maybe not needed
-    req.logout;
+    req.logout();
     res.redirect('/login');
   })
 

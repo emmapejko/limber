@@ -5,20 +5,6 @@ import axios from 'axios';
 function Login(){
 
 
-  
-  //////////// client server routing, maybe not necessary
-  //   axios.get('/routes/clientId')
-  //     .then(data => {
-       
-  //       const {CLIENT_ID} = data.data.parsed; //pull out the ID 
-  //       this.setState({
-  //         clientId: CLIENT_ID,
-  //         display: true
-  //       });
-  //     });
-  
-  
-   
 
     const style = {
       backgroundColor: '#35654d',
@@ -37,7 +23,7 @@ function Login(){
       marginRight: '8px'
     };
     return (
-      <div style={style}>
+      <div>
         <h1 style={headerStyle}>Limber</h1>
         <div className="col s12 m6 offset-m3 left-align">
           <a className="oauth-container btn darken-4 white black-text" href='/google' style={{textTransform: 'none'}}>
