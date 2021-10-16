@@ -1,7 +1,7 @@
-
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const user_model = require('./models/user.js');
-const db = new Sequelize('limber', 'postgres', 'postgres', {
+const db = new Sequelize('limber', process.env.POSTGRES_USERNAME, process.env.POSTGRES_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres',
 });
