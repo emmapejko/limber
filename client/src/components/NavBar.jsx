@@ -12,7 +12,7 @@ function NavBar ({ isLoggedIn }) {
       Limber
       </div>
       {isLoggedIn ? <div>
-        <Link to="/home">Home</Link>
+        <Link to="/home2">Home</Link>
         <Link to="/build">Build</Link>
         <Link to="/connect">Connect</Link>
         <a href="/logout">Log Out</a>
@@ -27,20 +27,18 @@ function NavBar ({ isLoggedIn }) {
           </a>
       </div>
     }
+
     <Switch>
-      <Route path='/home'>
-        <Home/>
+      <Route path='/home2'>
+        <Home />
       </Route>
       <Route path='/build'>
         <Build />
       </Route>
       <Route path='/connect'>
         <Connect />
-        </Route>
+      </Route>
     </Switch>
-      <div>
-
-      </div>
     </div>
   )
 }
