@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/joeemmalukeakajello/limber#readme",
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
+    "@mui/material": "^5.0.4",
     "axios": "^0.23.0",
     "bootstrap": "^5.1.3",
     "development": "^0.0.6",

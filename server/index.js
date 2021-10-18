@@ -25,16 +25,31 @@ app.use(passport.session());
 // client authentication for oauth2.0 --> 
 app.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/login'}),
+app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/'}),
   (req, res) => {
-    res.redirect('/home');
+    //let userPath = req.user.dataValues.full_name.split(' ').join('');
+    //res.redirect(`/${userPath}`);
+    res.redirect('/loggedin');
   });
 
-  app.get('/logout', (req, res) => {
-    //req.session = null; ?? maybe not needed
-    req.logout();
-    res.redirect('/login');
-  })
+const authCheck = (req, res, next) => {
+  if (!req.user) {
+    res.redirect('/loggedin');
+  } else {
+    next();
+  }
+}
+
+app.get('/loggedin', authCheck, (req, res) => {
+  let userPath = req.user.dataValues.full_name.split(' ').join('');
+  res.redirect(`/${userPath}`);
+})
+
+app.get('/logout', (req, res) => {
+  //req.session = null; ?? maybe not needed
+  req.logout();
+  res.redirect('/');
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(DIST_DIR, 'index.html'));
