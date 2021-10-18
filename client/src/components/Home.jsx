@@ -14,9 +14,12 @@ function Home () {
   return (
     <div>
       <div>Home / User Profile</div>
+      <div className="row">
       <DashBoard />
       <SavedFlow />
       <BuildFlow />
+      </div>
+      
     </div>
   )
 }
