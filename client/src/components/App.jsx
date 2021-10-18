@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './Home.jsx';
 import Login from './Login.jsx';
+import NavBar from './NavBar.jsx';
 
 function App() {
    return (
@@ -12,7 +13,7 @@ function App() {
               <Login />
             </Route>
             <Route path='/:user'>
-              <Home />
+              <NavBar />
             </Route>
             <Route>
               <div>404 page not available</div>

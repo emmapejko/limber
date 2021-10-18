@@ -10,19 +10,7 @@ function Home () {
 
   return (
     <div>
-      Welcome Home! We did it Joe!
-      <div>
-        <Link to={`${url}/build`}>Build</Link>
-        <Link to={`${url}/connect`}>Connect</Link>
-      </div>
-      <Switch>
-        <Route path={`${path}/build`}>
-          <Build />
-        </Route>
-        <Route path={`${path}/connect`}>
-          <Connect />
-        </Route>
-      </Switch>
+      <div>Home / User Profile</div>
     </div>
   )
 }
