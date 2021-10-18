@@ -107,7 +107,7 @@ AfterPose.sync()
   });
 Class.sync()
   .then(() => {
-    console.log('AfterPose connected to DB.');
+    console.log('Class connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);

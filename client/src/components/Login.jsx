@@ -1,44 +1,17 @@
 import React from 'react';
-import axios from 'axios';
-import NavBar from './NavBar.jsx';
-//const FontAwesome = require('react-fontawesome');
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function Login(){
 
-
-
-    const style = {
-      backgroundColor: '#35654d',
-      padding: '10px',
-      
-      textAlign: 'center',
-      fontWeight: '900',
-      
-    };
-    const headerStyle = {
-      fontSize: '180px',
-      textShadow: '2px 2px 5px #ffff00',
-    };
-    const inlineStyle = {
-      marginTop: '7px',
-      marginRight: '8px'
-    };
     return (
-      <div>
-        <h1 style={headerStyle}>Limber</h1>
-        <div className="col s12 m6 offset-m3 left-align">
-          <a className="oauth-container btn darken-4 white black-text" href='/google' style={{textTransform: 'none'}}>
-            <div className="left">
-              <img width="20px" style={inlineStyle} alt="Google sign-in" 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-            </div>
-        Login with Google
-          </a>
-        </div>
-      </div>
+      <React.Fragment>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
+        <Typography sx={{ minWidth: 100 }}><a className="oauth-container btn darken-4 white black-text" href='/google'>Log In</a></Typography>
+      </Box>
+      </React.Fragment>
     );
-  
-  
-  
+
 }
 export default Login;
