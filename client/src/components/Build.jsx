@@ -75,7 +75,7 @@ const Build = () => {
               </DialogContent>
               <DialogActions>
                 <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-                <Button onClick={occupationBuild}>Build</Button>
+                <Button onClick={occupationBuild}>Continue</Button>
               </DialogActions>
             </Dialog>
           </Box>

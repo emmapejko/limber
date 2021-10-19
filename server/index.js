@@ -7,6 +7,8 @@ const auth = require('./auth');
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 
+const flowRouter = require('./routes/flow');
+
 const app = express();
 
 app.use(express.json());
@@ -20,6 +22,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+//routes
+app.use('/flow', flowRouter);
 
 
 // client authentication for oauth2.0 -->

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,12 +9,18 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import skelly from '../images/skellyton.png';
+import DownwardFacingDog from '../images/DownwardFacingDog.jpeg';
 
 const BuildSetUp = ({ jobBodyParts }) => {
   const [length, setLength] = useState('');
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [flow, setFlow] = useState([]);
 
   const handleClick = (part) => {
     setBodyParts(prev => [...new Set([...prev, part])]);
@@ -24,11 +31,25 @@ const BuildSetUp = ({ jobBodyParts }) => {
   }
 
   const build = () => {
-    console.log('building');
+    console.log(`building a ${length} flow focusing on ${bodyParts.join(' and ')}`);
+    const data = {
+      length: length,
+      bodyParts: bodyParts
+    }
+    axios.post('/flow', { data: data })
+      .then(({ data }) => {
+        console.log(data);
+        setFlow(prev => prev.concat(data));
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   return (
     <>
+    { !flow.length ?
+      <>
       <Box
       display="flex"
       alignItems="center"
@@ -55,8 +76,21 @@ const BuildSetUp = ({ jobBodyParts }) => {
           {
             bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
           }
-          <BuildCircleIcon onClick={build} />
+          <BuildCircleIcon onClick={ length === '' ? () => setOpenDialog(true) : build } />
         </Stack>
+          <Dialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          >
+          <DialogTitle id="alert-dialog-title">
+            {"Please select a length for your flow"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={() => setOpenDialog(false)} autoFocus>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
 
         <Box
@@ -87,6 +121,20 @@ const BuildSetUp = ({ jobBodyParts }) => {
             </a>
           </svg>
         </Box>
+        </> :
+        <>
+        {
+          flow.map((pose, i) => (
+          <div key={i}>
+            <div>{pose.name}</div>
+            <div>{pose.sanskrit}</div>
+            <div>{pose.demo}</div>
+            <img src={DownwardFacingDog} />
+          </div>
+          ))
+        }
+        </>
+      }
     </>
   )
 
