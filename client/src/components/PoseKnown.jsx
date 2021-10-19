@@ -16,14 +16,14 @@ const style = {
   p: 4,
 };
 
-export default function BuildFlow() {
+export default function PoseKnown() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Build A Flow</Button>
+      <Button onClick={handleOpen}>What you know...</Button>
       <Modal
         open={open}
         onClose={handleClose}

@@ -17,6 +17,10 @@ const style = {
   pb: 3,
 };
 
+const color = {
+  backgroundColor: "#e0f2f1"
+}
+
 function ChildModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -58,7 +62,7 @@ export default function SavedFlow() {
   };
 
   return (
-    <div>
+    <div style={color}>
       <Button onClick={handleOpen}>SavedFlow</Button>
       <Modal
         open={open}

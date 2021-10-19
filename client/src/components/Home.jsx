@@ -5,21 +5,80 @@ import NavBar from './NavBar.jsx';
 import Build from './Build.jsx';
 import Connect from './Connect.jsx';
 import DashBoard from './DashBoard.jsx';
+import DashBoardCard from './DashBoardCard.jsx';
 import SavedFlow from './SavedFlow.jsx';
+import SavedFlowCard from './SavedFlowCard.jsx';
 import BuildFlow from './BuildFlow.jsx';
+import BuildFlowCard from './BuildFlowCard.jsx';
+import PoseKnown from './PoseKnown.jsx';
+import LearningPose from './LearningPose.jsx';
 
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid'
+//import { lightblue } from '@mui/material/colors';
+
+const style = {
+  backgroundColor: "#f9fbe7"
+}
+
+const color = {
+  backgroundColor: "#e0f2f1"
+}
 function Home () {
   const { path, url } = useRouteMatch();
 
   return (
-    <div>
+    <div style={style}>
       <div>Home / User Profile</div>
-      <div className="row">
-      <DashBoard />
-      <SavedFlow />
-      <BuildFlow />
-      </div>
-      
+     <div>
+    <Box
+sx={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  '& > :not(style)': {
+    m: 12,
+    width: 220,
+    height: 250,
+  },
+}}
+>
+<Paper style={color} elevation={3}>
+  <DashBoard />
+  <DashBoardCard />
+</Paper>
+<Paper elevation={3}> 
+  <SavedFlow />
+  <SavedFlowCard />
+</Paper>
+<Paper elevation={3}>
+  <BuildFlow />
+  <BuildFlowCard />
+</Paper>
+</Box>
+</div>
+<div>
+<Box
+sx={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  '& > :not(style)': {
+    m: 10,
+    width: 450,
+    height: 100,
+  },
+}}
+>
+  
+<Paper elevation={3}>
+  <PoseKnown />
+</Paper>
+<Paper elevation={3}> 
+  <LearningPose />
+</Paper>
+</Box>
+</div>
     </div>
   )
 }
