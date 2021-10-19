@@ -3,5 +3,6 @@ node_modules
 
 #project
 client/dist/bundle.js
+client/dist/images
 .env
 

@@ -25,7 +25,7 @@ insert into poses (name, sanskrit, demo, difficulty) values ('High Plank', 'Phal
 insert into poses (name, sanskrit, demo, difficulty) values ('Low Plank', 'Chaturanga Dandasana', 'https://www.youtube.com/watch?v=3vzTYq4BX68', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Upward Facing Dog', 'Urdhva Mukha Svanasana', 'https://www.youtube.com/watch?v=tbh0qyLJRaI', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Cobra', 'Bhujangasana', 'https://www.youtube.com/watch?v=n6jrC6WeF84', 'beginner');
-insert into poses (name, sanskrit, demo, difficulty) values ('Revolved Triangle', '	Parivrtta Trikonasana', 'https://www.youtube.com/watch?v=sX11hp65x14', 'intermediate');
+insert into poses (name, sanskrit, demo, difficulty) values ('Revolved Triangle', 'Parivrtta Trikonasana', 'https://www.youtube.com/watch?v=sX11hp65x14', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Low Lunge', 'Anjaneyasana', 'https://www.youtube.com/watch?v=MjiC4mGTnTw', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Runners Lunge', 'Utthita Ashwa Sanchalanasana', 'https://www.youtube.com/watch?v=OfJl_jhJcWw', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('High Lunge', 'Ashta Chandrasana', 'https://www.youtube.com/watch?v=eXupg3oNGJY', 'beginner');
