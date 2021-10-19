@@ -42,14 +42,14 @@ Class.belongsTo(User);
 
 User.sync()
   .then(() => {
-    console.log('User connected to DB.');
+    // console.log('User connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 Flow.sync()
   .then(() => {
-    console.log('Flow connected to DB.');
+    // console.log('Flow connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
@@ -57,7 +57,7 @@ Flow.sync()
 
 Pose.sync()
   .then(() => {
-    console.log('Pose connected to DB.');
+    // console.log('Pose connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
@@ -65,49 +65,49 @@ Pose.sync()
 
 UserPose.sync()
   .then(() => {
-    console.log('UserPose connected to DB.');
+    // console.log('UserPose connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 PoseFlow.sync()
   .then(() => {
-    console.log('PoseFlow connected to DB.');
+    // console.log('PoseFlow connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 BodyPart.sync()
   .then(() => {
-    console.log('BodyPart connected to DB.');
+    // console.log('BodyPart connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 PoseBodyPart.sync()
   .then(() => {
-    console.log('PoseBodyPart connected to DB.');
+    // console.log('PoseBodyPart connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 Following.sync()
   .then(() => {
-    console.log('Following connected to DB.');
+    // console.log('Following connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 AfterPose.sync()
   .then(() => {
-    console.log('AfterPose connected to DB.');
+    // console.log('AfterPose connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 Class.sync()
   .then(() => {
-    console.log('AfterPose connected to DB.');
+    // console.log('AfterPose connected to DB.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
