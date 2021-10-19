@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -16,10 +17,15 @@ const style = {
   p: 4,
 };
 
+
+//pass whatIsKnown props into PoseKnown function
+
 export default function PoseKnown() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  
 
   return (
     <div>

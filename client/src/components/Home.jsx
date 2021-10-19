@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 
 import NavBar from './NavBar.jsx';
@@ -17,7 +18,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid'
-//import { lightblue } from '@mui/material/colors';
+
 
 const style = {
   backgroundColor: "#f9fbe7"
@@ -28,6 +29,25 @@ const color = {
 }
 function Home () {
   const { path, url } = useRouteMatch();
+  const [pose, setPose] = React.useState({});
+
+//axios call to database for poseKnown
+  const whatIsKnown = () => {
+    axios
+      .get('/profile')
+      .then(res => {
+        console.log(res);
+        setPose(res.data); // res.data?
+       
+      })
+      .catch(err => {
+        console.log(err, 'Error from poseKnown');
+      });
+  }
+
+  useEffect(() => {
+      whatIsKnown();
+  }, []);
 
   return (
     <div style={style}>
@@ -72,7 +92,10 @@ sx={{
 >
   
 <Paper elevation={3}>
-  <PoseKnown />
+  <PoseKnown 
+    poseKnown={whatIsKnown}
+
+  />
 </Paper>
 <Paper elevation={3}> 
   <LearningPose />
