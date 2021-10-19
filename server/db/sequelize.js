@@ -7,16 +7,16 @@ const db = new Sequelize('limber', process.env.POSTGRES_USERNAME, process.env.PO
   dialect: 'postgres',
 });
 
-const User = db.define('user', userModel, { timestamps: false });
-const Pose = db.define('pose', poseModel, { timestamps: false });
-const Flow = db.define('flow', flowModel);
-const Class = db.define('class', classModel);
-const BodyPart = db.define('bodypart', bodypartModel, { timestamps: false });
-const PoseFlow = db.define('poseFlow', poseFlowModel, { timestamps: false });
-const UserPose = db.define('userPose', userPoseModel, { timestamps: false });
-const Following = db.define('following', {}, { timestamps: false });
-const AfterPose = db.define('afterPose', {}, { timestamps: false });
-const PoseBodyPart = db.define('poseBodyPart', {}, { timestamps: false });
+const User = db.define('user', userModel, { timestamps: false, underscored: true });
+const Pose = db.define('pose', poseModel, { timestamps: false, underscored: true });
+const Flow = db.define('flow', flowModel, { underscored: true });
+const Class = db.define('class', classModel, { underscored: true });
+const BodyPart = db.define('bodypart', bodypartModel, { timestamps: false, underscored: true });
+const PoseFlow = db.define('pose_flow', poseFlowModel, { timestamps: false, underscored: true });
+const UserPose = db.define('user_pose', userPoseModel, { timestamps: false, underscored: true });
+const Following = db.define('following', {}, { timestamps: false, underscored: true });
+const AfterPose = db.define('after_pose', {}, { timestamps: false, underscored: true });
+const PoseBodyPart = db.define('pose_bodypart', {}, { timestamps: false, underscored: true });
 
 User.hasMany(Flow);
 Flow.belongsTo(User);
@@ -30,11 +30,11 @@ Flow.belongsToMany(Pose, { through: PoseFlow});
 Pose.belongsToMany(BodyPart, { through: PoseBodyPart});
 BodyPart.belongsToMany(Pose, { through: PoseBodyPart});
 
-Following.belongsTo(User, { foreignKey: 'followerId'});
-Following.belongsTo(User, { foreignKey: 'followeeId'});
+Following.belongsTo(User, { foreignKey: 'follower_id'});
+Following.belongsTo(User, { foreignKey: 'followee_id'});
 
-AfterPose.belongsTo(Pose, { foreignKey: 'poseId'});
-AfterPose.belongsTo(Pose, {foreignKey: 'afterPoseId'});
+AfterPose.belongsTo(Pose, { foreignKey: 'pose_id'});
+AfterPose.belongsTo(Pose, {foreignKey: 'after_pose_id'});
 
 User.hasMany(Class);
 Class.belongsTo(User);
@@ -42,72 +42,43 @@ Class.belongsTo(User);
 
 User.sync()
   .then(() => {
-    // console.log('User connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-Flow.sync()
-  .then(() => {
-    // console.log('Flow connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-Pose.sync()
-  .then(() => {
-    // console.log('Pose connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-UserPose.sync()
-  .then(() => {
-    // console.log('UserPose connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-PoseFlow.sync()
-  .then(() => {
-    // console.log('PoseFlow connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-BodyPart.sync()
-  .then(() => {
-    // console.log('BodyPart connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-PoseBodyPart.sync()
-  .then(() => {
-    // console.log('PoseBodyPart connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-Following.sync()
-  .then(() => {
-    // console.log('Following connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-AfterPose.sync()
-  .then(() => {
-    // console.log('AfterPose connected to DB.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-Class.sync()
-  .then(() => {
-    // console.log('AfterPose connected to DB.');
+    console.log('user connected to DB.');
+    Flow.sync()
+      .then(() => {
+        console.log('flow connected to DB.');
+        Pose.sync()
+          .then(() => {
+            console.log('pose connected to DB.');
+            BodyPart.sync()
+              .then(() => {
+                console.log('body_part connected to DB.');
+                UserPose.sync()
+                  .then(() => {
+                    console.log('user_pose connected to DB.');
+                    PoseFlow.sync()
+                      .then(() => {
+                        console.log('pose_flow connected to DB.');
+                        PoseBodyPart.sync()
+                          .then(() => {
+                            console.log('pose_body_part connected to DB.');
+                            Following.sync()
+                              .then(() => {
+                                console.log('following connected to DB.');
+                                AfterPose.sync()
+                                  .then(() => {
+                                    console.log('after_pose connected to DB.');
+                                    Class.sync()
+                                      .then(() => {
+                                        console.log('class connected to DB.');
+                                      })
+                                  })
+                              })
+                          })
+                      })
+                  })
+              })
+          })
+      })
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);

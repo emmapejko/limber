@@ -8,6 +8,8 @@ const socket = io.connect("http://localhost:3000");
 
 function Connect () {
 
+  console.log('connect');
+
   return (
     <div>
       Connect
