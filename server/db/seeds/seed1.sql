@@ -39,7 +39,7 @@ insert into poses (name, sanskrit, demo, difficulty) values ('Seated Forward Fol
 insert into poses (name, sanskrit, demo, difficulty) values ('Table Top', 'Bharmanasana', 'https://www.youtube.com/watch?v=PGAntbDQ6Xg', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Reverse Table Top', 'Ardha Purvottanasana', 'https://www.youtube.com/watch?v=L9bdozB8MFw', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Sphinx', 'Salamba Bhujangasana', 'https://www.youtube.com/watch?v=F5JVnU-hQ44', 'beginner');
-insert into poses (name, sanskrit, demo, difficulty) values ('Head To Knee', 'Head To Knee', 'https://www.youtube.com/watch?v=dIvn6YyIaWc', 'beginner');
+insert into poses (name, sanskrit, demo, difficulty) values ('Head To Knee', 'Janu Sirsasana', 'https://www.youtube.com/watch?v=dIvn6YyIaWc', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Boat', 'Navasana', 'https://www.youtube.com/watch?v=8KsyQvwi85Q', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Bridge', 'Setu Bandha Sarvangasana', 'https://www.youtube.com/watch?v=NnbvPeAIhmA', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Wheel', 'Chakrasana', 'https://www.youtube.com/watch?v=4F4lTh09Z5E', 'intermediate');
@@ -71,7 +71,7 @@ insert into poses (name, sanskrit, demo, difficulty) values ('Front Split', 'Han
 insert into poses (name, sanskrit, demo, difficulty) values ('Middle Split', 'Samakonasana', 'https://www.youtube.com/watch?v=bgJeNfLahDQ', 'advanced');
 insert into poses (name, sanskrit, demo, difficulty) values ('Upward Plank', 'Purvottanasana', 'https://www.youtube.com/watch?v=6jXfLZzzW6M', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Side Crow', 'Parsva Bakasana', 'https://www.youtube.com/watch?v=acFCTDIhBjU', 'advanced');
-insert into poses (name, sanskrit, demo, difficulty) values ('Flying Splits', '	Koundinyasana II', 'https://www.youtube.com/watch?v=D8e6mLJDJ10&t=366s', 'advanced');
+insert into poses (name, sanskrit, demo, difficulty) values ('Flying Splits', 'Koundinyasana II', 'https://www.youtube.com/watch?v=D8e6mLJDJ10&t=366s', 'advanced');
 insert into poses (name, sanskrit, demo, difficulty) values ('Childs Pose', 'Balasana', 'https://www.youtube.com/watch?v=eqVMAPM00DM', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Standing Hand To Big Toe', 'Utthita Hasta Padangusthasana', 'https://www.youtube.com/watch?v=M3Nz4enOL6Y', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Garland', 'Malasana', 'https://www.youtube.com/watch?v=IXpJEqssze8', 'beginner');
@@ -91,3 +91,4 @@ insert into poses (name, sanskrit, demo, difficulty) values ('Pyramid', 'Parsvot
 
 insert into flows (name, length, difficulty, created_at, updated_at) values ('Sun Salutation A', 1, 'beginner', NOW(), NOW());
 insert into flows (name, length, difficulty, created_at, updated_at) values ('Sun Salutation B', 2, 'beginner', NOW(), NOW());
+insert into flows (name, length, difficulty, created_at, updated_at) values ('Vinyasa', 1, 'beginner', NOW(), NOW());
