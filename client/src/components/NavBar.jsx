@@ -86,7 +86,7 @@ function NavBar () {
           <a href='/logout'>Logout</a>
         </MenuItem>
       </Menu>
-
+      <hr />
       <Switch>
         <Route path={`${path}/build`}>
           <Build />
