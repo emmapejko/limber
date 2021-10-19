@@ -88,6 +88,16 @@ const Build = () => {
               build a flow focusing on a body part
             </Button>
           </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            style={{margin: '50px'}}
+          >
+            <Button variant="contained" disableElevation>
+              i want a video!
+            </Button>
+          </Box>
         </>
       )
     } else {

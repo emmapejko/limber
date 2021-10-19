@@ -7,6 +7,7 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
 import skelly from '../images/skellyton.png';
 
@@ -20,6 +21,10 @@ const BuildSetUp = ({ jobBodyParts }) => {
 
   const removePart = (part) => {
     setBodyParts(bodyParts.filter((el) => el !== part));
+  }
+
+  const build = () => {
+    console.log('building');
   }
 
   return (
@@ -50,6 +55,7 @@ const BuildSetUp = ({ jobBodyParts }) => {
           {
             bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
           }
+          <BuildCircleIcon onClick={build} />
         </Stack>
       </Box>
 
