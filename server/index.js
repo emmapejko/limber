@@ -22,7 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// client authentication for oauth2.0 --> 
+// client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/'}),
