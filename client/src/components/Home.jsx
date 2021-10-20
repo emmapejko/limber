@@ -29,30 +29,30 @@ const color = {
 }
 function Home () {
   const { path, url } = useRouteMatch();
-  const [pose, setPose] = React.useState({});
+  const [pose, setPose] = React.useState([]);
 
 //axios call to database for poseKnown
   const whatIsKnown = () => {
-    // axios
-    //   .get('/profile')
-    //   .then(res => {
-    //     console.log(res.data);
-    //     setPose(res.data); // res.data?
-       
-    //   })
-    //   .catch(err => {
-    //     console.log(err, 'Error from poseKnown');
-    //   });
-      axios
-      .post('/profile')
+    axios
+      .get('/profile/allPoses')
       .then(res => {
         console.log(res.data);
         setPose(res.data); // res.data?
        
       })
       .catch(err => {
-        console.log(err, 'Error from poses');
+        console.log(err, 'Error from poseKnown');
       });
+      // axios
+      // .post('/profile')
+      // .then(res => {
+      //   console.log('flag:', res.data);
+      //   setPose(res.data); // res.data?
+       
+      // })
+      // .catch(err => {
+      //   console.log(err, 'Error from poses');
+      // });
   }
 
   useEffect(() => {
@@ -103,7 +103,7 @@ sx={{
   
 <Paper elevation={3}>
   <PoseKnown 
-    poseKnown={whatIsKnown}
+    pose={pose}
 
   />
 </Paper>

@@ -23,11 +23,11 @@ Poses.get('/', (req, res) => {
     }); 
 });
 
-Poses.post('/', (req, res) => {
-  console.log('req:', res);
+Poses.get('/allPoses', (req, res) => {
+ 
   Pose.findAll().then((data) => {
-    console.log('flag:', data);
-    res.status(201).send(data);
+    
+    res.status(200).send(data);
   })
   .catch(() => {
     res.status(404).send('Error!');
@@ -35,7 +35,7 @@ Poses.post('/', (req, res) => {
 });
 
 
-
+//post request for user_pose
 
 
 
