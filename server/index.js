@@ -4,6 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const auth = require('./auth');
+const { Poses } = require('./profile');
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 
@@ -25,7 +26,7 @@ app.use(passport.session());
 
 //routes
 app.use('/flow', flowRouter);
-
+app.use('/profile', Poses);
 
 // client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
