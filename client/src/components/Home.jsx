@@ -33,15 +33,25 @@ function Home () {
 
 //axios call to database for poseKnown
   const whatIsKnown = () => {
-    axios
-      .get('/profile')
+    // axios
+    //   .get('/profile')
+    //   .then(res => {
+    //     console.log(res.data);
+    //     setPose(res.data); // res.data?
+       
+    //   })
+    //   .catch(err => {
+    //     console.log(err, 'Error from poseKnown');
+    //   });
+      axios
+      .post('/profile')
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         setPose(res.data); // res.data?
        
       })
       .catch(err => {
-        console.log(err, 'Error from poseKnown');
+        console.log(err, 'Error from poses');
       });
   }
 
