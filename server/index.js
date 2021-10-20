@@ -8,6 +8,7 @@ const cors = require('cors');
 const { Server } = require("socket.io");
 const passport = require('passport');
 const auth = require('./auth');
+const { Poses } = require('./profile');
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 
@@ -48,6 +49,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/profile', Poses);
 
 
 // client authentication for oauth2.0 -->
