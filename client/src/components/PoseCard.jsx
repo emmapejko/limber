@@ -8,7 +8,7 @@ const PoseCard = ({ pose }) => {
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        console.log(data);
+        //console.log(data);
         setImg(data);
       })
   }

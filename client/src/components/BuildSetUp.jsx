@@ -39,7 +39,7 @@ const BuildSetUp = ({ jobBodyParts }) => {
     axios.post('/flow', { data: data })
       .then(({ data }) => {
         console.log(data);
-        setFlow([data]);
+        setFlow(data);
       })
       .catch(err => {
         console.error(err);
