@@ -13,10 +13,10 @@ function Connect () {
   const [showChat, setShowChat] = useState(false);
 
   const joinRoom = () => {
-    if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+ 
+      socket.emit("join_room");
       setShowChat(true);
-    }
+  
   };
 
   return (
@@ -24,21 +24,21 @@ function Connect () {
       {!showChat ? (
         <div >
           <h3>Join A Chat</h3>
-          <input
+          {/* <input
             type="text"
-            placeholder="John..."
+            placeholder="name"
             onChange={(event) => {
               setUsername(event.target.value);
             }}
-          />
-          <input
+          /> */}
+          {/* <input
             type="text"
             placeholder="Room ID..."
             onChange={(event) => {
               setRoom(event.target.value);
             }}
-          />
-          <button onClick={joinRoom}>Join A Room</button>
+          /> */}
+          <button onClick={joinRoom}>Join Chat</button>
         </div>
       ) : (
         <Chat socket={socket} username={username} room={room} />
