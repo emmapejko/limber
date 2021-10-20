@@ -12,7 +12,7 @@ const { Poses } = require('./profile');
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 const flowRouter = require('./routes/flow');
-
+const imageRouter = require('./routes/images');
 
 const server = http.createServer(app);
 
@@ -55,6 +55,7 @@ app.use(passport.session());
 //routes
 app.use('/flow', flowRouter);
 app.use('/profile', Poses);
+app.use('/images', imageRouter);
 
 
 // client authentication for oauth2.0 -->

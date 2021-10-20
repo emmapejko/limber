@@ -10,6 +10,7 @@ flowRouter.post('/', (req, res) => {
 
   build(length, bodyParts, id)
     .then(flow => {
+      //console.log(flow);
       res.status(200).send(flow);
     })
     .catch(err => {
