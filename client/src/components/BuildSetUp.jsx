@@ -14,7 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import skelly from '../images/skellyton.png';
-import DownwardFacingDog from '../images/DownwardFacingDog.jpeg';
+import PoseCard from './PoseCard.jsx';
 
 const BuildSetUp = ({ jobBodyParts }) => {
   const [length, setLength] = useState('');
@@ -124,14 +124,7 @@ const BuildSetUp = ({ jobBodyParts }) => {
         </> :
         <>
         {
-          flow.map((pose, i) => (
-          <div key={i}>
-            <div>{pose.name}</div>
-            <div>{pose.sanskrit}</div>
-            <div>{pose.demo}</div>
-            <img src={DownwardFacingDog} />
-          </div>
-          ))
+          flow.map((pose, i) => <PoseCard key={i} pose={pose} />)
         }
         </>
       }
