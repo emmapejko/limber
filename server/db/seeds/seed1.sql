@@ -57,8 +57,8 @@ insert into poses (name, sanskrit, demo, difficulty) values ('Supine Twist', 'Su
 insert into poses (name, sanskrit, demo, difficulty) values ('Locust', 'Salabhasana', 'https://www.youtube.com/watch?v=0kxczNm1xF4', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Bow', 'Dhanurasana', 'https://www.youtube.com/watch?v=FCuSE4oS9xc', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Camel', 'Ustrasana', 'https://www.youtube.com/watch?v=AigVwIFvmAQ', 'intermediate');
-insert into poses (name, sanskrit, demo, difficulty) values ('Half Pigeon', 'Ardha Kapotasana', 'https://www.youtube.com/watch?v=0_zPqA65Nok', 'beginner');
-insert into poses (name, sanskrit, demo, difficulty) values ('Dolphin', '	Catur Svanasana', 'https://www.youtube.com/watch?v=6w4ZoSuBDCg', 'beginner');
+insert into poses (name, sanskrit, demo, difficulty) values ('Half Pigeon', 'Eka Pada Rajakapotasana', 'https://www.youtube.com/watch?v=0_zPqA65Nok', 'beginner');
+insert into poses (name, sanskrit, demo, difficulty) values ('Dolphin', 'Catur Svanasana', 'https://www.youtube.com/watch?v=6w4ZoSuBDCg', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Cow Face', 'Gomukhasana', 'https://www.youtube.com/watch?v=-qbPrlf1oxE', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Standing Backbend', 'Anuvittasana', 'https://www.youtube.com/watch?v=FH29E2EHoPo', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Shoulderstand', 'Sarvangasana', 'https://www.youtube.com/watch?v=SOHsI7XI0mg', 'intermediate');
