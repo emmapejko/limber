@@ -4,7 +4,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
-import io from 'socket.io-client';
 import Connect from './Connect.jsx'
 import io from 'socket.io-client';
 
