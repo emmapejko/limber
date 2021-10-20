@@ -1,20 +1,29 @@
-import React from "react";
-
-function importAll(r) {
-  let images = {};
-  r.keys().map((item) => { images[item.replace('./', '')] = r(item); });
-  return images;
-}
-const images = importAll(require.context('../images', false, /\.(png|jpe?g|svg)$/));
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 
 const PoseCard = ({ pose }) => {
+  const [img, setImg] = useState('');
+
+  const getPoseImage = () => {
+    axios.get(`/images/${pose.name.split(' ').join('')}`)
+      .then(({ data }) => {
+        console.log(data);
+        setImg(data);
+      })
+  }
+
+  useEffect(() => {
+    getPoseImage();
+  }, []);
+
+
   return (
     <div>
       <div>{pose.name}</div>
       <div>{pose.sanskrit}</div>
       <div>{pose.demo}</div>
-      <img src={images[`${pose.name.split(' ').join('')}.jpeg`].default} />
+      <img src={img}/>
     </div>
   )
 }
