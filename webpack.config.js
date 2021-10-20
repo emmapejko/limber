@@ -8,7 +8,7 @@ module.exports = {
     excludeModules: /node_modules/,
   },
   entry: {
-    app: path.resolve(SRC_DIR, 'index.jsx'),
+    app: ["regenerator-runtime/runtime.js",path.resolve(SRC_DIR, 'index.jsx')],
   },
   output: {
     path: DIST_DIR,

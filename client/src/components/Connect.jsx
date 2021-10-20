@@ -1,6 +1,5 @@
 import React,{ useState } from 'react';
 import io from 'socket.io-client';
-import axios from 'axios';
 import Chat from "./Chat.jsx";
 
 
@@ -21,7 +20,9 @@ function Connect () {
   };
 
   return (
-        <div className="joinChatContainer">
+    <div>
+      {!showChat ? (
+        <div >
           <h3>Join A Chat</h3>
           <input
             type="text"
@@ -39,7 +40,11 @@ function Connect () {
           />
           <button onClick={joinRoom}>Join A Room</button>
         </div>
-      )
+      ) : (
+        <Chat socket={socket} username={username} room={room} />
+      )}
+    </div>
+  );
 }
 export default Connect;
 

@@ -1,12 +1,40 @@
 require('dotenv').config();
-const path = require('path');
 const express = require('express');
+const path = require('path');
+const app = express();
 const session = require('express-session');
+const http = require('http');
+const cors = require('cors');
+const { Server } = require("socket.io");
 const passport = require('passport');
 const auth = require('./auth');
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
-const app = express();
+
+const server = http.createServer(app);
+
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+server.listen(3000, () => {
+  console.log("SERVER RUNNING");
+});
 
 app.use(express.json());
 app.use(express.static(DIST_DIR));
@@ -55,8 +83,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`server is listening at port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`server is listening at port ${PORT}`);
+// });
 
 module.exports = app;
