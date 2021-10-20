@@ -5,6 +5,7 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
 
+
 function App() {
    return (
        <BrowserRouter>
