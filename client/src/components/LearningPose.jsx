@@ -54,6 +54,7 @@ export default function LearningPose({ pose }) {
   }
 
   const [img, setImg] = useState('');
+// add get requrst for userPoses table and get the id trhat matchers the pose id
 
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
@@ -127,7 +128,7 @@ export default function LearningPose({ pose }) {
       <img src={img}/>
     </div>
     </div>
-  );
+  )
 }
 
 
