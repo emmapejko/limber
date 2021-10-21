@@ -8,32 +8,56 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import Autocomplete from "@mui/material/Autocomplete";
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 
 const PoseCard = ({ pose }) => {
+  const [thePose, setThePose] = useState(pose);
   const [img, setImg] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
+  const [poses, setPoses] = useState([]);
+  const [posesOpen, setPosesOpen] = useState(false);
+  const [switchPose, setSwitchPose] = useState('');
 
   const getPoseImage = () => {
-    axios.get(`/images/${pose.name.split(' ').join('')}`)
+    axios.get(`/images/${thePose.name.split(' ').join('')}`)
       .then(({ data }) => {
         //console.log(data);
         setImg(data);
+        getAllPoses();
       })
+      .catch(err => {
+        console.error('error getting image: ', err);
+      })
+  }
+
+  const getAllPoses = () => {
+    axios.get('/profile/allPoses')
+    .then(({ data }) => {
+      setPoses(data);
+    })
+    .catch(err => {
+      console.error('error getting poses: ', err);
+    });
   }
 
   useEffect(() => {
     getPoseImage();
-  }, []);
+  }, [thePose]);
+
+  const switchThePose = () => {
+    setThePose(switchPose);
+    setPosesOpen(false);
+  }
 
   const demoDialog = () => {
     return (
       <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
+        open={demoOpen}
+        onClose={() => setDemoOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -42,14 +66,44 @@ const PoseCard = ({ pose }) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <iframe src={pose.demo} />
+            <iframe src={`${thePose.demo}?autoplay=1`} style={{height:'400px', width:'550px'}} allow="autoplay"/>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)} autoFocus>
-            Close
-          </Button>
-        </DialogActions>
+      </Dialog>
+    )
+  }
+
+  const poseDialog = () => {
+    return (
+      <Dialog
+        open={posesOpen}
+        onClose={() => setPosesOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        style={{height: '600px'}}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Select a new pose"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={poses}
+                sx={{ width: 300 }}
+                getOptionLabel={(option) => option.name}
+                onChange={(event, value) => setSwitchPose(value)}
+                renderOption={(props, option) => (
+                  <Box sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                    {option.name}
+                  </Box>
+                )}
+                  renderInput={(params) => <TextField {...params} name="Poses" />}
+              />
+              <Button onClick={switchThePose}>Switch</Button>
+          </DialogContentText>
+        </DialogContent>
       </Dialog>
     )
   }
@@ -63,26 +117,27 @@ const PoseCard = ({ pose }) => {
           <Box display="flex" sx={{alignItems:"center", justifyContent:"center"}}>
           <img src={img}
             style={{maxHeight: '100px', maxWidth: '100px'}}
-            alt={pose.name}
+            alt={thePose.name}
           />
           </Box>
           <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
-            <Button size="small" onClick={() => setOpen(true)}>Demo</Button>
-            <Button size="small">Switch</Button>
+            <Button size="small" onClick={() => setDemoOpen(true)}>Demo</Button>
+            <Button size="small" onClick={() => setPosesOpen(true)}>Switch</Button>
           </CardActions>
         </Grid>
         <Grid item xs={6}>
           <Typography gutterBottom variant="h5" component="div">
-            {pose.name}
+            {thePose.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {pose.sanskrit}
+            {thePose.sanskrit}
           </Typography>
         </Grid>
       </Grid>
       </CardContent>
     </Card>
     {demoDialog()}
+    {poseDialog()}
     </Grid>
   )
 }
