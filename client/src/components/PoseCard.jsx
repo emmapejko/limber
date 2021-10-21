@@ -14,7 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 
-const PoseCard = ({ pose }) => {
+const PoseCard = ({ pose, i, changeFlow }) => {
   const [thePose, setThePose] = useState(pose);
   const [img, setImg] = useState('');
   const [demoOpen, setDemoOpen] = useState(false);
@@ -51,6 +51,7 @@ const PoseCard = ({ pose }) => {
   const switchThePose = () => {
     setThePose(switchPose);
     setPosesOpen(false);
+    changeFlow(i, switchPose);
   }
 
   const demoDialog = () => {
