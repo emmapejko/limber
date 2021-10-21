@@ -36,7 +36,30 @@ Poses.get('/allPoses', (req, res) => {
 
 
 //post request for user_pose
+Poses.post('/userPoses', (req, res) => {
+  console.log('req.body:', req.body.data);
+  console.log('user:', req.user.dataValues.id)
+  
+  UserPose.create({pose_rank: 1, userId: req.user.dataValues.id, poseId: req.body.data.id})
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+})
 
+Poses.post('/userPosesDontKnow', (req, res) => {
+  console.log(req.user.dataValues);
+  const { selectedOptions } = req.body;
+  UserPose.create({poseId: req.body.data.id, pose_rank: 0, userId: req.user.dataValues.id})
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+})
 
 
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 
 const PoseCard = ({ pose }) => {
+  console.log('image:', pose)
   const [img, setImg] = useState('');
 
   const getPoseImage = () => {

@@ -108,7 +108,9 @@ sx={{
   />
 </Paper>
 <Paper elevation={3}> 
-  <LearningPose />
+  <LearningPose 
+    pose={pose}
+  />
 </Paper>
 </Box>
 </div>

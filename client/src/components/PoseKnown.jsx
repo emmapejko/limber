@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import PoseCard from './PoseCard.jsx';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -21,16 +21,51 @@ const style = {
 };
 
 
-//pass whatIsKnown props into PoseKnown function
+
 
 export default function PoseKnown({ pose }) {
   console.log('pose:', pose);
   const [open, setOpen] = React.useState(false);
+  const [auto, setAuto] = React.useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  //1st open/close modal functions
   const handleOpen = () => setOpen(true);
-  const handleAuto = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //autocomplete open/close functions
+  const handleAuto = () => setAuto(true);
+  const closeAuto = () => setAuto(false);
   
+// grab data from autocomplete
+  const handleChange = (event, value) => setSelectedOptions(value);
+
+  const handleSubmit = () => { 
+    console.log(selectedOptions);
+
+    axios.post('/profile/userPoses', {data: selectedOptions})
+    .then((response) => {
+      console.log(response);
+
+    })
+    .catch((err) => {
+      console.log(err, "PoseKnown: handleSubmit error");
+    })
+  }
+  
+  // const [img, setImg] = useState('');
+
+  // const getPoseImage = () => {
+  //   axios.get(`/images/${pose.name.split(' ').join('')}`)
+  //     .then(({ data }) => {
+  //       console.log(data);
+  //       setImg(data);
+  //     })
+  // }
+
+  // useEffect(() => {
+  //   getPoseImage();
+  // }, []);
 
   return (
     <div>
@@ -54,19 +89,20 @@ export default function PoseKnown({ pose }) {
       </Modal>
       <Button onClick={handleAuto}><AddIcon /></Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={auto}
+        onClose={closeAuto}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <Typography id="modal-modal-title" variant="h6" component="h2"> */}
+         
           <Autocomplete
       disablePortal
       id="combo-box-demo"
       options={pose}
       sx={{ width: 300 }}
       getOptionLabel={(option) => option.name}
+      onChange={handleChange}
       renderOption={(props, option) => (
         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
          
@@ -75,12 +111,18 @@ export default function PoseKnown({ pose }) {
       )}
       renderInput={(params) => <TextField {...params} name="Poses" />}
     />
-          {/* </Typography> */}
+          <Button onClick={handleSubmit}><AddIcon /></Button>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Poses rendered for selection.
+            Add a Pose to your collection. Now.
           </Typography>
         </Box>
       </Modal>
+      {/* <div>
+      <div>{pose.name}</div>
+      <div>{pose.sanskrit}</div>
+      <div>{pose.demo}</div>
+      <img src={img}/>
+    </div> */}
     </div>
   );
 }
