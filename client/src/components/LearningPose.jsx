@@ -63,8 +63,10 @@ export default function LearningPose({ pose }) {
       })
   }
 
-  useEffect(() => {
-    getPoseImage();
+ useEffect(() => {
+    if (pose.name) {
+      getPoseImage();
+    }
   }, []);
   
 
