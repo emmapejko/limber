@@ -3,7 +3,6 @@ const Users = Router();
 const { User } = require('../db/sequelize');
 
 Users.get('/full_name', (req, res) => {
-  console.log("THIS IS REQ>USER",  req.user)
   User.findOne({ where: { id: req.user.dataValues.id } })
   .then((user) => {
     console.log(user)

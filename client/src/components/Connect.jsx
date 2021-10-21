@@ -8,7 +8,7 @@ const socket = io.connect("http://localhost:3000");
 
 function Connect () {
   const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState("LIMBER");
   const [showChat, setShowChat] = useState(false);
   const [profilePicture, setProfilePicture] = useState("");
 
@@ -16,49 +16,34 @@ function Connect () {
     axios
     .get('/chat/full_name')
     .then((res) => {
-        console.log('THIS IS SETFULLNAME RES', res);
+      
         setUsername(res.data.full_name);
+        setProfilePicture(res.data.picture);
+     
       })
     .catch(err => console.error(err))
   }
   
   const joinRoom = () => {
-    
-      setRoom('LIMBER CHAT')
-      socket.emit("join_room");
-      setFullName();
+  
+      socket.emit("join_room", room);
       setShowChat(true);
   
   };
 
   useEffect(() => {
     setFullName();
-
   },[])
 
   return (
-    <div>
+    <div className="App">
       {!showChat ? (
-        <div >
+        <div className="joinChatContainer">
           <h3>LIMBER CHAT</h3>
-          {/* <input
-            type="text"
-            placeholder="name"
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
-          /> */}
-          {/* <input
-            type="text"
-            placeholder="Room ID..."
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
-          /> */}
-          <button onClick={joinRoom}>Join Chat</button>
+          <button onClick={() => {joinRoom() }}>Join Chat</button>
         </div>
       ) : (
-        <Chat socket={socket} username={username} room={room} />
+        <Chat socket={socket} username={username} room={room} profilePicture={profilePicture} />
       )}
     </div>
   );
