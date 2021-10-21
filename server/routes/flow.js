@@ -8,7 +8,7 @@ flowRouter.post('/', (req, res) => {
   const { id } = req.user.dataValues;
   const { length, bodyParts } = req.body.data;
 
-  build(length, bodyParts, id)
+  build(length, bodyParts, id) // default is for testing in postman
     .then(flow => {
       //console.log(flow);
       res.status(200).send(flow);
