@@ -8,7 +8,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 function createData(name, pose, flows, joes, otherdata) {
-  return { name, pose, flows, joes, otherdata };
+  return {
+    name, pose, flows, joes, otherdata,
+  };
 }
 
 const rows = [
@@ -52,6 +54,5 @@ function DashTable() {
     </TableContainer>
   );
 }
-
 
 export default DashTable;

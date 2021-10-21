@@ -5,15 +5,14 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/'>
+        <Route exact path="/">
           <Login />
         </Route>
-        <Route path='/:user'>
+        <Route path="/:user">
           <NavBar />
         </Route>
         <Route>

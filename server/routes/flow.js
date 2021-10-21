@@ -1,23 +1,22 @@
 const { Router } = require('express');
+
 const flowRouter = Router();
 
 const { build } = require('../helpers/build');
-
 
 flowRouter.post('/', (req, res) => {
   const { id } = req.user.dataValues;
   const { length, bodyParts } = req.body.data;
 
   build(length, bodyParts, id) // default is for testing in postman
-    .then(flow => {
-      //console.log(flow);
+    .then((flow) => {
+      // console.log(flow);
       res.status(200).send(flow);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       res.sendStatus(404);
     });
 });
-
 
 module.exports = flowRouter;

@@ -1,4 +1,5 @@
 const path = require('path');
+
 const SRC_DIR = path.resolve(__dirname, 'client/src');
 const DIST_DIR = path.resolve(__dirname, 'client/dist');
 

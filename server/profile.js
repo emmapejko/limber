@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const Poses = Router();
 
+const Poses = Router();
 
 const { UserPose, Pose } = require('./db/sequelize');
 /*
@@ -10,23 +10,10 @@ knows pose list: select all rows from table user_poses where userPoses.userId ==
 working on pose list: select all rows from table userPoses where userPoses.userId === req.user.id && userPoses.pose_rank === 0. -----> for each row returned, find row from Poses tables where Poses.id === returned row.poseId
 */
 
-
 Poses.get('/', (req, res) => {
-  //how to handle errors here?
-  
-  UserPose.findAll().then((data) => {
-    
-    res.status(200).send(data);
-  })
-    .catch(() => {
-      res.status(404).send('Error!');
-    }); 
-});
+  // how to handle errors here?
 
-Poses.get('/allPoses', (req, res) => {
- 
-  Pose.findAll().then((data) => {
-    
+  UserPose.findAll().then((data) => {
     res.status(200).send(data);
   })
     .catch(() => {
@@ -34,13 +21,21 @@ Poses.get('/allPoses', (req, res) => {
     });
 });
 
+Poses.get('/allPoses', (req, res) => {
+  Pose.findAll().then((data) => {
+    res.status(200).send(data);
+  })
+    .catch(() => {
+      res.status(404).send('Error!');
+    });
+});
 
-//post request for user_pose
+// post request for user_pose
 Poses.post('/userPoses', (req, res) => {
   console.log('req.body:', req.body.data);
   console.log('user:', req.user.dataValues.id);
-  
-  UserPose.create({pose_rank: 1, userId: req.user.dataValues.id, poseId: req.body.data.id})
+
+  UserPose.create({ pose_rank: 1, userId: req.user.dataValues.id, poseId: req.body.data.id })
     .then((data) => {
       console.log(data);
     })
@@ -52,7 +47,7 @@ Poses.post('/userPoses', (req, res) => {
 Poses.post('/userPosesDontKnow', (req, res) => {
   console.log(req.user.dataValues);
   const { selectedOptions } = req.body;
-  UserPose.create({poseId: req.body.data.id, pose_rank: 0, userId: req.user.dataValues.id})
+  UserPose.create({ poseId: req.body.data.id, pose_rank: 0, userId: req.user.dataValues.id })
     .then((data) => {
       console.log(data);
     })
@@ -61,11 +56,7 @@ Poses.post('/userPosesDontKnow', (req, res) => {
     });
 });
 
-
-
-
-
-//export the api calls
+// export the api calls
 module.exports = {
   Poses,
 };

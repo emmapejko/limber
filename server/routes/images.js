@@ -9,7 +9,7 @@ imageRouter.get('/:pose', (req, res) => {
 
   AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   });
 
   const s3 = new AWS.S3();
@@ -18,17 +18,17 @@ imageRouter.get('/:pose', (req, res) => {
     const data = s3.getObject(
       {
         Bucket: 'limberbucket',
-        Key: `${pose}.jpeg`
-      }
+        Key: `${pose}.jpeg`,
+      },
     ).promise();
     return data;
   }
 
   getImage()
-    .then((img)=>{
+    .then((img) => {
       const image = `data:image/jpeg;base64,${encode(img.Body)}`;
       res.send(image);
-    }).catch((e)=>{
+    }).catch((e) => {
       res.send(e);
     });
 
@@ -38,6 +38,5 @@ imageRouter.get('/:pose', (req, res) => {
     return base64;
   }
 });
-
 
 module.exports = imageRouter;

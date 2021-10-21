@@ -7,21 +7,21 @@ const User = {
     autoIncrement: true,
   },
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   full_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   picture: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   google_id: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   is_teacher: {
     type: Sequelize.BOOLEAN,
     default: false,
-  }
+  },
 };
 
 module.exports = User;

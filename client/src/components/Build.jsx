@@ -38,7 +38,7 @@ const Build = () => {
             display="flex"
             alignItems="center"
             justifyContent="center"
-            style={{margin: '50px'}}
+            style={{ margin: '50px' }}
           >
             <Button variant="contained" disableElevation onClick={() => setOpenDialog(true)}>
               build a flow based on how you spend your time
@@ -92,7 +92,7 @@ const Build = () => {
             display="flex"
             alignItems="center"
             justifyContent="center"
-            style={{margin: '50px'}}
+            style={{ margin: '50px' }}
           >
             <Button variant="contained" disableElevation>
               i want a video!
@@ -100,13 +100,11 @@ const Build = () => {
           </Box>
         </>
       );
-    } else {
-      return (
-        <BuildSetUp jobBodyParts={bodyParts}/>
-      );
     }
+    return (
+      <BuildSetUp jobBodyParts={bodyParts} />
+    );
   };
-
 
   return (
     <div>

@@ -9,13 +9,13 @@ function Chat({ socket, username, room }) {
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
-        room: room,
+        room,
         author: username,
         message: currentMessage,
         time:
-          new Date(Date.now()).getHours() +
-          ':' +
-          new Date(Date.now()).getMinutes(),
+          `${new Date(Date.now()).getHours()
+          }:${
+            new Date(Date.now()).getMinutes()}`,
       };
 
       await socket.emit('send_message', messageData);
@@ -40,7 +40,7 @@ function Chat({ socket, username, room }) {
           {messageList.map((messageContent) => {
             console.log(messageContent);
             return (
-              <div 
+              <div
                 id={username === messageContent.author
                   ? 'you'
                   : 'other'}

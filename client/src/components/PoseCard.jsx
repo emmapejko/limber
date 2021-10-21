@@ -10,7 +10,7 @@ const PoseCard = ({ pose }) => {
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        //console.log(data);
+        // console.log(data);
         setImg(data);
       });
   };
@@ -22,8 +22,9 @@ const PoseCard = ({ pose }) => {
   return (
     <Grid item xs={4}>
       <Box>
-        <img src={img}
-          height='100px'
+        <img
+          src={img}
+          height="100px"
           // objectFit='cover'
           alt={pose.name}
         />

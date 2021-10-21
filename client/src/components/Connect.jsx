@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import io from 'socket.io-client';
 import Chat from './Chat.jsx';
 
-
 const socket = io.connect('http://localhost:3000');
 
-
-
-function Connect () {
+function Connect() {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const [showChat, setShowChat] = useState(false);
@@ -23,7 +20,7 @@ function Connect () {
     <div>
       {!showChat
         ? (
-          <div >
+          <div>
             <h3>Join A Chat</h3>
             <input
               type="text"
@@ -49,8 +46,3 @@ function Connect () {
   );
 }
 export default Connect;
-
-
-
-
-

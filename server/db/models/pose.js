@@ -7,17 +7,17 @@ const Pose = {
     autoIncrement: true,
   },
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   sanskrit: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   demo: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   difficulty: {
-    type: Sequelize.STRING
-  }
+    type: Sequelize.STRING,
+  },
 };
 
 module.exports = Pose;

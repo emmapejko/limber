@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import DashTable from './DashTable.jsx';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -17,9 +18,7 @@ const style = {
   p: 4,
 };
 
-
-
-function DashBoard () {
+function DashBoard() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,7 +38,7 @@ function DashBoard () {
             <DashTable />
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      Are you feelin' Limber today?
+            Are you feelin' Limber today?
           </Typography>
         </Box>
       </Modal>

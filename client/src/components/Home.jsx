@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import {
+  Switch, Route, Link, useRouteMatch,
+} from 'react-router-dom';
 
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import NavBar from './NavBar.jsx';
 import Build from './Build.jsx';
 import Connect from './Connect.jsx';
@@ -14,33 +20,26 @@ import BuildFlowCard from './BuildFlowCard.jsx';
 import PoseKnown from './PoseKnown.jsx';
 import LearningPose from './LearningPose.jsx';
 
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-
-
 const style = {
-  backgroundColor: '#f9fbe7'
+  backgroundColor: '#f9fbe7',
 };
 
 const color = {
-  backgroundColor: '#e0f2f1'
+  backgroundColor: '#e0f2f1',
 };
-function Home () {
+function Home() {
   const { path, url } = useRouteMatch();
   const [pose, setPose] = React.useState([]);
 
-  //axios call to database for poseKnown
+  // axios call to database for poseKnown
   const whatIsKnown = () => {
     axios
       .get('/profile/allPoses')
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         setPose(res.data); // res.data?
-       
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err, 'Error from poseKnown');
       });
     // axios
@@ -48,7 +47,7 @@ function Home () {
     // .then(res => {
     //   console.log('flag:', res.data);
     //   setPose(res.data); // res.data?
-       
+
     // })
     // .catch(err => {
     //   console.log(err, 'Error from poses');
@@ -78,7 +77,7 @@ function Home () {
             <DashBoard />
             <DashBoardCard />
           </Paper>
-          <Paper elevation={3}> 
+          <Paper elevation={3}>
             <SavedFlow />
             <SavedFlowCard />
           </Paper>
@@ -100,15 +99,15 @@ function Home () {
             },
           }}
         >
-  
+
           <Paper elevation={3}>
-            <PoseKnown 
+            <PoseKnown
               pose={pose}
 
             />
           </Paper>
-          <Paper elevation={3}> 
-            <LearningPose 
+          <Paper elevation={3}>
+            <LearningPose
               pose={pose}
             />
           </Paper>
