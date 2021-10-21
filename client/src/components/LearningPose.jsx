@@ -181,5 +181,8 @@ export default function LearningPose({ pose }) {
 //   );
 // }
 
-
+ /*
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    */
 
