@@ -76,7 +76,7 @@ User.sync()
                                       // })
                                       // .then(() => {
                                       //   db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
-                                      // })     
+                                      // })
                                   })
                               })
                           })
