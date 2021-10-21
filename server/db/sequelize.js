@@ -1,10 +1,7 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-const {
-  userModel, poseModel, flowModel, classModel, bodypartModel, poseFlowModel, userPoseModel, followingModel, afterPoseModel,
-} = require('./models/index');
-
+const { userModel, poseModel, flowModel, classModel, bodypartModel, poseFlowModel, userPoseModel, followingModel, afterPoseModel } = require('./models/index');
 const db = new Sequelize('limber', process.env.POSTGRES_USERNAME, process.env.POSTGRES_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres',
@@ -24,23 +21,24 @@ const PoseBodyPart = db.define('pose_bodypart', {}, { timestamps: false, undersc
 User.hasMany(Flow);
 Flow.belongsTo(User);
 
-User.belongsToMany(Pose, { through: UserPose });
-Pose.belongsToMany(User, { through: UserPose });
+User.belongsToMany(Pose, { through: UserPose});
+Pose.belongsToMany(User, { through: UserPose});
 
-Pose.belongsToMany(Flow, { through: PoseFlow });
-Flow.belongsToMany(Pose, { through: PoseFlow });
+Pose.belongsToMany(Flow, { through: PoseFlow});
+Flow.belongsToMany(Pose, { through: PoseFlow});
 
-Pose.belongsToMany(BodyPart, { through: PoseBodyPart });
-BodyPart.belongsToMany(Pose, { through: PoseBodyPart });
+Pose.belongsToMany(BodyPart, { through: PoseBodyPart});
+BodyPart.belongsToMany(Pose, { through: PoseBodyPart});
 
-Following.belongsTo(User, { foreignKey: 'follower_id' });
-Following.belongsTo(User, { foreignKey: 'followee_id' });
+Following.belongsTo(User, { foreignKey: 'follower_id'});
+Following.belongsTo(User, { foreignKey: 'followee_id'});
 
-AfterPose.belongsTo(Pose, { foreignKey: 'pose_id' });
-AfterPose.belongsTo(Pose, { foreignKey: 'after_pose_id' });
+AfterPose.belongsTo(Pose, { foreignKey: 'pose_id'});
+AfterPose.belongsTo(Pose, {foreignKey: 'after_pose_id'});
 
 User.hasMany(Class);
 Class.belongsTo(User);
+
 
 User.sync()
   .then(() => {
@@ -72,20 +70,26 @@ User.sync()
                                     Class.sync()
                                       .then(() => {
                                         console.log('class connected to DB.');
-                                      });
-                                  });
-                              });
-                          });
-                      });
-                  });
-              });
-          });
-      });
+                                      })
+                                      .then(() => {
+                                        db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
+                                      })
+                                      .then(() => {
+                                        db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
+                                      })
+                                  })
+                              })
+                          })
+                      })
+                  })
+              })
+          })
+      })
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 
-module.exports = {
-  User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, db,
-};
+
+module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, db};
+
