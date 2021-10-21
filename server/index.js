@@ -77,6 +77,7 @@ const authCheck = (req, res, next) => {
 }
 
 app.get('/loggedin', authCheck, (req, res) => {
+  
   let userPath = req.user.dataValues.full_name.split(' ').join('');
   res.redirect(`/${userPath}`);
 })

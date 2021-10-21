@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 const PoseCard = ({ pose }) => {
+  console.log('image:', pose)
   const [img, setImg] = useState('');
 
   const getPoseImage = () => {
