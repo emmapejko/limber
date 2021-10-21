@@ -1,15 +1,11 @@
 import React from 'react';
 
-
-function BuildFlowCard () {
-
-  
-
+function BuildFlowCard() {
   return (
     <div>
-    buildFlow
+      buildFlow
     </div>
-  )
+  );
 }
 
 export default BuildFlowCard;

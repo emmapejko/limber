@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
+import React, { useEffect, useState } from 'react';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
 import Paper from '@mui/material/Paper';
 
@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Img = styled('img')({
-  justifyContent: "flex-start",
+  justifyContent: 'flex-start',
   margin: 0,
   display: 'block',
   maxWidth: 'flex',
@@ -24,30 +24,30 @@ const Img = styled('img')({
 });
 
 function Chat({ socket, username, room, profilePicture }) {
-  const [currentMessage, setCurrentMessage] = useState("");
+  const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async () => {
-    if (currentMessage !== "") {
+    if (currentMessage !== '') {
       const messageData = {
-        room: room,
+        room,
         author: username,
-        profilePicture: profilePicture,
+        profilePicture,
         message: currentMessage,
         time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+          `${new Date(Date.now()).getHours()
+          }:${
+            new Date(Date.now()).getMinutes()}`,
       };
 
-      await socket.emit("send_message", messageData);
+      await socket.emit('send_message', messageData);
       setMessageList((list) => [...list, messageData]);
-      setCurrentMessage("");
+      setCurrentMessage('');
     }
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    socket.on('receive_message', (data) => {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
@@ -59,28 +59,28 @@ function Chat({ socket, username, room, profilePicture }) {
       </div>
       <div>
     
-          {messageList.map((messageContent, i) => {
-            console.log(messageContent);
-            return (
-              <div
-                id={username === messageContent.author ? "you" : "other"}
-              >
-                <Item>
+        {messageList.map((messageContent, i) => {
+          console.log(messageContent);
+          return (
+            <div
+              id={username === messageContent.author ? 'you' : 'other'}
+            >
+              <Item>
                 <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item xs>
-                    <Img src={messageContent.profilePicture}></Img>
-                    </Grid>
+                  <Grid item xs>
+                    <Img src={messageContent.profilePicture} />
+                  </Grid>
                   <Grid item xs>
                     <Typography noWrap variant="body2" component="div">{messageContent.message}</Typography>
-                    </Grid>          
-                    <Typography  id="author">{messageContent.author}</Typography>
-                    <div id="time">{messageContent.time}</div>
+                  </Grid>          
+                  <Typography id="author">{messageContent.author}</Typography>
+                  <div id="time">{messageContent.time}</div>
                    
-                  </Grid>
-                  </Item>
-              </div>
-            );
-          })}
+                </Grid>
+              </Item>
+            </div>
+          );
+        })}
       
       </div>
       <div>
@@ -92,7 +92,7 @@ function Chat({ socket, username, room, profilePicture }) {
             setCurrentMessage(event.target.value);
           }}
           onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
+            event.key === 'Enter' && sendMessage();
           }}
         />
         <button onClick={sendMessage}>&#9658;</button>

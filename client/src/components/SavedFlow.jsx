@@ -18,8 +18,8 @@ const style = {
 };
 
 const color = {
-  backgroundColor: "#e0f2f1"
-}
+  backgroundColor: '#e0f2f1',
+};
 
 function ChildModal() {
   const [open, setOpen] = React.useState(false);
@@ -31,7 +31,7 @@ function ChildModal() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button onClick={handleOpen}>Each Flow is an Anchor Tag</Button>
       <Modal
         hideBackdrop
@@ -48,7 +48,7 @@ function ChildModal() {
           <Button onClick={handleClose}>Close Flows</Button>
         </Box>
       </Modal>
-    </React.Fragment>
+    </>
   );
 }
 

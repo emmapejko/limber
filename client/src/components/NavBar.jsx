@@ -9,13 +9,15 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import {
+  Switch, Route, Link, useRouteMatch,
+} from 'react-router-dom';
 
 import Build from './Build.jsx';
 import Connect from './Connect.jsx';
 import Home from './Home.jsx';
 
-function NavBar () {
+function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { path, url } = useRouteMatch();
   const open = Boolean(anchorEl);
@@ -30,9 +32,9 @@ function NavBar () {
   // console.log(path);
 
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-      <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
+        <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
         <Typography sx={{ minWidth: 100 }}><Link to={`${url}/build`}>Build</Link></Typography>
         <Typography sx={{ minWidth: 100 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
         <Tooltip title="Account settings">
@@ -76,14 +78,15 @@ function NavBar () {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /><Link to={`${url}`}>Profile</Link>
+          <Avatar />
+          <Link to={`${url}`}>Profile</Link>
         </MenuItem>
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          <a href='/logout'>Logout</a>
+          <a href="/logout">Logout</a>
         </MenuItem>
       </Menu>
       <hr />
@@ -98,8 +101,8 @@ function NavBar () {
           <Home />
         </Route>
       </Switch>
-    </React.Fragment>
-  )
+    </>
+  );
 }
 
 export default NavBar;

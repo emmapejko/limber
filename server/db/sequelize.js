@@ -71,6 +71,12 @@ User.sync()
                                       .then(() => {
                                         console.log('class connected to DB.');
                                       })
+                                      // .then(() => {
+                                      //   db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
+                                      // })
+                                      // .then(() => {
+                                      //   db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
+                                      // })
                                   })
                               })
                           })

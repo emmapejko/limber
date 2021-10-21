@@ -7,15 +7,15 @@ const Flow = {
     autoIncrement: true,
   },
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   length: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
   },
   difficulty: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   // userId is added as FK with relationship
-}
+};
 
 module.exports = Flow;
