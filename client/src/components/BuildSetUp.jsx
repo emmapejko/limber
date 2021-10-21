@@ -12,6 +12,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import Grid from '@mui/material/Grid';
 
 import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
@@ -122,11 +123,13 @@ const BuildSetUp = ({ jobBodyParts }) => {
           </svg>
         </Box>
         </> :
-        <>
-        {
-          flow.map((pose, i) => <PoseCard key={i} pose={pose} />)
-        }
-        </>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {
+              flow.map((pose, i) => <PoseCard key={i} pose={pose} />)
+            }
+          </Grid>
+        </Box>
       }
     </>
   )

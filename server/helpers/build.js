@@ -14,7 +14,8 @@ const build = async (length, bodyparts, user_id) => {
   const bodyPartPoses = Promise.all((await possiblePosesRows).map(p =>  Promise.all(p.map(item => Pose.findByPk(item.poseId)))));
 
   const finalArr = [];
-  finalArr.push(await Pose.findOne({ where: { name: 'Mountain'}}));
+
+  finalArr.push(await Pose.findOne({ where: { name: random(start)}}));
 
   while(finalArr.length <= length) {
     let nextList = await findNextPoseIds(finalArr[finalArr.length - 1]);
@@ -22,7 +23,7 @@ const build = async (length, bodyparts, user_id) => {
   }
 
 
-
+  finalArr.push(await Pose.findOne({ where: { name: random(end)}}));
   return finalArr;
   //return Promise.all()
  //return Pose.findOne({ where : { name: 'Flying Splits'}});
@@ -35,6 +36,9 @@ const findNextPoseIds = async (curr) => {
 const random = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
+
+const start = ['Mountain', 'Childs Pose', 'Downward Facing Dog'];
+const end = ['Childs Pose', 'Corpse'];
 
 module.exports = {
   build,

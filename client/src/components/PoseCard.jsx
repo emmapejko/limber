@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 const PoseCard = ({ pose }) => {
   const [img, setImg] = useState('');
@@ -17,14 +18,18 @@ const PoseCard = ({ pose }) => {
     getPoseImage();
   }, []);
 
-
   return (
-    <div>
-      <div>{pose.name}</div>
-      <div>{pose.sanskrit}</div>
-      <div>{pose.demo}</div>
-      <img src={img}/>
-    </div>
+    <Grid item xs={4}>
+      <Box>
+        <img src={img}
+          height='100px'
+          // objectFit='cover'
+          alt={pose.name}
+        />
+        <div>{pose.name}</div>
+        <div>{pose.sanskrit}</div>
+      </Box>
+    </Grid>
   )
 }
 
