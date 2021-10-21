@@ -61,7 +61,7 @@ export default function PoseKnown({ pose }) {
   //       console.log(data);
   //       setImg(data);
   //     })
-  // }
+  // //}
 
   // useEffect(() => {
   //   getPoseImage();
