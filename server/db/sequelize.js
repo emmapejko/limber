@@ -12,7 +12,12 @@ const Pose = db.define('pose', poseModel, { timestamps: false, underscored: true
 const Flow = db.define('flow', flowModel, { underscored: true });
 const Class = db.define('class', classModel, { underscored: true });
 const BodyPart = db.define('bodypart', bodypartModel, { timestamps: false, underscored: true });
-const PoseFlow = db.define('pose_flow', poseFlowModel, { timestamps: false, underscored: true });
+const PoseFlow = db.define('pose_flow', poseFlowModel, { timestamps: false, underscored: true,
+  /**uniqueKeys: {
+      Items_unique: {
+          fields: ['pose_index', 'pose_id', 'flow_id']
+      }
+  }*/ })
 const UserPose = db.define('user_pose', userPoseModel, { timestamps: false, underscored: true });
 const Following = db.define('following', {}, { timestamps: false, underscored: true });
 const AfterPose = db.define('after_pose', {}, { timestamps: false, underscored: true });
@@ -70,6 +75,12 @@ User.sync()
                                     Class.sync()
                                       .then(() => {
                                         console.log('class connected to DB.');
+                                      })
+                                      .then(() => {
+                                        db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
+                                      })
+                                      .then(() => {
+                                        db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
                                       })
                                   })
                               })

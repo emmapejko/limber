@@ -12,7 +12,10 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 
 import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
@@ -22,6 +25,8 @@ const BuildSetUp = ({ jobBodyParts }) => {
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
   const [openDialog, setOpenDialog] = useState(false);
   const [flow, setFlow] = useState([]);
+  const [openSave, setOpenSave] = useState(false);
+  const [flowName, setFlowName] = useState('');
 
   const handleClick = (part) => {
     setBodyParts(prev => [...new Set([...prev, part])]);
@@ -45,6 +50,29 @@ const BuildSetUp = ({ jobBodyParts }) => {
       .catch(err => {
         console.error(err);
       });
+  }
+
+  const changeFlow = (i, newPose) => {
+    const newFlow = [...flow];
+    newFlow.splice(i, 1, newPose);
+    setFlow(newFlow);
+  }
+
+  const saveFlow = () => {
+    setOpenSave(false);
+    console.log(`SAVING ${flowName}`, flow);
+    const data = {
+      flowName: flowName,
+      flow: flow,
+      length: length
+    }
+    axios.post('/flow/saveFlow', { data: data})
+      .then(() => {
+        console.log('done saving');
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
   return (
@@ -124,9 +152,38 @@ const BuildSetUp = ({ jobBodyParts }) => {
         </Box>
         </> :
         <Box sx={{ flexGrow: 1 }}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            m="auto"
+          >
+          <div>{`a ${length} minute flow focusing on ${bodyParts.join(' and ')}`}</div>
+          <Button onClick={() => setOpenSave(true)}>Save Flow</Button>
+          <Dialog open={openSave} onClose={() => setOpenSave(false)}>
+            <DialogTitle>Save Flow</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please name this flow:
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                value={flowName}
+                fullWidth
+                variant="standard"
+                onChange={(e) => setFlowName(e.target.value)}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={saveFlow}>Save</Button>
+            </DialogActions>
+          </Dialog>
+          </Box>
           <Grid container spacing={2}>
             {
-              flow.map((pose, i) => <PoseCard key={i} pose={pose} />)
+              flow.map((pose, i) => <PoseCard key={i} pose={pose} i={i} changeFlow={changeFlow} />)
             }
           </Grid>
         </Box>
