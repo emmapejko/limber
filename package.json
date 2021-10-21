@@ -10,7 +10,7 @@
     "build": "webpack --config webpack.config.js --mode development --watch",
     "build-prod": "webpack --config webpack.config.js --mode production",
     "lint:fix": "eslint --fix . --ext .jsx --ext.js",
-    "lint": "eslint . --fix --ext .js,.jsx"
+    "lint": "eslint . --ext .js,.jsx"
   },
   "husky": {
     "hooks": {
