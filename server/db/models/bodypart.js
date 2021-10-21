@@ -9,6 +9,6 @@ const Bodypart = {
   name: {
     type: Sequelize.STRING
   }
-}
+};
 
 module.exports = Bodypart;

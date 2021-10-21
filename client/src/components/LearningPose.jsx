@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-var   a =1;
+var   a = 4
 const style = {
   position: 'absolute',
   top: '50%',
@@ -37,34 +37,34 @@ export default function LearningPose({ pose }) {
   const handleAuto = () => setAuto(true);
   const closeAuto = () => setAuto(false);
   
-// grab data from autocomplete
+  // grab data from autocomplete
   const handleChange = (event, value) => setSelectedOptions(value);
 
   const handleSubmit = () => { 
     console.log(selectedOptions);
 
     axios.post('/profile/userPosesDontKnow', {data: selectedOptions})
-    .then((response) => {
-      console.log(response);
+      .then((response) => {
+        console.log(response);
       
-    })
-    .catch((err) => {
-      console.log(err, "PoseKnown: handleSubmit error");
-    })
+      })
+      .catch((err) => {
+        console.log(err, 'PoseKnown: handleSubmit error');
+      });
   };
 
   const [img, setImg] = useState('');
-// add get requrst for userPoses table and get the id trhat matchers the pose id
+  // add get requrst for userPoses table and get the id trhat matchers the pose id
 
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
         console.log(data);
         setImg(data);
-      })
-  }
+      });
+  };
 
- useEffect(() => {
+  useEffect(() => {
     if (pose.name) {
       getPoseImage();
     }
@@ -101,20 +101,20 @@ export default function LearningPose({ pose }) {
         <Box sx={style}>
          
           <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={pose}
-      sx={{ width: 300 }}
-      getOptionLabel={(option) => option.name}
-      onChange={handleChange}
-      renderOption={(props, option) => (
-        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+            disablePortal
+            id="combo-box-demo"
+            options={pose}
+            sx={{ width: 300 }}
+            getOptionLabel={(option) => option.name}
+            onChange={handleChange}
+            renderOption={(props, option) => (
+              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
          
-          {option.name}
-        </Box>
-      )}
-      renderInput={(params) => <TextField {...params} name="Poses" />}
-    />
+                {option.name}
+              </Box>
+            )}
+            renderInput={(params) => <TextField {...params} name="Poses" />}
+          />
           <Button onClick={handleSubmit}><AddIcon /></Button>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Add a Pose to your collection. Now.
@@ -122,11 +122,11 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-      <div>{pose.name}</div>
-      <div>{pose.sanskrit}</div>
-      <div>{pose.demo}</div>
-      <img src={img}/>
-    </div>
+        <div>{pose.name}</div>
+        <div>{pose.sanskrit}</div>
+        <div>{pose.demo}</div>
+        <img src={img}/>
+      </div>
     </div>
   );
 }
@@ -181,7 +181,7 @@ export default function LearningPose({ pose }) {
 //   );
 // }
 
- /*
+/*
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     */

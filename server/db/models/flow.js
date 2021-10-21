@@ -16,6 +16,6 @@ const Flow = {
     type: Sequelize.STRING
   },
   // userId is added as FK with relationship
-}
+};
 
 module.exports = Flow;

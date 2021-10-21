@@ -32,7 +32,7 @@ function NavBar () {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-      <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
+        <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
         <Typography sx={{ minWidth: 100 }}><Link to={`${url}/build`}>Build</Link></Typography>
         <Typography sx={{ minWidth: 100 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
         <Tooltip title="Account settings">
@@ -99,7 +99,7 @@ function NavBar () {
         </Route>
       </Switch>
     </React.Fragment>
-  )
+  );
 }
 
 export default NavBar;

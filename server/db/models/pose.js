@@ -18,6 +18,6 @@ const Pose = {
   difficulty: {
     type: Sequelize.STRING
   }
-}
+};
 
 module.exports = Pose;

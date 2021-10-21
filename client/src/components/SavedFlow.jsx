@@ -18,8 +18,8 @@ const style = {
 };
 
 const color = {
-  backgroundColor: "#e0f2f1"
-}
+  backgroundColor: '#e0f2f1'
+};
 
 function ChildModal() {
   const [open, setOpen] = React.useState(false);

@@ -14,8 +14,8 @@ function DashBoardCard () {
         </Typography>
         
       </Box>
-      </React.Fragment>
-  )
+    </React.Fragment>
+  );
 }
 
 export default DashBoardCard;

@@ -9,7 +9,7 @@ function BuildFlowCard () {
     <div>
     buildFlow
     </div>
-  )
+  );
 }
 
 export default BuildFlowCard;

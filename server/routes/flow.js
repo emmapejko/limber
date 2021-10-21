@@ -16,7 +16,7 @@ flowRouter.post('/', (req, res) => {
     .catch(err => {
       console.error(err);
       res.sendStatus(404);
-    })
+    });
 });
 
 

@@ -22,6 +22,6 @@ const User = {
     type: Sequelize.BOOLEAN,
     default: false,
   }
-}
+};
 
 module.exports = User;

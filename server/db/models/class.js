@@ -17,6 +17,6 @@ const Class = {
   //     key: 'id'
   //   }
   // }
-}
+};
 
 module.exports = Class;

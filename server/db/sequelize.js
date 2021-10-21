@@ -70,15 +70,15 @@ User.sync()
                                     Class.sync()
                                       .then(() => {
                                         console.log('class connected to DB.');
-                                      })
-                                  })
-                              })
-                          })
-                      })
-                  })
-              })
-          })
-      })
+                                      });
+                                  });
+                              });
+                          });
+                      });
+                  });
+              });
+          });
+      });
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);

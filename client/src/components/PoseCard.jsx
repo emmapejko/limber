@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 const PoseCard = ({ pose }) => {
-  console.log('image:', pose)
+  console.log('image:', pose);
   const [img, setImg] = useState('');
 
   const getPoseImage = () => {
@@ -12,8 +12,8 @@ const PoseCard = ({ pose }) => {
       .then(({ data }) => {
         //console.log(data);
         setImg(data);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     getPoseImage();
@@ -31,7 +31,7 @@ const PoseCard = ({ pose }) => {
         <div>{pose.sanskrit}</div>
       </Box>
     </Grid>
-  )
-}
+  );
+};
 
 export default PoseCard;

@@ -5,7 +5,7 @@ const app = express();
 const session = require('express-session');
 const http = require('http');
 const cors = require('cors');
-const { Server } = require("socket.io");
+const { Server } = require('socket.io');
 const passport = require('passport');
 const auth = require('./auth');
 const { Poses } = require('./profile');
@@ -18,25 +18,25 @@ const server = http.createServer(app);
 
 const io = new Server(server);
 
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("join_room", (data) => {
+  socket.on('join_room', (data) => {
     socket.join(data);
     console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
+  socket.on('send_message', (data) => {
+    socket.to(data.room).emit('receive_message', data);
   });
 
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
+  socket.on('disconnect', () => {
+    console.log('User Disconnected', socket.id);
   });
 });
 
 server.listen(3000, () => {
-  console.log("SERVER RUNNING");
+  console.log('SERVER RUNNING');
 });
 
 
@@ -62,11 +62,11 @@ app.use('/images', imageRouter);
 app.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/'}),
-(req, res) => {
+  (req, res) => {
   //let userPath = req.user.dataValues.full_name.split(' ').join('');
   //res.redirect(`/${userPath}`);
-  res.redirect('/loggedin');
-});
+    res.redirect('/loggedin');
+  });
 
 const authCheck = (req, res, next) => {
   if (!req.user) {
@@ -74,13 +74,13 @@ const authCheck = (req, res, next) => {
   } else {
     next();
   }
-}
+};
 
 app.get('/loggedin', authCheck, (req, res) => {
   
-  let userPath = req.user.dataValues.full_name.split(' ').join('');
+  const userPath = req.user.dataValues.full_name.split(' ').join('');
   res.redirect(`/${userPath}`);
-})
+});
 
 app.get('/logout', (req, res) => {
   // req.session = null;   

@@ -13,7 +13,7 @@ function SavedFlowCard () {
       
     
     </Typography>
-  )
+  );
 }
 
 export default SavedFlowCard;

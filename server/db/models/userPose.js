@@ -5,6 +5,6 @@ const userPose = {
     type: Sequelize.INTEGER
   }
   // poseId & userId is added to this model through the belongsToMany relationship
-}
+};
 
 module.exports = userPose;
