@@ -51,7 +51,7 @@ export default function LearningPose({ pose }) {
     .catch((err) => {
       console.log(err, "PoseKnown: handleSubmit error");
     })
-  }
+  };
 
   const [img, setImg] = useState('');
 // add get requrst for userPoses table and get the id trhat matchers the pose id
@@ -128,7 +128,7 @@ export default function LearningPose({ pose }) {
       <img src={img}/>
     </div>
     </div>
-  )
+  );
 }
 
 

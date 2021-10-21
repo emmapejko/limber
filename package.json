@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"no test specified\"",
+    "lint:fix": "eslint --fix . --ext .jsx --ext.js",
+    "lint": "eslint . --fix --ext .js,.jsx",
     "start": "nodemon server",
     "start-prod": "node server",
     "build": "webpack --config webpack.config.js --mode development --watch",
-    "build-prod": "webpack --config webpack.config.js --mode production",
-    "prepare": "husky install"
+    "build-prod": "webpack --config webpack.config.js --mode production"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix && npm run lint",
+      "pre-push": "npm run lint:fix && npm run lint"
+    }
   },
   "repository": {
     "type": "git",
