@@ -9,14 +9,17 @@
     "start-prod": "node server",
     "build": "webpack --config webpack.config.js --mode development --watch",
     "build-prod": "webpack --config webpack.config.js --mode production",
-    "lint:fix": "eslint --fix . --ext .jsx --ext.js",
     "lint": "eslint . --ext .js,.jsx"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:fix && npm run lint",
-      "pre-push": "npm run lint:fix && npm run lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
   },
   "repository": {
     "type": "git",
