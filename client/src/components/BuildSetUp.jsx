@@ -78,7 +78,7 @@ const BuildSetUp = ({ jobBodyParts }) => {
   return (
     <>
       { !flow.length
-        ? (
+        ?
           <>
             <Box
               display="flex"
@@ -193,7 +193,7 @@ const BuildSetUp = ({ jobBodyParts }) => {
             }
             </Grid>
           </Box>
-        )}
+        }
     </>
   );
 };
