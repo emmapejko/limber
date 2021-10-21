@@ -8,7 +8,14 @@
     "start": "nodemon server",
     "start-prod": "node server",
     "build": "webpack --config webpack.config.js --mode development --watch",
-    "build-prod": "webpack --config webpack.config.js --mode production"
+    "build-prod": "webpack --config webpack.config.js --mode production",
+    "lint": "eslint . --fix --ext .js,.jsx"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint"
+    }
   },
   "repository": {
     "type": "git",
@@ -59,12 +66,8 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "file-loader": "^6.2.0",
-    "husky": "^7.0.4",
+    "husky": "^4.3.8",
     "webpack": "^5.58.2",
     "webpack-cli": "^4.9.0"
   }
 }
-
-
-
-   
