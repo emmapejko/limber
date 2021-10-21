@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 
+
 const PoseCard = ({ pose, i, changeFlow }) => {
   const [thePose, setThePose] = useState(pose);
   const [img, setImg] = useState('');
@@ -25,7 +26,7 @@ const PoseCard = ({ pose, i, changeFlow }) => {
   const getPoseImage = () => {
     axios.get(`/images/${thePose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        //console.log(data);
+        // console.log(data);
         setImg(data);
         getAllPoses();
       })
@@ -140,7 +141,7 @@ const PoseCard = ({ pose, i, changeFlow }) => {
     {demoDialog()}
     {poseDialog()}
     </Grid>
-  )
-}
+  );
+};
 
 export default PoseCard;

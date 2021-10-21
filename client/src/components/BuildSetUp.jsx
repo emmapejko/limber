@@ -29,28 +29,28 @@ const BuildSetUp = ({ jobBodyParts }) => {
   const [flowName, setFlowName] = useState('');
 
   const handleClick = (part) => {
-    setBodyParts(prev => [...new Set([...prev, part])]);
-  }
+    setBodyParts((prev) => [...new Set([...prev, part])]);
+  };
 
   const removePart = (part) => {
     setBodyParts(bodyParts.filter((el) => el !== part));
-  }
+  };
 
   const build = () => {
     console.log(`building a ${length} flow focusing on ${bodyParts.join(' and ')}`);
     const data = {
-      length: length,
-      bodyParts: bodyParts
-    }
-    axios.post('/flow', { data: data })
+      length,
+      bodyParts,
+    };
+    axios.post('/flow', { data })
       .then(({ data }) => {
         console.log(data);
         setFlow(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
-  }
+  };
 
   const changeFlow = (i, newPose) => {
     const newFlow = [...flow];
@@ -77,51 +77,57 @@ const BuildSetUp = ({ jobBodyParts }) => {
 
   return (
     <>
-    { !flow.length ?
-      <>
-      <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      m="auto"
-      >
-        <Box sx={{ minWidth: 120, marginTop: '5px', marginBottom: '5px', marginRight: '5px'}}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Length</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={length}
-              label="Length"
-              onChange={(e) => setLength(e.target.value)}
+      { !flow.length
+        ? (
+          <>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              m="auto"
             >
-              <MenuItem value={15}>15 Min</MenuItem>
-              <MenuItem value={30}>30 Min</MenuItem>
-              <MenuItem value={45}>45 Min</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        <Stack direction="row" spacing={1}>
-          {
-            bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
-          }
-          <BuildCircleIcon onClick={ length === '' ? () => setOpenDialog(true) : build } />
-        </Stack>
-          <Dialog
-          open={openDialog}
-          onClose={() => setOpenDialog(false)}
-          >
-          <DialogTitle id="alert-dialog-title">
-            {"Please select a length for your flow"}
-          </DialogTitle>
-          <DialogActions>
-            <Button onClick={() => setOpenDialog(false)} autoFocus>
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Box>
-
+              <Box sx={{
+                minWidth: 120, marginTop: '5px', marginBottom: '5px', marginRight: '5px',
+              }}
+              >
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Length</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={length}
+                    label="Length"
+                    onChange={(e) => setLength(e.target.value)}
+                  >
+                    <MenuItem value={15}>15 Min</MenuItem>
+                    <MenuItem value={30}>30 Min</MenuItem>
+                    <MenuItem value={45}>45 Min</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Stack direction="row" spacing={1}>
+                {
+                bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
+              }
+                <BuildCircleIcon onClick={length === ''
+                  ? () => setOpenDialog(true)
+                  : build}
+                />
+              </Stack>
+              <Dialog
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+              >
+                <DialogTitle id="alert-dialog-title">
+                  Please select a length for your flow
+                </DialogTitle>
+                <DialogActions>
+                  <Button onClick={() => setOpenDialog(false)} autoFocus>
+                    Close
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </Box>
         <Box
           display="flex"
           alignItems="center"
@@ -185,12 +191,11 @@ const BuildSetUp = ({ jobBodyParts }) => {
             {
               flow.map((pose, i) => <PoseCard key={i} pose={pose} i={i} changeFlow={changeFlow} />)
             }
-          </Grid>
-        </Box>
-      }
+            </Grid>
+          </Box>
+        )}
     </>
-  )
-
+  );
 };
 
 export default BuildSetUp;

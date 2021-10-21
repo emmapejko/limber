@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
+import React, { useEffect, useState } from 'react';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
 
 function Chat({ socket, username, room }) {
-  const [currentMessage, setCurrentMessage] = useState("");
+  const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async () => {
-    if (currentMessage !== "") {
+    if (currentMessage !== '') {
       const messageData = {
-        room: room,
+        room,
         author: username,
         message: currentMessage,
         time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+          `${new Date(Date.now()).getHours()
+          }:${
+            new Date(Date.now()).getMinutes()}`,
       };
 
-      await socket.emit("send_message", messageData);
+      await socket.emit('send_message', messageData);
       setMessageList((list) => [...list, messageData]);
-      setCurrentMessage("");
+      setCurrentMessage('');
     }
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    socket.on('receive_message', (data) => {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
@@ -40,8 +40,10 @@ function Chat({ socket, username, room }) {
           {messageList.map((messageContent) => {
             console.log(messageContent);
             return (
-              <div 
-                id={username === messageContent.author ? "you" : "other"}
+              <div
+                id={username === messageContent.author
+                  ? 'you'
+                  : 'other'}
               >
                 <div>
                   <div>
@@ -66,7 +68,7 @@ function Chat({ socket, username, room }) {
             setCurrentMessage(event.target.value);
           }}
           onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
+            event.key === 'Enter' && sendMessage();
           }}
         />
         <button onClick={sendMessage}>&#9658;</button>

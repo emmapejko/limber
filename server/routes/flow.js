@@ -1,9 +1,9 @@
 const { Router } = require('express');
+
 const flowRouter = Router();
 
 const { build } = require('../helpers/build');
 const { Pose, AfterPose, PoseBodyPart, User, UserPose, Flow, BodyPart, PoseFlow } = require('../db/sequelize');
-
 
 flowRouter.post('/', (req, res) => {
   const { id } = req.user.dataValues;
@@ -14,10 +14,10 @@ flowRouter.post('/', (req, res) => {
       //console.log(flow);
       res.status(201).send(flow);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       res.sendStatus(404);
-    })
+    });
 });
 
 flowRouter.post('/saveFlow', (req, res) => {

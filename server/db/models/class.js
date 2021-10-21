@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-//const User = require('./user');
+// const User = require('./user');
 
 const Class = {
   id: {
@@ -8,7 +8,7 @@ const Class = {
     autoIncrement: true,
   },
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   // user_id: {
   //   type: Sequelize.INTEGER,
@@ -17,6 +17,6 @@ const Class = {
   //     key: 'id'
   //   }
   // }
-}
+};
 
 module.exports = Class;
