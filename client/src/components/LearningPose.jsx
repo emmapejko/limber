@@ -50,8 +50,17 @@ export default function LearningPose({ pose }) {
   };
 
   const [img, setImg] = useState('');
-  // add get requrst for userPoses table and get the id trhat matchers the pose id
+  // add get request for userPoses table and get the id that matches the pose id
 
+  //finish this axios request -- need to grab data
+  const getUserPosesId = () => {
+    axios.get('profile/userPosesId')
+      .then(() => {
+
+      });
+  };
+  
+  // add .catch here
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {

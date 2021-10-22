@@ -27,7 +27,7 @@ const style = {
 const color = {
   backgroundColor: '#e0f2f1',
 };
-function Home() {
+const Home = () => {
   const { path, url } = useRouteMatch();
   const [pose, setPose] = React.useState([]);
 
@@ -115,6 +115,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

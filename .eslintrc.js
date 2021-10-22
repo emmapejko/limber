@@ -1,23 +1,41 @@
 module.exports = {
-  extends: 'airbnb',
+  env: {
+    'es6': true
+  },
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 9,
+    ecmaFeatures: {
+      'jsx': true
+    }
+  },
   rules: {
-    "no-console":0,
-    "react/prop-types": "off",
-    'linebreak-style': 0,
-    'import/newline-after-import': 'off',
-    'object-curly-newline': 'off',
-    'no-unused-vars': 'off',
-    'object-curly-spacing': 'off',
-    'no-multiple-empty-lines': 'off',
-    'semi': 'off',
-    'max-len': 'off',
-    'no-trailing-spaces': 'off',
-    'spaced-comment': 'off',
-    'arrow-parens': 'off',
-    'no-use-before-define': 'off',
-    'no-await-in-loop': 'off',
-    'indent': 'off',
-    'no-continue': 'off',
-    'brace-style': 'off',
+    /* Indentation */
+    'no-mixed-spaces-and-tabs': 2,
+    'indent': [2, 2],
+    /* Variable cames */
+    //'camelcase': 2,
+    /* Language constructs */
+    'curly': 2,
+    'eqeqeq': [2, 'smart'],
+    'func-style': [2, 'expression'],
+    'no-var': 2,
+    'prefer-const': 2,
+    /* Semicolons */
+    'semi': 2,
+    'no-extra-semi': 2,
+    /* Padding & additional whitespace (preferred but optional) */
+    'brace-style': [2, '1tbs', { 'allowSingleLine': true }],
+    'semi-spacing': 1,
+    'key-spacing': 1,
+    'block-spacing': 1,
+    'comma-spacing': 1,
+    'no-multi-spaces': 1,
+    'space-before-blocks': 1,
+    'keyword-spacing': [1, { 'before': true, 'after': true }],
+    'space-infix-ops': 1,
+    /* Minuta */
+    'comma-style': [2, 'last'],
+    'quotes': [1, 'single']
   }
 };

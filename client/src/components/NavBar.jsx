@@ -17,7 +17,7 @@ import Build from './Build.jsx';
 import Connect from './Connect.jsx';
 import Home from './Home.jsx';
 
-function NavBar() {
+const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { path, url } = useRouteMatch();
   const open = Boolean(anchorEl);
@@ -103,6 +103,6 @@ function NavBar() {
       </Switch>
     </>
   );
-}
+};
 
 export default NavBar;

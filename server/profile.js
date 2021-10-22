@@ -11,9 +11,21 @@ working on pose list: select all rows from table userPoses where userPoses.userI
 */
 
 Poses.get('/', (req, res) => {
-  // how to handle errors here?
+  
 
   UserPose.findAll().then((data) => {
+    res.status(200).send(data);
+  })
+    .catch(() => {
+      res.status(404).send('Error!');
+    });
+});
+
+// finish this table request where user_id matches pose_id
+Poses.get('/userPosesId', (req, res) => {
+  
+  //req.body.user_id
+  UserPose.findAll({where: {id: req.body.user_id}}).then((data) => {
     res.status(200).send(data);
   })
     .catch(() => {
