@@ -19,6 +19,7 @@ import TextField from '@mui/material/TextField';
 
 import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
+import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
 
 const BuildSetUp = ({ jobBodyParts, video }) => {
   const [length, setLength] = useState('');
@@ -179,47 +180,44 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
         <>
         {
           !flow.length && videos.length ?
-          <div>
-            {
-              videos.map((video, i) => <div key={i}>{video.snippet.title}</div>)
-            }
-          </div> :
-        <Box sx={{ flexGrow: 1 }}>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            m="auto"
-          >
-          <div>{`a ${length} minute flow focusing on ${bodyParts.join(' and ')}`}</div>
-          <Button onClick={() => setOpenSave(true)}>Save Flow</Button>
-          <Dialog open={openSave} onClose={() => setOpenSave(false)}>
-            <DialogTitle>Save Flow</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Please name this flow:
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                value={flowName}
-                fullWidth
-                variant="standard"
-                onChange={(e) => setFlowName(e.target.value)}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={saveFlow}>Save</Button>
-            </DialogActions>
-          </Dialog>
-          </Box>
-          <Grid container spacing={2}>
-            {
-              flow.map((pose, i) => <PoseCard key={i} pose={pose} i={i} changeFlow={changeFlow} />)
-            }
-            </Grid>
-          </Box>
+            <YouTubeVideoPlayer videos={videos} />
+            :
+            <Box sx={{ flexGrow: 1 }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                m="auto"
+              >
+              <div>{`a ${length} minute flow focusing on ${bodyParts.join(' and ')}`}</div>
+              <Button onClick={() => setOpenSave(true)}>Save Flow</Button>
+              <Dialog open={openSave} onClose={() => setOpenSave(false)}>
+                <DialogTitle>Save Flow</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Please name this flow:
+                  </DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    value={flowName}
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => setFlowName(e.target.value)}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={saveFlow}>Save</Button>
+                </DialogActions>
+              </Dialog>
+              </Box>
+              <Grid container spacing={2}>
+                {
+                  flow.map((pose, i) => <PoseCard key={i} pose={pose} i={i} changeFlow={changeFlow} />)
+                }
+                </Grid>
+              </Box>
         }
         </>
         }
