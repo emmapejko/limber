@@ -38,3 +38,14 @@ scripts:
 1. npm install
 2. npm run build (or npm run build-prod for production)
 3. npm start
+
+
+
+Connect:
+
+-Connect uses the http.createServer() method to create a server a Server object from express.
+-Socket.io uses this server to communicate with other sockets in real time.
+-Every user is assigned a socket.id when logging into the Connect Chat feature.
+-Socket.io will start listing when you start your server and generate a socket.id for the user.
+-Username is the full name of the user stored in the database from Google Auth.
+-Chat messages are stored in state and reset when the user leaves the chat.
