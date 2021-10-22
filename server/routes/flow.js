@@ -10,8 +10,8 @@ flowRouter.post('/', (req, res) => {
   const { length, bodyParts } = req.body.data;
 
   build(length, bodyParts, id) // default is for testing in postman
-    .then(flow => {
-      //console.log(flow);
+    .then((flow) => {
+      // console.log(flow);
       res.status(201).send(flow);
     })
     .catch((err) => {
@@ -24,18 +24,18 @@ flowRouter.post('/saveFlow', (req, res) => {
   const { id } = req.user.dataValues;
   const { length, flow, flowName } = req.body.data;
 
-  Flow.create({ name: flowName, length: length, userId: id })
-    .then(response => {
+  Flow.create({ name: flowName, length, userId: id })
+    .then((response) => {
       const flowId = response.dataValues.id;
-      Promise.all(flow.map((pose, i) => PoseFlow.create({ pose_index: i, poseId: pose.id, flowId: flowId})))
+      Promise.all(flow.map((pose, i) => PoseFlow.create({ pose_index: i, poseId: pose.id, flowId})))
         .then(() => {
           res.sendStatus(201);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     })
 })
