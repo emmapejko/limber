@@ -94,15 +94,19 @@ const Build = () => {
             justifyContent="center"
             style={{ margin: '50px' }}
           >
-            <Button variant="contained" disableElevation>
-              i want a video!
+            <Button variant="contained" disableElevation onClick={() => setView('video')}>
+              i'll watch a video today
             </Button>
           </Box>
         </>
       );
+    } else if (view === 'video') {
+      return (
+        <BuildSetUp jobBodyParts={bodyParts} video={true} />
+      )
     }
     return (
-      <BuildSetUp jobBodyParts={bodyParts} />
+      <BuildSetUp jobBodyParts={bodyParts} video={false}/>
     );
   };
 
