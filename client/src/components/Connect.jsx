@@ -1,47 +1,48 @@
-import React, { useState } from 'react';
+/* eslint-disable import/extensions */
+/* eslint-disable react/button-has-type */
+import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import axios from 'axios';
 import Chat from './Chat.jsx';
-
 const socket = io.connect('http://localhost:3000');
+
+
 
 function Connect() {
   const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
+  const [room, setRoom] = useState('LIMBER');
   const [showChat, setShowChat] = useState(false);
+  const [profilePicture, setProfilePicture] = useState('');
 
+  const setFullName = () => {
+    axios
+      .get('/chat/full_name')
+      .then((res) => {
+        setUsername(res.data.full_name);
+        setProfilePicture(res.data.picture);
+      })
+      .catch((err) => console.error(err))
+  }
+  
   const joinRoom = () => {
-    if (username !== '' && room !== '') {
-      socket.emit('join_room', room);
-      setShowChat(true);
-    }
+    socket.emit('join_room', room);
+    setShowChat(true);
   };
 
+  useEffect(() => {
+    setFullName();
+  }, [])
+
   return (
-    <div>
-      {!showChat
-        ? (
-          <div>
-            <h3>Join A Chat</h3>
-            <input
-              type="text"
-              placeholder="John..."
-              onChange={(event) => {
-                setUsername(event.target.value);
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Room ID..."
-              onChange={(event) => {
-                setRoom(event.target.value);
-              }}
-            />
-            <button onClick={joinRoom}>Join A Room</button>
-          </div>
-        )
-        : (
-          <Chat socket={socket} username={username} room={room} />
-        )}
+    <div className="App">
+      {!showChat ? (
+        <div className="joinChatContainer">
+          <h3>LIMBER CHAT</h3>
+          <button onClick={() => { joinRoom() }}>Join Chat</button>
+        </div>
+      ) : (
+        <Chat socket={socket} username={username} room={room} profilePicture={profilePicture} />
+      )}
     </div>
   );
 }
