@@ -20,13 +20,14 @@ import TextField from '@mui/material/TextField';
 import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
 
-const BuildSetUp = ({ jobBodyParts }) => {
+const BuildSetUp = ({ jobBodyParts, video }) => {
   const [length, setLength] = useState('');
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
   const [openDialog, setOpenDialog] = useState(false);
   const [flow, setFlow] = useState([]);
   const [openSave, setOpenSave] = useState(false);
   const [flowName, setFlowName] = useState('');
+  const [videos, setVideos] = useState([]);
 
   const handleClick = (part) => {
     setBodyParts((prev) => [...new Set([...prev, part])]);
@@ -75,9 +76,23 @@ const BuildSetUp = ({ jobBodyParts }) => {
       })
   }
 
+  const youTubeSearch = () => {
+    const data = {
+      query: `${length} min ${bodyParts.join(' ')} yoga`
+    }
+    axios.put('/youtube', { data })
+      .then(({ data }) => {
+        console.log(data.items)
+        setVideos(data.items);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
+
   return (
     <>
-      { !flow.length
+      { !flow.length && !videos.length
         ?
           <>
             <Box
@@ -108,11 +123,15 @@ const BuildSetUp = ({ jobBodyParts }) => {
               <Stack direction="row" spacing={1}>
                 {
                 bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
-              }
-                <BuildCircleIcon onClick={length === ''
-                  ? () => setOpenDialog(true)
-                  : build}
-                />
+                }
+                {
+                  !video ?
+                  <BuildCircleIcon onClick={length === ''
+                    ? () => setOpenDialog(true)
+                    : build}
+                  />
+                  : <Button onClick={youTubeSearch}>Search</Button>
+                }
               </Stack>
               <Dialog
                 open={openDialog}
@@ -157,6 +176,14 @@ const BuildSetUp = ({ jobBodyParts }) => {
           </svg>
         </Box>
         </> :
+        <>
+        {
+          !flow.length && videos.length ?
+          <div>
+            {
+              videos.map((video, i) => <div key={i}>{video.snippet.title}</div>)
+            }
+          </div> :
         <Box sx={{ flexGrow: 1 }}>
           <Box
             display="flex"
@@ -193,6 +220,8 @@ const BuildSetUp = ({ jobBodyParts }) => {
             }
             </Grid>
           </Box>
+        }
+        </>
         }
     </>
   );

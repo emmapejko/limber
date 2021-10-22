@@ -6,7 +6,7 @@ const { searchYouTube } = require('../helpers/youtube');
 
 
 youTubeRouter.put('/', (req, res) => {
-  const { query } = req.body;
+  const { query } = req.body.data;
 
   searchYouTube(query)
     .then(({ data }) => {
@@ -17,7 +17,5 @@ youTubeRouter.put('/', (req, res) => {
       res.sendStatus(404);
     })
 })
-
-
 
 module.exports = youTubeRouter;
