@@ -19,14 +19,16 @@ import TextField from '@mui/material/TextField';
 
 import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
+import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
 
-const BuildSetUp = ({ jobBodyParts }) => {
+const BuildSetUp = ({ jobBodyParts, video }) => {
   const [length, setLength] = useState('');
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
   const [openDialog, setOpenDialog] = useState(false);
   const [flow, setFlow] = useState([]);
   const [openSave, setOpenSave] = useState(false);
   const [flowName, setFlowName] = useState('');
+  const [videos, setVideos] = useState([]);
 
   const handleClick = (part) => {
     setBodyParts((prev) => [...new Set([...prev, part])]);
@@ -75,9 +77,23 @@ const BuildSetUp = ({ jobBodyParts }) => {
       });
   };
 
+  const youTubeSearch = () => {
+    const data = {
+      query: `${length} min ${bodyParts.join(' ')} yoga`
+    }
+    axios.put('/youtube', { data })
+      .then(({ data }) => {
+        console.log(data.items)
+        setVideos(data.items);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
+
   return (
     <>
-      { !flow.length
+      { !flow.length && !videos.length
         ?
         <>
           <Box
@@ -108,17 +124,21 @@ const BuildSetUp = ({ jobBodyParts }) => {
             <Stack direction="row" spacing={1}>
               {
                 bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
-              }
-              <BuildCircleIcon onClick={length === ''
-                ? () => setOpenDialog(true)
-                : build}
-              />
-            </Stack>
-            <Dialog
-              open={openDialog}
-              onClose={() => setOpenDialog(false)}
-            >
-              <DialogTitle id="alert-dialog-title">
+                }
+                {
+                  !video ?
+                  <BuildCircleIcon onClick={length === ''
+                    ? () => setOpenDialog(true)
+                    : build}
+                  />
+                  : <Button onClick={youTubeSearch}>Search</Button>
+                }
+              </Stack>
+              <Dialog
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+              >
+                <DialogTitle id="alert-dialog-title">
                   Please select a length for your flow
               </DialogTitle>
               <DialogActions>
@@ -157,43 +177,50 @@ const BuildSetUp = ({ jobBodyParts }) => {
             </svg>
           </Box>
         </> :
-        <Box sx={{ flexGrow: 1 }}>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            m="auto"
-          >
-            <div>{`a ${length} minute flow focusing on ${bodyParts.join(' and ')}`}</div>
-            <Button onClick={() => setOpenSave(true)}>Save Flow</Button>
-            <Dialog open={openSave} onClose={() => setOpenSave(false)}>
-              <DialogTitle>Save Flow</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                Please name this flow:
-                </DialogContentText>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  value={flowName}
-                  fullWidth
-                  variant="standard"
-                  onChange={(e) => setFlowName(e.target.value)}
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={saveFlow}>Save</Button>
-              </DialogActions>
-            </Dialog>
-          </Box>
-          <Grid container spacing={2}>
-            {
-              flow.map((pose, i) => <PoseCard key={i} pose={pose} i={i} changeFlow={changeFlow} />)
-            }
-          </Grid>
-        </Box>
-      }
+        <>
+        {
+          !flow.length && videos.length ?
+            <YouTubeVideoPlayer videos={videos} />
+            :
+            <Box sx={{ flexGrow: 1 }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                m="auto"
+              >
+              <div>{`a ${length} minute flow focusing on ${bodyParts.join(' and ')}`}</div>
+              <Button onClick={() => setOpenSave(true)}>Save Flow</Button>
+              <Dialog open={openSave} onClose={() => setOpenSave(false)}>
+                <DialogTitle>Save Flow</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Please name this flow:
+                  </DialogContentText>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    value={flowName}
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => setFlowName(e.target.value)}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={saveFlow}>Save</Button>
+                </DialogActions>
+              </Dialog>
+              </Box>
+              <Grid container spacing={2}>
+                {
+                  flow.map((pose, i) => <PoseCard key={i} pose={pose} i={i} changeFlow={changeFlow} />)
+                }
+                </Grid>
+              </Box>
+        }
+        </>
+        }
     </>
   );
 };
