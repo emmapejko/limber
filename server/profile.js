@@ -25,7 +25,11 @@ Poses.get('/', (req, res) => {
 Poses.get('/userPosesId', (req, res) => {
   
   //req.body.user_id
-  UserPose.findAll({where: {id: req.body.user_id}}).then((data) => {
+  UserPose.findAll({
+    where: {
+      user_id: post_id
+    }
+  }).then((data) => {
     res.status(200).send(data);
   })
     .catch(() => {
@@ -53,6 +57,7 @@ Poses.post('/userPoses', (req, res) => {
     })
     .catch((err) => {
       console.error(err);
+      res.status(404).send('Error!');
     });
 });
 
@@ -65,6 +70,7 @@ Poses.post('/userPosesDontKnow', (req, res) => {
     })
     .catch((err) => {
       console.error(err);
+      res.status(404).send('Error!');
     });
 });
 

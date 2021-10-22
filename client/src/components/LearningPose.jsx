@@ -55,8 +55,11 @@ export default function LearningPose({ pose }) {
   //finish this axios request -- need to grab data
   const getUserPosesId = () => {
     axios.get('profile/userPosesId')
-      .then(() => {
-
+      .then(({ data }) => {
+        console.log('userPosesId:', data);
+      })
+      .catch((err) => {
+        console.log(err, 'getUserPosesId');
       });
   };
   
@@ -64,8 +67,11 @@ export default function LearningPose({ pose }) {
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        console.log(data);
+        console.log('PoseImage:', data);
         setImg(data);
+      })
+      .catch((err) => {
+        console.log(err, 'getPoseImage');
       });
   };
 
@@ -73,6 +79,7 @@ export default function LearningPose({ pose }) {
     if (pose.name) {
       getPoseImage();
     }
+    getUserPosesId();
   }, []);
 
   return (
@@ -134,53 +141,3 @@ export default function LearningPose({ pose }) {
     </div>
   );
 }
-
-// import React from 'react';
-// import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-// import Modal from '@mui/material/Modal';
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-// };
-
-// export default function LearningPose() {
-//   const [open, setOpen] = React.useState(false);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
-
-//   return (
-//     <div>
-//       <Button onClick={handleOpen}>What you're working on...</Button>
-//       <Modal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <Box sx={style}>
-//           <Typography id="modal-modal-title" variant="h6" component="h2">
-//             Text in a modal
-//           </Typography>
-//           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//             Poses rendered for selection.
-//           </Typography>
-//         </Box>
-//       </Modal>
-//     </div>
-//   );
-// }
-
-/*
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
-    */
