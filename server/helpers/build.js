@@ -19,22 +19,19 @@ const build = async (length, bodyparts) => {
   while (finalArr.length <= length) {
     const nextList = Promise.all((await findNextPoseIds(finalArr[finalArr.length - 1])).map(obj => getPoseFromNextListIds(obj.after_pose_id)));
     const nextAndBody = (await nextList).filter(pose => bodyPartPosesNames.includes(pose.name));
-      if ((await nextAndBody).length) {
+      if ((await nextAndBody).length && finalArr.length % 2 === 0) {
         const rando = random(await nextAndBody);
         if (finalArr[finalArr.length - 1].name !== rando.name) {
           finalArr.push(await Pose.findByPk(rando.id));
         } else {
           continue;
         }
-      }
-    else if ((await nextList).length) {
+      } else if ((await nextList).length) {
       const rando = await (random(await nextList));
-      console.log('RANDO', rando);
       if (finalArr[finalArr.length - 1].name !== rando.name) {
-        console.log('rando 2');
         finalArr.push(await Pose.findByPk(rando.id));
       } else {
-        continue;
+        finalArr.push(await Pose.findByPk(random(await nextList).id));
       }
     } else {
       const rando = random(start);
