@@ -31,11 +31,11 @@ flowRouter.post('/saveFlow', (req, res) => {
         .then(() => {
           res.sendStatus(201);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     })
 })

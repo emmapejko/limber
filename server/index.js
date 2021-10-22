@@ -15,7 +15,7 @@ const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
-
+const {Users} = require('./routes/chat')
 const server = http.createServer(app);
 
 const io = new Server(server);
@@ -57,6 +57,7 @@ app.use(passport.session());
 app.use('/flow', flowRouter);
 app.use('/profile', Poses);
 app.use('/images', imageRouter);
+app.use('/chat', Users)
 
 // client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
