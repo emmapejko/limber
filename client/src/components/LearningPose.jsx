@@ -140,7 +140,7 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-        {poses.map((pose, i) => <div key={i}>{pose.name}<img src={getPoseImage}  /></div>)}
+        {poses.map((pose, i) => <div key={i}>{pose.name}</div>)}
         {/* <div>{pose.name}</div>
         <div>{pose.sanskrit}</div>
         <div>{pose.demo}</div>
@@ -150,3 +150,4 @@ export default function LearningPose({ pose }) {
   );
 }
 //call getPoseImage down in image src tag 
+//<img src={getPoseImage}  />
