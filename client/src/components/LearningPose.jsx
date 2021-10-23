@@ -7,6 +7,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+import PoseItem from './PoseItem.jsx';
 
 const style = {
   position: 'absolute',
@@ -116,45 +119,14 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-        {/* {poses.map((pose, i) => <div key={i}><div>{pose.name}</div></div>)} */}
+      <Grid container spacing={1}>
         {
           poses.map((pose, i) => <PoseItem key={i} pose={pose} />)
         }
-        {/* <div>{pose.name}</div>
-        <div>{pose.sanskrit}</div>
-        <div>{pose.demo}</div>
-        <img src={img}  /> */}
+       </Grid>
       </div>
     </div>
   );
 }
-//call getPoseImage down in image src tag 
-//<img src={getPoseImage}  />
 
-const PoseItem = ({ pose }) => {
-  const [img, setImg] = useState('');
 
-  const getPoseImage = () => {
-    axios.get(`/images/${pose.name.split(' ').join('')}`)
-      .then(({ data }) => {
-        console.log('PoseImage:', data);
-        setImg(data);
-        //return data;
-      })
-      .catch((err) => {
-        console.log('getPoseImage:', err);
-      });
-  };
-
-  useEffect(() => {
-    getPoseImage();
-  })
-
-  return (
-    <div>
-      <div>{pose.name}</div>
-      <img src={img} />
-    </div>
-  )
-
-}
