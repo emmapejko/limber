@@ -21,10 +21,11 @@ const style = {
 };
 
 export default function LearningPose({ pose }) {
-  console.log('pose:', pose);
+  
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [poses, setPoses] = useState([]);
 
   // 1st open/close modal functions
   const handleOpen = () => setOpen(true);
@@ -50,27 +51,49 @@ export default function LearningPose({ pose }) {
   };
 
   const [img, setImg] = useState('');
-  // add get requrst for userPoses table and get the id trhat matchers the pose id
-
+  // add get request for userPoses table and get the id that matches the pose id
+  
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        console.log(data);
+        console.log('PoseImage:', data);
         setImg(data);
+        
+        
+      })
+      .catch((err) => {
+        console.log('getPoseImage:', err);
+      });
+  };
+
+  const getUserPosesId = () => {
+    axios.get('profile/userPosesId')
+      .then(({ data }) => {
+        console.log('userPosesId:', data);
+        if(pose.name) {
+          getPoseImage();
+        }
+        
+       setPoses(data);
+        setImg(data);
+        
+      })
+      .catch((err) => {
+        console.log(err, 'getUserPosesId');
       });
   };
 
   useEffect(() => {
-    if (pose.name) {
-      getPoseImage();
-    }
+    
+    
+    getUserPosesId();
   }, []);
 
   return (
     <div>
 
       <Button onClick={handleOpen}>What you're working on</Button>
-      {/* <div>{pose.map(poses => <div>{poses.name}</div>)}</div> */}
+      
       <Modal
         open={open}
         onClose={handleClose}
@@ -117,61 +140,14 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-        <div>{pose.name}</div>
+        {poses.map((pose, i) => <div key={i}>{pose.name}</div>)}
+        {/* <div>{pose.name}</div>
         <div>{pose.sanskrit}</div>
         <div>{pose.demo}</div>
-        <img src={img} />
+        <img src={img}  /> */}
       </div>
     </div>
   );
 }
-
-// import React from 'react';
-// import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-// import Modal from '@mui/material/Modal';
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-// };
-
-// export default function LearningPose() {
-//   const [open, setOpen] = React.useState(false);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
-
-//   return (
-//     <div>
-//       <Button onClick={handleOpen}>What you're working on...</Button>
-//       <Modal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <Box sx={style}>
-//           <Typography id="modal-modal-title" variant="h6" component="h2">
-//             Text in a modal
-//           </Typography>
-//           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-//             Poses rendered for selection.
-//           </Typography>
-//         </Box>
-//       </Modal>
-//     </div>
-//   );
-// }
-
-/*
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
-    */
+//call getPoseImage down in image src tag 
+//<img src={getPoseImage}  />

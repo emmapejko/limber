@@ -1,5 +1,14 @@
 module.exports = {
-  extends: 'airbnb',
+  env: {
+    'es6': true
+  },
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 9,
+    ecmaFeatures: {
+      'jsx': true
+    }
+  },
   rules: {
     "no-console":0,
     "react/prop-types": "off",

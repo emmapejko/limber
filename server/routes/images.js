@@ -27,6 +27,7 @@ imageRouter.get('/:pose', (req, res) => {
   getImage()
     .then((img) => {
       const image = `data:image/jpeg;base64,${encode(img.Body)}`;
+      console.log('image:', image);
       res.send(image);
     }).catch((e) => {
       res.send(e);

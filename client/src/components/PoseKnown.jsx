@@ -21,7 +21,7 @@ const style = {
 };
 
 export default function PoseKnown({ pose }) {
-  console.log('pose:', pose);
+  
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -42,7 +42,7 @@ export default function PoseKnown({ pose }) {
 
     axios.post('/profile/userPoses', { data: selectedOptions })
       .then((response) => {
-        console.log(response);
+        
       })
       .catch((err) => {
         console.log(err, 'PoseKnown: handleSubmit error');

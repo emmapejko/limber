@@ -27,7 +27,7 @@ const style = {
 const color = {
   backgroundColor: '#e0f2f1',
 };
-function Home() {
+const Home = () => {
   const { path, url } = useRouteMatch();
   const [pose, setPose] = React.useState([]);
 
@@ -36,8 +36,8 @@ function Home() {
     axios
       .get('/profile/allPoses')
       .then((res) => {
-        console.log(res.data);
-        setPose(res.data); // res.data?
+        
+        setPose(res.data); 
       })
       .catch((err) => {
         console.log(err, 'Error from poseKnown');
@@ -115,6 +115,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

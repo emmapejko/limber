@@ -9,7 +9,7 @@ Limber is a web application aimed at helping people build a productive and perso
     the goal of the profile page is to have a centralized place for a user to view their activity on the app.
 
 2) Build -
-    users can choose to find a video or build a sequence based on two constraints: length and body parts. The user can choose body parts to focus on by clicking the areas on the diagram, and can choose a length from the dropdown. If the user choose to build a flow, this information is based to the back end where a sequence is built based upon the relationships between poses and the relationships between poses & body parts. If a user choose to find a video, we search youtube for videos matching their criteria and return the results to the user.
+    users can choose to find a video or build a sequence based on two constraints: length and body parts. The user can choose body parts to focus on by clicking the areas on the diagram, and can choose a length from the dropdown. If the user chooses to build a flow, this information is passed to the back end where a sequence is built based upon the relationships between poses and the relationships between poses & body parts. If a user chooses to find a video, we search youtube for videos matching their criteria and return the results to the user.
 
     Using the sequence builder users have the option to view a tutorial for each pose, switch out any pose in the sequence for another, and then save the sequence to the database for future use.
 
@@ -40,6 +40,23 @@ scripts:
 3. npm start
 
 
+
+## Postgres installation for Windows Users:
+
+1. Watch this tutorial for installation instructions(17:00): https://fulcrum.rocks/blog/why-use-postgresql-database/
+
+or
+
+1. Navigate to this link: https://www.postgresql.org/download/windows/
+2. click on 'Download this installer' link: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+3. After installation is complete, open PG Admin14 or psql terminal to access postgres database features.
+4. Access postgres documentation for unique command line prompts.
+    * Note: postgres--show tables command === \dt; There are several divergent commands from mySql
+
+
+## Husky and EsLint
+
+To reduce errors and enforce code consistency amongst the developers we installed Husky and configured EsLint with standard ES6 code features and capabilities. Access to the rules governing these standards can be found in the .eslintrc.js file. In addition, changes to how Husky handles Git commits can be altered within the root directory of the package.json.
 
 Connect:
 
