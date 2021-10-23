@@ -36,8 +36,8 @@ const Home = () => {
     axios
       .get('/profile/allPoses')
       .then((res) => {
-        console.log(res.data);
-        setPose(res.data); // res.data?
+        
+        setPose(res.data); 
       })
       .catch((err) => {
         console.log(err, 'Error from poseKnown');

@@ -23,19 +23,27 @@ Poses.get('/', (req, res) => {
 
 // finish this table request where user_id matches pose_id
 Poses.get('/userPosesId', (req, res) => {
-  
+  console.log('data:', req.user);
   //req.body.user_id
-  UserPose.findAll({
-    where: {
-      user_id: post_id
-    }
-  }).then((data) => {
-    res.status(200).send(data);
-  })
-    .catch(() => {
-      res.status(404).send('Error!');
-    });
-});
+  UserPose.findAll({ where: {userId: req.user.dataValues.id }})
+    .then(async (response) =>  {
+      console.log('response:', response);
+    const poses = await Promise.all(response.map(row => Pose.findByPk(row.poseId))) //pose.findByPk is a promise so need async await to 
+    console.log('poses:', poses) // allow the promise resolve
+    res.json(poses)
+    // .then(() => {
+      
+    //   res.status(200);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // })
+    // console.log('poses:', poses);
+        
+}).catch((err) => {
+  console.log("userPOse:", err);
+})    
+})
 
 Poses.get('/allPoses', (req, res) => {
   Pose.findAll().then((data) => {

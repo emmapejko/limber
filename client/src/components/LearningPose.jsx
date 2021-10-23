@@ -21,10 +21,11 @@ const style = {
 };
 
 export default function LearningPose({ pose }) {
-  console.log('pose:', pose);
+  
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [poses, setPoses] = useState([]);
 
   // 1st open/close modal functions
   const handleOpen = () => setOpen(true);
@@ -51,34 +52,40 @@ export default function LearningPose({ pose }) {
 
   const [img, setImg] = useState('');
   // add get request for userPoses table and get the id that matches the pose id
-
-  //finish this axios request -- need to grab data
-  const getUserPosesId = () => {
-    axios.get('profile/userPosesId')
-      .then(({ data }) => {
-        console.log('userPosesId:', data);
-      })
-      .catch((err) => {
-        console.log(err, 'getUserPosesId');
-      });
-  };
   
-  // add .catch here
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
         console.log('PoseImage:', data);
         setImg(data);
+        
+        
       })
       .catch((err) => {
-        console.log(err, 'getPoseImage');
+        console.log('getPoseImage:', err);
+      });
+  };
+
+  const getUserPosesId = () => {
+    axios.get('profile/userPosesId')
+      .then(({ data }) => {
+        console.log('userPosesId:', data);
+        if(pose.name) {
+          getPoseImage();
+        }
+        
+       setPoses(data);
+        setImg(data);
+        
+      })
+      .catch((err) => {
+        console.log(err, 'getUserPosesId');
       });
   };
 
   useEffect(() => {
-    if (pose.name) {
-      getPoseImage();
-    }
+    
+    
     getUserPosesId();
   }, []);
 
@@ -86,7 +93,7 @@ export default function LearningPose({ pose }) {
     <div>
 
       <Button onClick={handleOpen}>What you're working on</Button>
-      {/* <div>{pose.map(poses => <div>{poses.name}</div>)}</div> */}
+      
       <Modal
         open={open}
         onClose={handleClose}
@@ -133,11 +140,13 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-        <div>{pose.name}</div>
+        {poses.map((pose, i) => <div key={i}>{pose.name}<img src={getPoseImage}  /></div>)}
+        {/* <div>{pose.name}</div>
         <div>{pose.sanskrit}</div>
         <div>{pose.demo}</div>
-        <img src={img} />
+        <img src={img}  /> */}
       </div>
     </div>
   );
 }
+//call getPoseImage down in image src tag 
