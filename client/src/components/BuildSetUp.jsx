@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
+import {
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button,
+  Stack,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  Grid,
+  TextField,
+  Typography
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Stack from '@mui/material/Stack';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 
 import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
@@ -39,14 +42,12 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
   };
 
   const build = () => {
-    console.log(`building a ${length} flow focusing on ${bodyParts.join(' and ')}`);
     const data = {
       length,
       bodyParts,
     };
     axios.post('/flow', { data })
       .then(({ data }) => {
-        console.log(data);
         setFlow(data);
       })
       .catch((err) => {
@@ -62,7 +63,6 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
 
   const saveFlow = () => {
     setOpenSave(false);
-    console.log(`SAVING ${flowName}`, flow);
     const data = {
       flowName: flowName,
       flow: flow,
@@ -70,7 +70,6 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
     };
     axios.post('/flow/saveFlow', { data: data})
       .then(() => {
-        console.log('done saving');
       })
       .catch(err => {
         console.error(err);
@@ -83,7 +82,6 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
     }
     axios.put('/youtube', { data })
       .then(({ data }) => {
-        console.log(data.items)
         setVideos(data.items);
       })
       .catch(err => {
@@ -189,8 +187,8 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
                 justifyContent="center"
                 m="auto"
               >
-              <div>{`a ${length} minute flow focusing on ${bodyParts.join(' and ')}`}</div>
-              <Button onClick={() => setOpenSave(true)}>Save Flow</Button>
+              <Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
+              <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button>
               <Dialog open={openSave} onClose={() => setOpenSave(false)}>
                 <DialogTitle>Save Flow</DialogTitle>
                 <DialogContent>
