@@ -1,7 +1,15 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import GoogleIcon from '@mui/icons-material/Google';
+import styled from 'styled-components';
+
+import skelly from '../images/skelly.gif';
+
+const BackgroungImg = styled.img`
+    display: block;
+    width: 100%;
+    height: 100%;
+`;
 
 function Login() {
   return (
@@ -11,6 +19,9 @@ function Login() {
         <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }}><a href='/google'>Log In</a></Typography>
       </Box>
       <hr />
+      <div>
+        <BackgroungImg src={skelly} />
+      </div>
     </>
   );
 }
