@@ -81,12 +81,12 @@ const PoseCard = ({ pose, i, changeFlow }) => {
         onClose={() => setPosesOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        style={{height: '600px'}}
+        sx={{ justifyContent:'center' }}
       >
         <DialogTitle id="alert-dialog-title">
           {"Select a new pose"}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ minHeight: 300 }}>
           <DialogContentText id="alert-dialog-description">
               <Autocomplete
                 disablePortal
@@ -102,7 +102,7 @@ const PoseCard = ({ pose, i, changeFlow }) => {
                 )}
                   renderInput={(params) => <TextField {...params} name="Poses" />}
               />
-              <Button onClick={switchThePose}>Switch</Button>
+              <Button onClick={switchThePose} sx={{ position: 'fixed', marginTop: '220px', marginLeft: '220px' }}>Switch</Button>
           </DialogContentText>
         </DialogContent>
       </Dialog>
