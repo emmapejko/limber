@@ -24,11 +24,11 @@ import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
 
-const BuildSetUp = ({ jobBodyParts, video }) => {
+const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
   const [length, setLength] = useState('');
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
   const [openDialog, setOpenDialog] = useState(false);
-  const [flow, setFlow] = useState([]);
+  const [flow, setFlow] = useState(savedFlow || []);
   const [openSave, setOpenSave] = useState(false);
   const [flowName, setFlowName] = useState('');
   const [videos, setVideos] = useState([]);
@@ -187,8 +187,9 @@ const BuildSetUp = ({ jobBodyParts, video }) => {
                 justifyContent="center"
                 m="auto"
               >
-              <Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
-              <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button>
+              {length ?
+              <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
+              <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button></> : null }
               <Dialog open={openSave} onClose={() => setOpenSave(false)}>
                 <DialogTitle>Save Flow</DialogTitle>
                 <DialogContent>
