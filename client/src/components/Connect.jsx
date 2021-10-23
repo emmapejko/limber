@@ -1,5 +1,4 @@
-/* eslint-disable import/extensions */
-/* eslint-disable react/button-has-type */
+
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';

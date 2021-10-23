@@ -40,6 +40,7 @@ scripts:
 3. npm start
 
 
+
 ## Postgres installation for Windows Users:
 
 1. Watch this tutorial for installation instructions(17:00): https://fulcrum.rocks/blog/why-use-postgresql-database/
@@ -56,3 +57,12 @@ or
 ## Husky and EsLint
 
 To reduce errors and enforce code consistency amongst the developers we installed Husky and configured EsLint with standard ES6 code features and capabilities. Access to the rules governing these standards can be found in the .eslintrc.js file. In addition, changes to how Husky handles Git commits can be altered within the root directory of the package.json.
+
+Connect:
+
+-Connect uses the http.createServer() method to create a server a Server object from express.
+-Socket.io uses this server to communicate with other sockets in real time.
+-Every user is assigned a socket.id when logging into the Connect Chat feature.
+-Socket.io will start listing when you start your server and generate a socket.id for the user.
+-Username is the full name of the user stored in the database from Google Auth.
+-Chat messages are stored in state and reset when the user leaves the chat.
