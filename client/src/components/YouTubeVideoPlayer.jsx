@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import {
+  Box,
+  MobileStepper,
+  Paper,
+  Typography,
+  Button,
+} from '@mui/material';
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from '@mui/icons-material';
 import SwipeableViews from 'react-swipeable-views';
 
 const YouTubeVideoPlayer = ({ videos }) => {
-  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = videos.length;
 
@@ -42,7 +44,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
         <Typography><h4>{videos[activeStep].snippet.title.replace('amp;', '')}</h4></Typography>
       </Paper>
       <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        axis={'x'}
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents

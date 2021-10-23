@@ -1,14 +1,27 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import styled from 'styled-components';
+
+import skelly from '../images/skelly.gif';
+
+const BackgroungImg = styled.img`
+    display: block;
+    width: 100%;
+    height: 100%;
+`;
 
 function Login() {
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }}><a className="oauth-container btn darken-4 white black-text" href="/google">Log In</a></Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center'}}>
+        <Typography sx={{ minWidth: 100 }} style={{ flex: 1 }}>LIMBER</Typography>
+        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }}><a href='/google'>Log In</a></Typography>
       </Box>
+      <hr />
+      <div>
+        <BackgroungImg src={skelly} />
+      </div>
     </>
   );
 }

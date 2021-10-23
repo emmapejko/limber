@@ -1,20 +1,19 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import styled from 'styled-components';
 import sunSal from '../images/sunSal.gif';
 
-//maybe center the image in the card.
+const GifImg = styled.img`
+    display: block;
+    width: 100%;
+    height: 100%;
+`;
 
 const BuildFlowCard = () => {
   return (
     <div>
       <Box>
-        <svg>
-          <image 
-            width="150" 
-            height="150" 
-            xlinkHref={sunSal}>  
-          </image>
-        </svg>
+        <GifImg src={sunSal} />
       </Box>
     </div>
   );
