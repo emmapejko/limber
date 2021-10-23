@@ -27,19 +27,25 @@ const color = {
 function ChildModal({ flows }) {
   console.log('flow:', flows);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
+  const [selectedFlow, setSelectedFlow] = React.useState({});
+  const handleOpen = (flow) => {
+    setSelectedFlow(flow);
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
 
+// modal func--> param: pose, 
+// const ModalFunc = () => {
+
+// }
+
   return (
     <>
       
-        {flows.map((flow, i) => <Button onClick={handleOpen} flow={flow}><div key={i}>{flow.name}</div></Button>)}
-        
-      <Modal
+        {flows.map((flow, i) => <Button onClick={() => handleOpen(flow)}><div key={i}>{flow.name}</div></Button>)}
+        <Modal
         hideBackdrop
         open={open}
         onClose={handleClose}
@@ -49,11 +55,13 @@ function ChildModal({ flows }) {
         <Box sx={{ ...style, width: 200 }}>
           <h2 id="child-modal-title">Which renders a different flow</h2>
           <p id="child-modal-description">
-            {flow.name}
+         <div>{selectedFlow.name}</div>
+           
           </p>
           <Button onClick={handleClose}>Close Flows</Button>
         </Box>
-      </Modal>
+      </Modal> 
+      
     </>
   );
 }
