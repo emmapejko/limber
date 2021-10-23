@@ -50,33 +50,11 @@ export default function LearningPose({ pose }) {
       });
   };
 
-  const [img, setImg] = useState('');
-  // add get request for userPoses table and get the id that matches the pose id
-  
-  const getPoseImage = () => {
-    axios.get(`/images/${pose.name.split(' ').join('')}`)
-      .then(({ data }) => {
-        console.log('PoseImage:', data);
-        setImg(data);
-        
-        
-      })
-      .catch((err) => {
-        console.log('getPoseImage:', err);
-      });
-  };
-
   const getUserPosesId = () => {
     axios.get('profile/userPosesId')
       .then(({ data }) => {
         console.log('userPosesId:', data);
-        if(pose.name) {
-          getPoseImage();
-        }
-        
-       setPoses(data);
-        setImg(data);
-        
+        setPoses(data);
       })
       .catch((err) => {
         console.log(err, 'getUserPosesId');
@@ -84,8 +62,6 @@ export default function LearningPose({ pose }) {
   };
 
   useEffect(() => {
-    
-    
     getUserPosesId();
   }, []);
 
@@ -140,7 +116,10 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-        {poses.map((pose, i) => <div key={i}>{pose.name}</div>)}
+        {/* {poses.map((pose, i) => <div key={i}><div>{pose.name}</div></div>)} */}
+        {
+          poses.map((pose, i) => <PoseItem key={i} pose={pose} />)
+        }
         {/* <div>{pose.name}</div>
         <div>{pose.sanskrit}</div>
         <div>{pose.demo}</div>
@@ -151,3 +130,31 @@ export default function LearningPose({ pose }) {
 }
 //call getPoseImage down in image src tag 
 //<img src={getPoseImage}  />
+
+const PoseItem = ({ pose }) => {
+  const [img, setImg] = useState('');
+
+  const getPoseImage = () => {
+    axios.get(`/images/${pose.name.split(' ').join('')}`)
+      .then(({ data }) => {
+        console.log('PoseImage:', data);
+        setImg(data);
+        //return data;
+      })
+      .catch((err) => {
+        console.log('getPoseImage:', err);
+      });
+  };
+
+  useEffect(() => {
+    getPoseImage();
+  })
+
+  return (
+    <div>
+      <div>{pose.name}</div>
+      <img src={img} />
+    </div>
+  )
+
+}
