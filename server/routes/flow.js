@@ -33,12 +33,12 @@ flowRouter.post('/saveFlow', (req, res) => {
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     })
     .catch((err) => {
       console.error(err);
-    })
-})
+    });
+});
 
 
 module.exports = flowRouter;

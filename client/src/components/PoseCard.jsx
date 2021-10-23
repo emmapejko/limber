@@ -26,7 +26,6 @@ const PoseCard = ({ pose, i, changeFlow }) => {
   const getPoseImage = () => {
     axios.get(`/images/${thePose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        // console.log(data);
         setImg(data);
         getAllPoses();
       })
