@@ -33,10 +33,10 @@ const NavBar = () => {
 
   return (
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
         <Typography sx={{ minWidth: 100 }}><Link to={`${url}/build`}>Build</Link></Typography>
-        <Typography sx={{ minWidth: 100 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
+        <Typography sx={{ minWidth: 100 }} style={{ flex: 1 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
             <Avatar sx={{ width: 32, height: 32 }}>U</Avatar>
