@@ -46,7 +46,7 @@ export default function LearningPose({ pose }) {
 
     axios.post('/profile/userPosesDontKnow', { data: selectedOptions })
       .then((response) => {
-        console.log(response);
+        getUserPosesId();
       })
       .catch((err) => {
         console.log(err, 'PoseKnown: handleSubmit error');

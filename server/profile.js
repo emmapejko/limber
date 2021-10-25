@@ -24,7 +24,7 @@ Poses.get('/', (req, res) => {
 // UserPose table request checks if user_id matches pose_id
 Poses.get('/userPosesId', (req, res) => {
   
-  UserPose.findAll({ where: {userId: req.user.dataValues.id }})
+  UserPose.findAll({ where: {userId: req.user.dataValues.id, pose_rank: 0 }})
 
     .then(async (response) =>  {
       //pose.findByPk is a promise so need async await to allow the promise resolve
@@ -33,7 +33,22 @@ Poses.get('/userPosesId', (req, res) => {
     res.json(poses)
        
 }).catch((err) => {
-  console.log("userPOse:", err);
+  console.log("userPose:", err);
+})    
+})
+
+Poses.get('/userPosesKnown', (req, res) => {
+  
+  UserPose.findAll({ where: {userId: req.user.dataValues.id, pose_rank: 1 }})
+
+    .then(async (response) =>  {
+      //pose.findByPk is a promise so need async await to allow the promise resolve
+    const poses = await Promise.all(response.map(row => Pose.findByPk(row.poseId))) 
+    
+    res.json(poses)
+       
+}).catch((err) => {
+  console.log("userPose:", err);
 })    
 })
 
@@ -49,8 +64,8 @@ Poses.get('/allPoses', (req, res) => {
 
 // post request for user_pose
 Poses.post('/userPoses', (req, res) => {
-  console.log('req.body:', req.body.data);
-  console.log('user:', req.user.dataValues.id);
+  // console.log('req.body:', req.body.data);
+  // console.log('user:', req.user.dataValues.id);
 
   UserPose.create({ pose_rank: 1, userId: req.user.dataValues.id, poseId: req.body.data.id })
     .then((data) => {
