@@ -24,7 +24,7 @@ flowRouter.post('/saveFlow', (req, res) => {
   const { id } = req.user.dataValues;
   const { length, flow, flowName } = req.body.data;
 
-  Flow.create({ name: flowName, length, userId: id })
+  Flow.create({ name: flowName, length, userId: id, is_public: false })
     .then(response => {
       const flowId = response.dataValues.id;
       Promise.all(flow.map((pose, i) => PoseFlow.create({ pose_index: i, poseId: pose.id, flowId })))
@@ -42,7 +42,6 @@ flowRouter.post('/saveFlow', (req, res) => {
 
 flowRouter.get('/getSavedFlow/:id', (req, res) => {
  const { id } = req.params;
- console.log('FLOW ID: ', id);
 
  PoseFlow.findAll({ where: { flowId: id }})
   .then(async response => {
