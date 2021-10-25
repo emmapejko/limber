@@ -37,7 +37,7 @@ function Connect() {
       {!showChat ? (
         <div className="joinChatContainer">
           <h3>LIMBER CHAT</h3>
-          <button onClick={() => { joinRoom() }}>Join Chat</button>
+          <button onClick={()=>open("http://localhost:3031")}>Join Chat</button>
         </div>
       ) : (
         <Chat socket={socket} username={username} room={room} profilePicture={profilePicture} />

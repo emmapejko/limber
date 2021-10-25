@@ -1,11 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-
+const { v4: uuidv4 } = require("uuid");
 const app = express();
 const session = require('express-session');
-const http = require('http');
-const cors = require('cors');
+// const http = require('http');
 const { Server } = require('socket.io');
 const passport = require('passport');
 const auth = require('./auth');
@@ -17,9 +16,13 @@ const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
 const {Users} = require('./routes/chat')
-const server = http.createServer(app);
-
-const io = new Server(server);
+const server = require('http').Server(app);
+const io = require('socket.io')(server)
+const { ExpressPeerServer } = require("peer");
+const peerServer = ExpressPeerServer(server, {
+  debug: true
+})
+// const io = new Server(server);
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`);
@@ -41,9 +44,16 @@ io.on('connection', (socket) => {
 server.listen(3000, () => {
   console.log('SERVER RUNNING');
 });
-
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static(DIST_DIR));
+
+app.use('/peerjs', peerServer);
+app.get('/', (req, res) => {
+  res.redirect(`/${uuidv4()}`);
+})
+
+
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
