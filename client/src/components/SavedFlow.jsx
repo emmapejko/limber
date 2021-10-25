@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+
+import {
+  Switch, Route, Link, useRouteMatch,
+} from 'react-router-dom';
+
+import BuildSetUp from './BuildSetUp.jsx';
 
 const style = {
   position: 'absolute',
@@ -15,69 +23,83 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
+  overflow: 'scroll'
 };
 
 const color = {
   backgroundColor: '#e0f2f1',
 };
 
-function ChildModal() {
+export default function SavedFlow() {
   const [open, setOpen] = React.useState(false);
+  const [flows, setFlows] = useState([]);
+  const [savedFlow, setSavedFlow] = React.useState([]);
+  const [width, setWidth] = React.useState(400);
+  const [height, setHeight] = React.useState(300);
+  const [name, setName] = React.useState(null);
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setName(null);
+    setSavedFlow([]);
+    setWidth(400);
+    setHeight(300);
   };
+
+  const renderBuiltFlow = (flow) => {
+    axios.get(`/flow/getSavedFlow/${flow.id}`)
+      .then(({ data }) => {
+        setName(flow.name);
+        setSavedFlow(data);
+        setWidth('90%');
+        setHeight('90%');
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  };
+
+  //axios get request to flows table
+  const getSavedFlows = () => {
+    axios.get('/profile/savedFlows')
+    .then(({ data }) => {
+      console.log('savedFlows:', data);
+      setFlows(data);
+    })
+    .catch((err) => {
+      console.log(err, 'savedFlows');
+    });
+  }
+
+  useEffect(() => {
+    getSavedFlows();
+  }, []);
+
 
   return (
     <>
-      <Button onClick={handleOpen}>Each Flow is an Anchor Tag</Button>
-      <Modal
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">Which renders a different flow</h2>
-          <p id="child-modal-description">
-            based on that flows name.
-          </p>
-          <Button onClick={handleClose}>Close Flows</Button>
-        </Box>
-      </Modal>
+      <div style={color}>
+        <Button onClick={handleOpen}>SavedFlow</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <Box sx={{ ...style, width: width, height: height }}>
+            <h2 id="parent-modal-title">{name ? name : 'List of Flows'}</h2>
+
+            {
+              savedFlow.length ?
+              <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+              <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
+            }
+          </Box>
+        </Modal>
+      </div>
     </>
-  );
-}
-
-export default function SavedFlow() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <div style={color}>
-      <Button onClick={handleOpen}>SavedFlow</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">List of Flows</h2>
-          <p id="parent-modal-description">
-            Click on each flow opens a childModal with that Flow.
-          </p>
-          <ChildModal />
-        </Box>
-      </Modal>
-    </div>
   );
 }

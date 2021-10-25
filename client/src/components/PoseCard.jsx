@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Dialog from '@mui/material/Dialog';
-import Autocomplete from "@mui/material/Autocomplete";
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-
+import {
+  Grid,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  Dialog,
+  Autocomplete,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
 
 const PoseCard = ({ pose, i, changeFlow }) => {
   const [thePose, setThePose] = useState(pose);
@@ -81,7 +82,7 @@ const PoseCard = ({ pose, i, changeFlow }) => {
         onClose={() => setPosesOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        style={{height: '600px'}}
+        sx={{ justifyContent:'center' }}
       >
         <DialogTitle id="alert-dialog-title">
           {"Select a new pose"}
@@ -102,7 +103,7 @@ const PoseCard = ({ pose, i, changeFlow }) => {
                 )}
                   renderInput={(params) => <TextField {...params} name="Poses" />}
               />
-              <Button onClick={switchThePose}>Switch</Button>
+              <Button onClick={switchThePose} sx={{ marginLeft: '220px' }}>Switch</Button>
           </DialogContentText>
         </DialogContent>
       </Dialog>

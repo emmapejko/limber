@@ -40,5 +40,21 @@ flowRouter.post('/saveFlow', (req, res) => {
     });
 });
 
+flowRouter.get('/getSavedFlow/:id', (req, res) => {
+ const { id } = req.params;
+ console.log('FLOW ID: ', id);
+
+ PoseFlow.findAll({ where: { flowId: id }})
+  .then(async response => {
+      response.sort((a,b) => a.pose_index - b.pose_index);
+      const poses = await Promise.all(response.map(el => Pose.findByPk(el.poseId)));
+      res.status(200).send(poses);
+  })
+  .catch(err => {
+    console.error(err);
+    res.sendStatus(404);
+  })
+})
+
 
 module.exports = flowRouter;

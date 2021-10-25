@@ -21,11 +21,11 @@ import PoseKnown from './PoseKnown.jsx';
 import LearningPose from './LearningPose.jsx';
 
 const style = {
-  backgroundColor: '#f9fbe7',
+  //backgroundColor: '#f9fbe7',
 };
 
 const color = {
-  backgroundColor: '#e0f2f1',
+  //backgroundColor: '#e0f2f1',
 };
 const Home = () => {
   const { path, url } = useRouteMatch();

@@ -7,6 +7,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
+import PoseItem from './PoseItem.jsx';
 
 const style = {
   position: 'absolute',
@@ -43,26 +46,10 @@ export default function LearningPose({ pose }) {
 
     axios.post('/profile/userPosesDontKnow', { data: selectedOptions })
       .then((response) => {
-        console.log(response);
+        getUserPosesId();
       })
       .catch((err) => {
         console.log(err, 'PoseKnown: handleSubmit error');
-      });
-  };
-
-  const [img, setImg] = useState('');
-  // add get request for userPoses table and get the id that matches the pose id
-  
-  const getPoseImage = () => {
-    axios.get(`/images/${pose.name.split(' ').join('')}`)
-      .then(({ data }) => {
-        console.log('PoseImage:', data);
-        setImg(data);
-        
-        
-      })
-      .catch((err) => {
-        console.log('getPoseImage:', err);
       });
   };
 
@@ -70,13 +57,7 @@ export default function LearningPose({ pose }) {
     axios.get('profile/userPosesId')
       .then(({ data }) => {
         console.log('userPosesId:', data);
-        if(pose.name) {
-          getPoseImage();
-        }
-        
-       setPoses(data);
-        setImg(data);
-        
+        setPoses(data);
       })
       .catch((err) => {
         console.log(err, 'getUserPosesId');
@@ -84,31 +65,15 @@ export default function LearningPose({ pose }) {
   };
 
   useEffect(() => {
-    
-    
     getUserPosesId();
   }, []);
 
   return (
     <div>
 
-      <Button onClick={handleOpen}>What you're working on</Button>
+      <Button>What you're working on</Button>
       
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Poses rendered for selection.
-          </Typography>
-        </Box>
-      </Modal>
+    
       <Button onClick={handleAuto}><AddIcon /></Button>
       <Modal
         open={auto}
@@ -140,14 +105,14 @@ export default function LearningPose({ pose }) {
         </Box>
       </Modal>
       <div>
-        {poses.map((pose, i) => <div key={i}>{pose.name}</div>)}
-        {/* <div>{pose.name}</div>
-        <div>{pose.sanskrit}</div>
-        <div>{pose.demo}</div>
-        <img src={img}  /> */}
+      <Grid container spacing={1}>
+        {
+          poses.map((pose, i) => <PoseItem key={i} pose={pose} />)
+        }
+       </Grid>
       </div>
     </div>
   );
 }
-//call getPoseImage down in image src tag 
-//<img src={getPoseImage}  />
+
+
