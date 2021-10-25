@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import Grid from '@mui/material/Grid';
+import PoseItem from './PoseItem.jsx';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -25,7 +26,7 @@ export default function PoseKnown({ pose }) {
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
-
+  const [poses, setPoses] = useState([]);
   // 1st open/close modal functions
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -42,26 +43,27 @@ export default function PoseKnown({ pose }) {
 
     axios.post('/profile/userPoses', { data: selectedOptions })
       .then((response) => {
-        
+        getUserPosesId();
       })
       .catch((err) => {
         console.log(err, 'PoseKnown: handleSubmit error');
       });
   };
 
-  // const [img, setImg] = useState('');
+  const getUserPosesId = () => {
+    axios.get('profile/userPosesKnown')
+      .then(({ data }) => {
+        console.log('userPosesKnown:', data);
+        setPoses(data);
+      })
+      .catch((err) => {
+        console.log(err, 'getUserPosesKnown');
+      });
+  };
 
-  // const getPoseImage = () => {
-  //   axios.get(`/images/${pose.name.split(' ').join('')}`)
-  //     .then(({ data }) => {
-  //       console.log(data);
-  //       setImg(data);
-  //     })
-  // //}
-
-  // useEffect(() => {
-  //   getPoseImage();
-  // }, []);
+  useEffect(() => {
+    getUserPosesId();
+  }, []);
 
   return (
     <div>
@@ -96,12 +98,13 @@ export default function PoseKnown({ pose }) {
           </Typography>
         </Box>
       </Modal>
-      {/* <div>
-      <div>{pose.name}</div>
-      <div>{pose.sanskrit}</div>
-      <div>{pose.demo}</div>
-      <img src={img}/>
-    </div> */}
+      <div>
+      <Grid container spacing={1}>
+        {
+          poses.map((pose, i) => <PoseItem key={i} pose={pose} />)
+        }
+       </Grid>
+      </div>
     </div>
   );
 }
