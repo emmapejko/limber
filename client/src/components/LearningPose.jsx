@@ -71,23 +71,9 @@ export default function LearningPose({ pose }) {
   return (
     <div>
 
-      <Button onClick={handleOpen}>What you're working on</Button>
+      <Button>What you're working on</Button>
       
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Poses rendered for selection.
-          </Typography>
-        </Box>
-      </Modal>
+    
       <Button onClick={handleAuto}><AddIcon /></Button>
       <Modal
         open={auto}
