@@ -39,7 +39,7 @@ export default function PoseKnown({ pose }) {
   const handleChange = (event, value) => setSelectedOptions(value);
 
   const handleSubmit = () => {
-    console.log(selectedOptions);
+    // console.log(selectedOptions);
 
     axios.post('/profile/userPoses', { data: selectedOptions })
       .then((response) => {
