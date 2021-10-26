@@ -15,7 +15,9 @@ import {
   DialogContentText,
   Grid,
   TextField,
-  Typography
+  Typography,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
@@ -33,6 +35,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
   const [flowName, setFlowName] = useState('');
   const [videos, setVideos] = useState([]);
   const [difficulty, setDifficulty] = useState('');
+  const [shared, setShared] = useState(false);
 
   const handleClick = (part) => {
     setBodyParts((prev) => [...new Set([...prev, part])]);
@@ -231,6 +234,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
                   />
                 </DialogContent>
                 <DialogActions>
+                  <FormControlLabel control={<Switch checked={shared} onChange={(e) => setShared(e.target.checked)}/>} label={shared ? 'Public' : 'Private'} />
                   <Button onClick={saveFlow}>Save</Button>
                 </DialogActions>
               </Dialog>
