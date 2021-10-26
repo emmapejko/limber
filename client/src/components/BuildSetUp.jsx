@@ -70,7 +70,8 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
     const data = {
       flowName: flowName,
       flow: flow,
-      length: length
+      length: length,
+      is_public: shared
     };
     axios.post('/flow/saveFlow', { data: data})
       .then(() => {
@@ -92,8 +93,6 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
     } else {
       setDifficulty('beginner');
     }
-
-    console.log(countObj);
   }
 
   const youTubeSearch = () => {
