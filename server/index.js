@@ -16,6 +16,7 @@ const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
+const followersRouter = require('./routes/followers');
 const {Users} = require('./routes/chat')
 const server = http.createServer(app);
 
@@ -60,6 +61,7 @@ app.use('/profile', Poses);
 app.use('/images', imageRouter);
 app.use('/chat', Users);
 app.use('/youtube', youTubeRouter);
+app.use('/followers', followersRouter);
 
 // client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

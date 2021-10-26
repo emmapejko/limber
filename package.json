@@ -35,6 +35,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.4",
+    "@mui/lab": "^5.0.0-alpha.52",
     "@mui/material": "^5.0.4",
     "aws-sdk": "^2.1012.0",
     "axios": "^0.23.0",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Box,
@@ -15,7 +15,9 @@ import {
   DialogContentText,
   Grid,
   TextField,
-  Typography
+  Typography,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
@@ -32,6 +34,8 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
   const [openSave, setOpenSave] = useState(false);
   const [flowName, setFlowName] = useState('');
   const [videos, setVideos] = useState([]);
+  const [difficulty, setDifficulty] = useState('');
+  const [shared, setShared] = useState(false);
 
   const handleClick = (part) => {
     setBodyParts((prev) => [...new Set([...prev, part])]);
@@ -64,9 +68,11 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
   const saveFlow = () => {
     setOpenSave(false);
     const data = {
-      flowName: flowName,
-      flow: flow,
-      length: length
+      flowName,
+      flow,
+      length,
+      is_public: shared,
+      difficulty
     };
     axios.post('/flow/saveFlow', { data: data})
       .then(() => {
@@ -75,6 +81,20 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
         console.error(err);
       });
   };
+
+  const getDifficulty = () => {
+    const countObj = (flow.map(pose => pose.difficulty)).reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {});
+
+    if (countObj.advanced >= 3) {
+      setDifficulty('advanced');
+    } else if (countObj.intermediate >= .25 * flow.length) {
+      setDifficulty('intermediate');
+    } else if (countObj.advanced + countObj.intermediate >= .3 * flow.length) {
+      setDifficulty('intermediate');
+    } else {
+      setDifficulty('beginner');
+    }
+  }
 
   const youTubeSearch = () => {
     const data = {
@@ -88,6 +108,12 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
         console.error(err);
       })
   }
+
+  useEffect(() => {
+    if (flow.length) {
+      getDifficulty();
+    }
+  }, [flow])
 
   return (
     <>
@@ -187,6 +213,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
                 justifyContent="center"
                 m="auto"
               >
+              <Typography style={{ paddingRight: '5px' }}>Predicted Difficulty: {difficulty}</Typography>
               {length ?
               <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
               <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button></> : null }
@@ -207,6 +234,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
                   />
                 </DialogContent>
                 <DialogActions>
+                  <FormControlLabel control={<Switch checked={shared} onChange={(e) => setShared(e.target.checked)}/>} label={shared ? 'Public' : 'Private'} />
                   <Button onClick={saveFlow}>Save</Button>
                 </DialogActions>
               </Dialog>

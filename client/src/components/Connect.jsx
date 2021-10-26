@@ -5,13 +5,14 @@ import axios from 'axios';
 import Chat from './Chat.jsx';
 const socket = io.connect('http://localhost:3000');
 
-
+import FollowersList from './FollowersList.jsx';
 
 function Connect() {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('LIMBER');
   const [showChat, setShowChat] = useState(false);
   const [profilePicture, setProfilePicture] = useState('');
+  const [user, setUser] = useState({});
 
   const setFullName = () => {
     axios
@@ -19,6 +20,7 @@ function Connect() {
       .then((res) => {
         setUsername(res.data.full_name);
         setProfilePicture(res.data.picture);
+        setUser(res.data);
       })
       .catch((err) => console.error(err))
   }
@@ -42,6 +44,10 @@ function Connect() {
       ) : (
         <Chat socket={socket} username={username} room={room} profilePicture={profilePicture} />
       )}
+
+      <div>
+        <FollowersList user={user} />
+      </div>
     </div>
   );
 }
