@@ -17,7 +17,9 @@ const PoseItem = ({ pose }, props) => {
   };
 
   useEffect(() => {
-    getPoseImage();
+    if (pose.name) {
+      getPoseImage();
+    }
   })
 
   return (
