@@ -32,8 +32,10 @@ const FollowersList = ({ user }) => {
       })
   }
 
-  const followOrUnfollow = () => {
-    
+  const followOrUnfollow = (u) => {
+    if (followees.map(f => f.full_name).includes(u.full_name)) {
+      axios.delete(`/followers/unfollow/${user.id}&${u.id}`)
+    }
   }
 
   useEffect(() => {

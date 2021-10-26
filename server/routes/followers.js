@@ -36,6 +36,36 @@ followersRouter.get('/allusers/:id', (req, res) => {
       console.error(err);
       res.sendStatus(404);
     })
+});
+
+followersRouter.delete('/unfollow/:id&:unfollowId', (req, res) => {
+  const { id, unfollowId } = req.params;
+
+  Following.destroy({
+    where: {
+      follower_id: id,
+      followee_id: unfollowId
+    }})
+    .then(response => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(404);
+    })
+})
+
+followersRouter.post('/follow/:id&:followId', (req, res) => {
+  const { id, followId } = req.params;
+
+  Following.create({ follower_id: id, followee_id: followId })
+    .then(response => {
+      res.sendStatus(201);
+    })
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(404);
+    })
 })
 
 
