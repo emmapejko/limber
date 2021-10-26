@@ -21,6 +21,7 @@ import Home from './Home.jsx';
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState({});
+  const [fontSize, setFontSize] = useState(16);
   const { path, url } = useRouteMatch();
 
   const open = Boolean(anchorEl);
@@ -35,11 +36,11 @@ const NavBar = () => {
   const getProfileImage = () => {
     axios.get('/chat/full_name')
       .then(({ data }) => {
-        //console.log(data);
+        
         setUser(data);
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   }
 
@@ -47,12 +48,18 @@ const NavBar = () => {
     getProfileImage();
   }, []);
 
+  const textSizer = {
+    fontSize: `${fontSize}px`
+  }
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }}><Link to={`${url}/build`}>Build</Link></Typography>
-        <Typography sx={{ minWidth: 100 }} style={{ flex: 1 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
+        <Typography sx={{ minWidth: 100 }} style={textSizer}>LIMBER</Typography>
+        <Typography sx={{ minWidth: 100 }} style={textSizer}><Link to={`${url}/build`}>Build</Link></Typography>
+        <Typography sx={{ minWidth: 100 }} style={textSizer} style={{ flex: 1 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
+        <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
+          <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
         <Tooltip title="Account settings">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
             <Avatar sx={{ width: 32, height: 32 }} alt={user.full_name} src={user.picture}/>
@@ -108,13 +115,13 @@ const NavBar = () => {
       <hr />
       <Switch>
         <Route path={`${path}/build`}>
-          <Build />
+          <Build style={textSizer}/>
         </Route>
         <Route path={`${path}/connect`}>
-          <Connect />
+          <Connect style={textSizer}/>
         </Route>
         <Route path={`${path}`}>
-          <Home />
+          <Home style={textSizer}/>
         </Route>
       </Switch>
     </>

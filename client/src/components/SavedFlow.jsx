@@ -34,7 +34,7 @@ const color = {
   backgroundColor: '#e0f2f1',
 };
 
-export default function SavedFlow() {
+export default function SavedFlow(props) {
   const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
   const [savedFlow, setSavedFlow] = useState([]);
@@ -106,7 +106,7 @@ export default function SavedFlow() {
   return (
     <>
       <div style={color}>
-        <Button onClick={handleOpen}>Flows</Button>
+        <Button onClick={handleOpen} style={props.style}>Flows</Button>
         <Modal
           open={open}
           onClose={handleClose}

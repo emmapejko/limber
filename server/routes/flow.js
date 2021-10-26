@@ -15,7 +15,7 @@ flowRouter.post('/', (req, res) => {
       res.status(201).send(flow);
     })
     .catch((err) => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     });
 });
@@ -32,11 +32,11 @@ flowRouter.post('/saveFlow', (req, res) => {
           res.sendStatus(201);
         })
         .catch((err) => {
-          console.error(err);
+          console.warn(err);
         });
     })
     .catch((err) => {
-      console.error(err);
+      console.warn(err);
     });
 });
 
@@ -50,7 +50,7 @@ flowRouter.get('/getSavedFlow/:id', (req, res) => {
       res.status(200).send(poses);
   })
   .catch(err => {
-    console.error(err);
+    console.warn(err);
     res.sendStatus(404);
   })
 })

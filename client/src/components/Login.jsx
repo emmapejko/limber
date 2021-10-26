@@ -11,12 +11,13 @@ const BackgroungImg = styled.img`
     height: 100%;
 `;
 
-function Login() {
+function Login(props) {
+  
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
-        <Typography sx={{ minWidth: 100 }} style={{ flex: 1 }}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }}><a href='/google'>Log In</a></Typography>
+        <Typography sx={{ minWidth: 100 }} style={{ flex: 1 }} style={props.style}>LIMBER</Typography>
+        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }} style={props.style}><a href='/google'>Log In</a></Typography>
       </Box>
       <hr />
       <div>

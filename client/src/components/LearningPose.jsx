@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function LearningPose({ pose }) {
+export default function LearningPose(props) {
   
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
@@ -42,25 +42,25 @@ export default function LearningPose({ pose }) {
   const handleChange = (event, value) => setSelectedOptions(value);
 
   const handleSubmit = () => {
-    console.log(selectedOptions);
+    console.info(selectedOptions);
 
     axios.post('/profile/userPosesDontKnow', { data: selectedOptions })
       .then((response) => {
         getUserPosesId();
       })
       .catch((err) => {
-        console.log(err, 'PoseKnown: handleSubmit error');
+        console.warn(err, 'PoseKnown: handleSubmit error');
       });
   };
 
   const getUserPosesId = () => {
     axios.get('profile/userPosesId')
       .then(({ data }) => {
-        console.log('userPosesId:', data);
+        
         setPoses(data);
       })
       .catch((err) => {
-        console.log(err, 'getUserPosesId');
+        console.warn(err, 'getUserPosesId');
       });
   };
 
@@ -71,7 +71,7 @@ export default function LearningPose({ pose }) {
   return (
     <div>
 
-      <Button>What you're working on</Button>
+      <Button style={props.style}>What you're working on</Button>
       
     
       <Button onClick={handleAuto}><AddIcon /></Button>
@@ -80,18 +80,19 @@ export default function LearningPose({ pose }) {
         onClose={closeAuto}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        style={props.style}
       >
         <Box sx={style}>
 
           <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={pose}
+            options={props.pose}
             sx={{ width: 300 }}
             getOptionLabel={(option) => option.name}
             onChange={handleChange}
             renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} style={props.style}>
 
                 {option.name}
               </Box>
@@ -99,7 +100,7 @@ export default function LearningPose({ pose }) {
             renderInput={(params) => <TextField {...params} name="Poses" />}
           />
           <Button onClick={handleSubmit}><AddIcon /></Button>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} style={props.style}>
             Add a Pose to your collection. Now.
           </Typography>
         </Box>
@@ -107,7 +108,7 @@ export default function LearningPose({ pose }) {
       <div>
       <Grid container spacing={1}>
         {
-          poses.map((pose, i) => <PoseItem key={i} pose={pose} />)
+          poses.map((pose, i) => <PoseItem key={i} pose={props.pose} style={props.style} />)
         }
        </Grid>
       </div>

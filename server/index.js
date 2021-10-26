@@ -23,11 +23,11 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection', (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+  console.info(`User Connected: ${socket.id}`);
 
   socket.on('join_room', (data) => {
     socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+    console.info(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
   socket.on('send_message', (data) => {
@@ -35,12 +35,12 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('User Disconnected', socket.id);
+    console.info('User Disconnected', socket.id);
   });
 });
 
 server.listen(3000, () => {
-  console.log('SERVER RUNNING');
+  console.info('SERVER RUNNING');
 });
 
 app.use(express.json());

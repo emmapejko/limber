@@ -26,7 +26,7 @@ import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
 
-const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
+const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
   const [length, setLength] = useState('');
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
   const [openDialog, setOpenDialog] = useState(false);
@@ -55,7 +55,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
         setFlow(data);
       })
       .catch((err) => {
-        console.error(err);
+        console.warn(err);
       });
   };
 
@@ -78,7 +78,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
       .then(() => {
       })
       .catch(err => {
-        console.error(err);
+       console.warn(err);
       });
   };
 
@@ -105,7 +105,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
         setVideos(data.items);
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   }
 

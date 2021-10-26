@@ -20,14 +20,13 @@ import BuildFlowCard from './BuildFlowCard.jsx';
 import PoseKnown from './PoseKnown.jsx';
 import LearningPose from './LearningPose.jsx';
 
-const style = {
-  //backgroundColor: '#f9fbe7',
-};
+
 
 const color = {
   //backgroundColor: '#e0f2f1',
 };
-const Home = () => {
+const Home = (props) => {
+  
   const { path, url } = useRouteMatch();
   const [pose, setPose] = React.useState([]);
 
@@ -40,7 +39,7 @@ const Home = () => {
         setPose(res.data); 
       })
       .catch((err) => {
-        console.log(err, 'Error from poseKnown');
+        console.info(err, 'Error from poseKnown');
       });
     // axios
     // .post('/profile')
@@ -59,7 +58,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={style}>
+    <div>
       <div>
         <Box
           sx={{
@@ -73,16 +72,16 @@ const Home = () => {
           }}
         >
           <Paper style={color} elevation={3}>
-            <DashBoard />
-            <DashBoardCard />
+            <DashBoard style={props.style}/>
+            <DashBoardCard style={props.style}/>
           </Paper>
           <Paper elevation={3}>
-            <SavedFlow />
-            <SavedFlowCard />
+            <SavedFlow style={props.style}/>
+            <SavedFlowCard style={props.style}/>
           </Paper>
           <Paper elevation={3}>
-            <BuildFlow />
-            <BuildFlowCard />
+            <BuildFlow style={props.style}/>
+            <BuildFlowCard style={props.style}/>
           </Paper>
         </Box>
       </div>
@@ -102,11 +101,12 @@ const Home = () => {
           <Paper elevation={3}>
             <PoseKnown
               pose={pose}
-
+              style={props.style}
             />
           </Paper>
           <Paper elevation={3}>
             <LearningPose
+            style={props.style}
               pose={pose}
             />
           </Paper>

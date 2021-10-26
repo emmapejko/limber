@@ -15,12 +15,12 @@ followersRouter.get('/:id', (req, res) => {
           res.status(200).send(followees);
         })
         .catch(err => {
-          console.err(err);
+          console.warn(err);
           res.sendStatus(404);
         })
     })
     .catch(err => {
-      console.err(err);
+      console.warn(err);
       res.sendStatus(404);
     })
 });
@@ -33,7 +33,7 @@ followersRouter.get('/allusers/:id', (req, res) => {
       res.status(200).send(users);
     })
     .catch(err => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     })
 });
@@ -50,7 +50,7 @@ followersRouter.delete('/unfollow/:id&:unfollowId', (req, res) => {
       res.sendStatus(200);
     })
     .catch(err => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     })
 })
@@ -63,7 +63,7 @@ followersRouter.post('/follow/:id&:followId', (req, res) => {
       res.sendStatus(201);
     })
     .catch(err => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     })
 })

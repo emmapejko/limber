@@ -17,7 +17,7 @@ const FollowersList = ({ user }) => {
         setFollowees(data);
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   };
 
@@ -28,7 +28,7 @@ const FollowersList = ({ user }) => {
         getFollowees();
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   }
 
@@ -39,7 +39,7 @@ const FollowersList = ({ user }) => {
           getAllUsers();
         })
         .catch(err => {
-          console.error(err);
+          console.warn(err);
         })
     } else {
       axios.post(`/followers/follow/${user.id}&${u.id}`)
@@ -47,7 +47,7 @@ const FollowersList = ({ user }) => {
           getAllUsers();
         })
         .catch(err => {
-          console.error(err)
+          console.warn(err)
         })
     }
   }
