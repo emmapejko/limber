@@ -7,9 +7,7 @@ const PoseItem = ({ pose }, props) => {
   const getPoseImage = () => {
     axios.get(`/images/${pose.name.split(' ').join('')}`)
       .then(({ data }) => {
-        //console.log('PoseImage:', data);
         setImg(data);
-        //return data;
       })
       .catch((err) => {
         console.warn('getPoseImage:', err);
