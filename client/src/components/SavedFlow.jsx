@@ -55,6 +55,14 @@ export default function SavedFlow() {
     setHeight(300);
   };
 
+  const handleTabChange = (event, newValue) => {
+    setTab(newValue);
+    setName(null);
+    setSavedFlow([]);
+    setWidth(400);
+    setHeight(300);
+  }
+
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
       .then(({ data }) => {
@@ -64,7 +72,7 @@ export default function SavedFlow() {
         setHeight('90%');
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   };
 
@@ -76,18 +84,17 @@ export default function SavedFlow() {
       getSharedFlows();
     })
     .catch((err) => {
-      console.error(err, 'savedFlows');
+      console.warn(err, 'savedFlows');
     });
   }
 
   const getSharedFlows = () => {
     axios.get('/profile/sharedFlows')
       .then(({ data }) => {
-        console.log('shared', data);
         setSharedFlows(data);
       })
       .catch(err => {
-        console.error(err, 'sharedFlows');
+        console.warn(err, 'sharedFlows');
       })
   }
 
@@ -109,7 +116,7 @@ export default function SavedFlow() {
           <Box sx={{ ...style, width: width, height: height }}>
           <TabContext value={tab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={(event, newValue) => setTab(newValue)} aria-label="lab API tabs example">
+              <TabList onChange={handleTabChange} aria-label="lab API tabs example">
                 <Tab label="Your Flows" value="0" />
                 <Tab label="Shared Flows" value="1" />
               </TabList>
