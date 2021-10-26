@@ -30,7 +30,8 @@ const color = {
   backgroundColor: '#e0f2f1',
 };
 
-export default function SavedFlow() {
+export default function SavedFlow(props) {
+  console.log('savedflow:', props)
   const [open, setOpen] = React.useState(false);
   const [flows, setFlows] = useState([]);
   const [savedFlow, setSavedFlow] = React.useState([]);
@@ -82,7 +83,7 @@ export default function SavedFlow() {
   return (
     <>
       <div style={color}>
-        <Button onClick={handleOpen}>SavedFlow</Button>
+        <Button onClick={handleOpen} style={props.style}>SavedFlow</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -94,7 +95,7 @@ export default function SavedFlow() {
 
             {
               savedFlow.length ?
-              <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+              <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} style={props.style}/> :
               <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
             }
           </Box>

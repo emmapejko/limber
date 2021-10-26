@@ -24,7 +24,7 @@ import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
 
-const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
+const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
   const [length, setLength] = useState('');
   const [bodyParts, setBodyParts] = useState(jobBodyParts);
   const [openDialog, setOpenDialog] = useState(false);

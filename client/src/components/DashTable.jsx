@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, pose, flows, joes, otherdata) {
+function createData(name, pose, flows, joes, otherdata, props) {
   return {
     name, pose, flows, joes, otherdata,
   };

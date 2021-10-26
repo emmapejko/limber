@@ -18,15 +18,15 @@ const style = {
   p: 4,
 };
 
-function DashBoard() {
+function DashBoard(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log('dashboard');
+  
 
   return (
     <div>
-      <Button onClick={handleOpen}>DashBoard</Button>
+      <Button onClick={handleOpen} style={props.style}>DashBoard</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -35,9 +35,13 @@ function DashBoard() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            <DashTable />
+            <DashTable style={props.style}/>
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography 
+          id="modal-modal-description" 
+          sx={{ mt: 2 }}
+          style={props.style}
+          >
             Are you feelin' Limber today?
           </Typography>
         </Box>

@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function BuildFlow() {
+export default function BuildFlow(props) {
 
   //change state management to redirect on button click and remove modals
   const { path, url } = useRouteMatch();
@@ -27,7 +27,7 @@ export default function BuildFlow() {
 
   return (
     <>
-      <Typography sx={{ minWidth: 100 }}><Link to={`${url}/build`}>Build A Flow</Link></Typography>
+      <Typography sx={{ minWidth: 100 }} style={props.style}><Link to={`${url}/build`}>Build A Flow</Link></Typography>
       <Switch>
         <Route path={`${path}/build`}>
           <Build />

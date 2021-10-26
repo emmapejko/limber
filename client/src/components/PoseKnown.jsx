@@ -21,8 +21,8 @@ const style = {
   p: 4,
 };
 
-export default function PoseKnown({ pose }) {
-  
+export default function PoseKnown(props) {
+ console.log('poseKnown:', props)
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -67,25 +67,26 @@ export default function PoseKnown({ pose }) {
 
   return (
     <div>
-      <Button>What you know...</Button>
+      <Button style={props.style}>What you know...</Button>
       <Button onClick={handleAuto}><AddIcon /></Button>
       <Modal
         open={auto}
         onClose={closeAuto}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        
       >
         <Box sx={style}>
 
           <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={pose}
+            options={props.pose}
             sx={{ width: 300 }}
             getOptionLabel={(option) => option.name}
             onChange={handleChange}
             renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} style={props.style}>
 
                 {option.name}
               </Box>
@@ -93,15 +94,15 @@ export default function PoseKnown({ pose }) {
             renderInput={(params) => <TextField {...params} name="Poses" />}
           />
           <Button onClick={handleSubmit}><AddIcon /></Button>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography style={props.style} id="modal-modal-description" sx={{ mt: 2 }}>
             Add a Pose to your collection. Now.
           </Typography>
         </Box>
       </Modal>
       <div>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} style={props.style}>
         {
-          poses.map((pose, i) => <PoseItem key={i} pose={pose} />)
+          poses.map((pose, i) => <PoseItem key={i} pose={props.pose} style={props.style}/>)
         }
        </Grid>
       </div>

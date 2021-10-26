@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import FlowItems from './FlowItems.jsx';
 
 
-function SavedFlowCard() {
+function SavedFlowCard(props) {
 
   const [flows, setFlows] = useState([]);
 
@@ -27,8 +27,8 @@ function SavedFlowCard() {
 
   // set to max of five flows displayed
   return (
-    <Typography>
-      {flows.map((flow, i) => <FlowItems key={i} flow={flow}/>)}
+    <Typography style={props.style}>
+      {flows.map((flow, i) => <FlowItems key={i} flow={flow} style={props.style}/>)}
     </Typography>
   );
 }

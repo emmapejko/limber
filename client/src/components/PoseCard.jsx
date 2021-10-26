@@ -16,7 +16,7 @@ import {
   TextField,
 } from '@mui/material';
 
-const PoseCard = ({ pose, i, changeFlow }) => {
+const PoseCard = ({ pose, i, changeFlow }, props) => {
   const [thePose, setThePose] = useState(pose);
   const [img, setImg] = useState('');
   const [demoOpen, setDemoOpen] = useState(false);
@@ -128,10 +128,10 @@ const PoseCard = ({ pose, i, changeFlow }) => {
           </CardActions>
         </Grid>
         <Grid item xs={6}>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" style={props.style}>
             {thePose.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" style={props.style}>
             {thePose.sanskrit}
           </Typography>
         </Grid>

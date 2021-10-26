@@ -14,7 +14,8 @@ import {
 
 import BuildSetUp from './BuildSetUp.jsx';
 
-const Build = () => {
+const Build = (props) => {
+  
   const [view, setView] = useState('main');
   const [openDialog, setOpenDialog] = useState(false);
   const [occupation, setOccupation] = useState('I spend a lot of time at a desk');

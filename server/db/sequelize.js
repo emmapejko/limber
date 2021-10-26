@@ -93,3 +93,4 @@ User.sync()
 
 module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, db};
 
+// create npm script to seed datab

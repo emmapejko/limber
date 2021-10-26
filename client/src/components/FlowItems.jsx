@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-const FlowItems = ({ flow }) => {
+const FlowItems = ({ flow }, props) => {
  
 
   return (
     <div>
-      <div>{flow.name}</div>
+      <div style={props.style}>{flow.name}</div>
       
     </div>
   )
