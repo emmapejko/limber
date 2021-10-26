@@ -26,7 +26,7 @@ const color = {
   //backgroundColor: '#e0f2f1',
 };
 const Home = (props) => {
-  //console.log('Home:', props);
+  
   const { path, url } = useRouteMatch();
   const [pose, setPose] = React.useState([]);
 

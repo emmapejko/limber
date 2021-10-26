@@ -36,7 +36,7 @@ const NavBar = () => {
   const getProfileImage = () => {
     axios.get('/chat/full_name')
       .then(({ data }) => {
-        //console.log(data);
+        
         setUser(data);
       })
       .catch(err => {
