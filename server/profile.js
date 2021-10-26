@@ -33,7 +33,7 @@ Poses.get('/userPosesId', (req, res) => {
     res.json(poses)
        
 }).catch((err) => {
-  console.log("userPose:", err);
+  console.warn("userPose:", err);
 })    
 })
 
@@ -48,7 +48,7 @@ Poses.get('/userPosesKnown', (req, res) => {
     res.json(poses)
        
 }).catch((err) => {
-  console.log("userPose:", err);
+  console.warn("userPose:", err);
 })    
 })
 
@@ -69,10 +69,10 @@ Poses.post('/userPoses', (req, res) => {
 
   UserPose.create({ pose_rank: 1, userId: req.user.dataValues.id, poseId: req.body.data.id })
     .then((data) => {
-      console.log(data);
+      console.info(data);
     })
     .catch((err) => {
-      console.error(err);
+      console.warn(err);
       res.status(404).send('Error!');
     });
 });
@@ -82,10 +82,10 @@ Poses.post('/userPosesDontKnow', (req, res) => {
   const { selectedOptions } = req.body;
   UserPose.create({ poseId: req.body.data.id, pose_rank: 0, userId: req.user.dataValues.id })
     .then((data) => {
-      console.log(data);
+      console.info(data);
     })
     .catch((err) => {
-      console.error(err);
+      console.warn(err);
       res.status(404).send('Error!');
     });
 });
@@ -112,12 +112,12 @@ Poses.get('/sharedFlows', (req, res) => {
           res.status(200).send(flows.flat());
         })
         .catch(err => {
-          console.error(err);
+          console.warn(err);
           res.sendStatus(404);
         })
     })
     .catch(err => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     })
 
