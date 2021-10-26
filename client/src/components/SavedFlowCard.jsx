@@ -17,7 +17,7 @@ function SavedFlowCard(props) {
       setFlows(data);
     })
     .catch((err) => {
-      console.log(err, 'savedFlows');
+      console.warn(err, 'savedFlows');
     });
   }
 

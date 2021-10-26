@@ -21,7 +21,7 @@ function Connect(props) {
         setUsername(res.data.full_name);
         setProfilePicture(res.data.picture);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => console.warn(err))
   }
   
   const joinRoom = () => {

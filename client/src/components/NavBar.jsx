@@ -40,7 +40,7 @@ const NavBar = () => {
         setUser(data);
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   }
 

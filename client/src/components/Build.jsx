@@ -22,7 +22,7 @@ const Build = (props) => {
   const [bodyParts, setBodyParts] = useState([]);
 
   const occupationBuild = () => {
-    console.log(occupation);
+   
     if (occupation === 'I spend a lot of time at a desk') {
       setBodyParts(['neck', 'back']);
     } else if (occupation === 'I spend a lot of time standing up') {

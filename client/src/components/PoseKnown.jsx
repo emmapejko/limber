@@ -22,7 +22,7 @@ const style = {
 };
 
 export default function PoseKnown(props) {
- console.log('poseKnown:', props)
+ 
   const [open, setOpen] = React.useState(false);
   const [auto, setAuto] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -46,18 +46,18 @@ export default function PoseKnown(props) {
         getUserPosesId();
       })
       .catch((err) => {
-        console.log(err, 'PoseKnown: handleSubmit error');
+        console.warn(err, 'PoseKnown: handleSubmit error');
       });
   };
 
   const getUserPosesId = () => {
     axios.get('profile/userPosesKnown')
       .then(({ data }) => {
-        console.log('userPosesKnown:', data);
+        
         setPoses(data);
       })
       .catch((err) => {
-        console.log(err, 'getUserPosesKnown');
+        console.warn(err, 'getUserPosesKnown');
       });
   };
 

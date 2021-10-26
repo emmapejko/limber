@@ -31,7 +31,7 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
         getAllPoses();
       })
       .catch(err => {
-        console.error('error getting image: ', err);
+        console.warn('error getting image: ', err);
       })
   }
 
@@ -41,7 +41,7 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
       setPoses(data);
     })
     .catch(err => {
-      console.error('error getting poses: ', err);
+      console.warn('error getting poses: ', err);
     });
   }
 

@@ -42,25 +42,25 @@ export default function LearningPose(props) {
   const handleChange = (event, value) => setSelectedOptions(value);
 
   const handleSubmit = () => {
-    console.log(selectedOptions);
+    console.info(selectedOptions);
 
     axios.post('/profile/userPosesDontKnow', { data: selectedOptions })
       .then((response) => {
         getUserPosesId();
       })
       .catch((err) => {
-        console.log(err, 'PoseKnown: handleSubmit error');
+        console.warn(err, 'PoseKnown: handleSubmit error');
       });
   };
 
   const getUserPosesId = () => {
     axios.get('profile/userPosesId')
       .then(({ data }) => {
-        console.log('userPosesId:', data);
+        
         setPoses(data);
       })
       .catch((err) => {
-        console.log(err, 'getUserPosesId');
+        console.warn(err, 'getUserPosesId');
       });
   };
 

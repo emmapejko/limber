@@ -10,7 +10,7 @@ module.exports = {
     }
   },
   rules: {
-    "no-console":0,
+    'no-console': ['error', { allow: ['info', 'warn'] }],
     "react/prop-types": "off",
     'linebreak-style': 0,
     'import/newline-after-import': 'off',

@@ -42,34 +42,34 @@ Class.belongsTo(User);
 
 User.sync()
   .then(() => {
-    console.log('user connected to DB.');
+    console.info('user connected to DB.');
     Flow.sync()
       .then(() => {
-        console.log('flow connected to DB.');
+        console.info('flow connected to DB.');
         Pose.sync()
           .then(() => {
-            console.log('pose connected to DB.');
+            console.info('pose connected to DB.');
             BodyPart.sync()
               .then(() => {
-                console.log('body_part connected to DB.');
+                console.info('body_part connected to DB.');
                 UserPose.sync()
                   .then(() => {
-                    console.log('user_pose connected to DB.');
+                    console.info('user_pose connected to DB.');
                     PoseFlow.sync()
                       .then(() => {
-                        console.log('pose_flow connected to DB.');
+                        console.info('pose_flow connected to DB.');
                         PoseBodyPart.sync()
                           .then(() => {
-                            console.log('pose_body_part connected to DB.');
+                            console.info('pose_body_part connected to DB.');
                             Following.sync()
                               .then(() => {
-                                console.log('following connected to DB.');
+                                console.info('following connected to DB.');
                                 AfterPose.sync()
                                   .then(() => {
-                                    console.log('after_pose connected to DB.');
+                                    console.info('after_pose connected to DB.');
                                     Class.sync()
                                       .then(() => {
-                                        console.log('class connected to DB.');
+                                        console.info('class connected to DB.');
                                       })
                                       // .then(() => {
                                       //   db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
@@ -87,7 +87,7 @@ User.sync()
       })
   })
   .catch((err) => {
-    console.error('Unable to connect to the database:', err);
+    console.warn('Unable to connect to the database:', err);
   });
 
 

@@ -12,7 +12,7 @@ const PoseItem = ({ pose }, props) => {
         //return data;
       })
       .catch((err) => {
-        console.log('getPoseImage:', err);
+        console.warn('getPoseImage:', err);
       });
   };
 
