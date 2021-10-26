@@ -68,10 +68,11 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
   const saveFlow = () => {
     setOpenSave(false);
     const data = {
-      flowName: flowName,
-      flow: flow,
-      length: length,
-      is_public: shared
+      flowName,
+      flow,
+      length,
+      is_public: shared,
+      difficulty
     };
     axios.post('/flow/saveFlow', { data: data})
       .then(() => {

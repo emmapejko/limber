@@ -22,9 +22,9 @@ flowRouter.post('/', (req, res) => {
 
 flowRouter.post('/saveFlow', (req, res) => {
   const { id } = req.user.dataValues;
-  const { length, flow, flowName, is_public } = req.body.data;
+  const { length, flow, flowName, is_public, difficulty } = req.body.data;
 
-  Flow.create({ name: flowName, length, userId: id, is_public })
+  Flow.create({ name: flowName, length, userId: id, is_public, difficulty })
     .then(response => {
       const flowId = response.dataValues.id;
       Promise.all(flow.map((pose, i) => PoseFlow.create({ pose_index: i, poseId: pose.id, flowId })))
@@ -32,7 +32,7 @@ flowRouter.post('/saveFlow', (req, res) => {
           res.sendStatus(201);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     })
     .catch((err) => {
