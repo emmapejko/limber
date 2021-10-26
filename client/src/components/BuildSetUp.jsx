@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Box,
@@ -32,6 +32,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
   const [openSave, setOpenSave] = useState(false);
   const [flowName, setFlowName] = useState('');
   const [videos, setVideos] = useState([]);
+  const [difficulty, setDifficulty] = useState('');
 
   const handleClick = (part) => {
     setBodyParts((prev) => [...new Set([...prev, part])]);
@@ -76,6 +77,22 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
       });
   };
 
+  const getDifficulty = () => {
+    const countObj = (flow.map(pose => pose.difficulty)).reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {});
+
+    if (countObj.advanced >= 3) {
+      setDifficulty('advanced');
+    } else if (countObj.intermediate >= .25 * flow.length) {
+      setDifficulty('intermediate');
+    } else if (countObj.advanced + countObj.intermediate >= .3 * flow.length) {
+      setDifficulty('intermediate');
+    } else {
+      setDifficulty('beginner');
+    }
+
+    console.log(countObj);
+  }
+
   const youTubeSearch = () => {
     const data = {
       query: `${length} min ${bodyParts.join(' ')} yoga`
@@ -88,6 +105,12 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
         console.error(err);
       })
   }
+
+  useEffect(() => {
+    if (flow.length) {
+      getDifficulty();
+    }
+  }, [flow])
 
   return (
     <>
@@ -187,6 +210,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }) => {
                 justifyContent="center"
                 m="auto"
               >
+              <Typography style={{ paddingRight: '5px' }}>Predicted Difficulty: {difficulty}</Typography>
               {length ?
               <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
               <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button></> : null }
