@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-
 import {
-  Switch, Route, Link, useRouteMatch,
-} from 'react-router-dom';
+  Box,
+  Modal,
+  Button,
+  Tab,
+  Typography,
+} from '@mui/material';
+import {
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@mui/lab';
 
 import BuildSetUp from './BuildSetUp.jsx';
 
@@ -31,12 +35,14 @@ const color = {
 };
 
 export default function SavedFlow() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
-  const [savedFlow, setSavedFlow] = React.useState([]);
-  const [width, setWidth] = React.useState(400);
-  const [height, setHeight] = React.useState(300);
-  const [name, setName] = React.useState(null);
+  const [savedFlow, setSavedFlow] = useState([]);
+  const [width, setWidth] = useState(400);
+  const [height, setHeight] = useState(300);
+  const [name, setName] = useState(null);
+  const [tab, setTab] = useState('0');
+  const [sharedFlows, setSharedFlows] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -66,12 +72,23 @@ export default function SavedFlow() {
   const getSavedFlows = () => {
     axios.get('/profile/savedFlows')
     .then(({ data }) => {
-      console.log('savedFlows:', data);
       setFlows(data);
+      getSharedFlows();
     })
     .catch((err) => {
-      console.log(err, 'savedFlows');
+      console.error(err, 'savedFlows');
     });
+  }
+
+  const getSharedFlows = () => {
+    axios.get('/profile/sharedFlows')
+      .then(({ data }) => {
+        console.log('shared', data);
+        setSharedFlows(data);
+      })
+      .catch(err => {
+        console.error(err, 'sharedFlows');
+      })
   }
 
   useEffect(() => {
@@ -82,7 +99,7 @@ export default function SavedFlow() {
   return (
     <>
       <div style={color}>
-        <Button onClick={handleOpen}>SavedFlow</Button>
+        <Button onClick={handleOpen}>Flows</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -90,13 +107,30 @@ export default function SavedFlow() {
           aria-describedby="parent-modal-description"
         >
           <Box sx={{ ...style, width: width, height: height }}>
-            <h2 id="parent-modal-title">{name ? name : 'List of Flows'}</h2>
-
-            {
-              savedFlow.length ?
-              <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
-              <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
-            }
+          <TabContext value={tab}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={(event, newValue) => setTab(newValue)} aria-label="lab API tabs example">
+                <Tab label="Your Flows" value="0" />
+                <Tab label="Shared Flows" value="1" />
+              </TabList>
+            </Box>
+            <TabPanel value="0">
+                <Typography><h2 id="parent-modal-title">{name ? name : null}</h2></Typography>
+                {
+                  savedFlow.length ?
+                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
+                }
+            </TabPanel>
+            <TabPanel value="1">
+              <Typography><h2 id="parent-modal-title">{name ? name : null}</h2></Typography>
+                {
+                  savedFlow.length ?
+                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <>{sharedFlows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
+                }
+            </TabPanel>
+          </TabContext>
           </Box>
         </Modal>
       </div>

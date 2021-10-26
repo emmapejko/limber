@@ -60,7 +60,6 @@ const Home = () => {
 
   return (
     <div style={style}>
-      <div>Home / User Profile</div>
       <div>
         <Box
           sx={{

@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 const Poses = Router();
 
-const { UserPose, Pose, Flow } = require('./db/sequelize');
+const { UserPose, Pose, Flow, Following } = require('./db/sequelize');
 /*
 knows pose list: select all rows from table user_poses where userPoses.userId === req.user.id && userPoses.pose_rank === 1. -----> for each row returned, find row from Poses tables where Poses.id === returned row.poseId
 
@@ -79,7 +79,6 @@ Poses.post('/userPoses', (req, res) => {
 
 // create poses that user is still working on
 Poses.post('/userPosesDontKnow', (req, res) => {
-  console.log(req.user.dataValues);
   const { selectedOptions } = req.body;
   UserPose.create({ poseId: req.body.data.id, pose_rank: 0, userId: req.user.dataValues.id })
     .then((data) => {
@@ -93,13 +92,36 @@ Poses.post('/userPosesDontKnow', (req, res) => {
 
 // Get all the users' saved
 Poses.get('/savedFlows', (req, res) => {
-  Flow.findAll().then((data) => {
+  const { id } = req.user.dataValues;
+
+  Flow.findAll({ where: { userId: id }}).then((data) => {
     res.status(200).send(data);
   })
     .catch(() => {
       res.status(404).send('Error!');
     });
 });
+
+Poses.get('/sharedFlows', (req, res) => {
+  const { id } = req.user.dataValues;
+
+  Following.findAll({ where: { follower_id: id }})
+    .then(rows => {
+      Promise.all(rows.map(row => Flow.findAll({ where: { userId: row.followee_id, is_public: true }})))
+        .then(flows => {
+          res.status(200).send(flows.flat());
+        })
+        .catch(err => {
+          console.error(err);
+          res.sendStatus(404);
+        })
+    })
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(404);
+    })
+
+})
 
 // export the api calls
 module.exports = {
