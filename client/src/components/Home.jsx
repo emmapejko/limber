@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Box,
-  Paper
+  Paper,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 
 import DashBoard from './DashBoard.jsx';
@@ -21,7 +23,7 @@ const color = {
 };
 const Home = (props) => {
   const [pose, setPose] = useState([]);
-  const [teacher, setTeacher] = useState('');
+  const [teacher, setTeacher] = useState(false);
 
   // axios call to database for poseKnown
   const whatIsKnown = () => {
@@ -29,11 +31,33 @@ const Home = (props) => {
       .get('/profile/allPoses')
       .then((res) => {
         setPose(res.data);
+        isTeacher();
       })
       .catch((err) => {
         console.info(err, 'Error from poseKnown');
       });
   };
+
+  const isTeacher = () => {
+    axios.get('/chat/full_name')
+      .then(({ data }) => {
+        setTeacher(data.is_teacher);
+      })
+      .catch(err => {
+        console.warn(err);
+      })
+  }
+
+  const changeTeacherStatus = (e) => {
+    const is_teacher = e.target.checked;
+    axios.put(`/profile/changeTeacherStatus`, { data: { is_teacher }})
+      .then(() => {
+        isTeacher();
+      })
+      .catch(err => {
+        console.warn(err);
+      })
+  }
 
   useEffect(() => {
     whatIsKnown();
@@ -41,7 +65,9 @@ const Home = (props) => {
 
   return (
     <div>
-      <div>teacher?</div>
+      <div>
+      <FormControlLabel control={<Switch checked={teacher} onChange={(e) => changeTeacherStatus(e)}/>} label={teacher ? 'Teacher' : 'Student'} />
+      </div>
       <div>
         <Box
           sx={{
