@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { io } from "socket.io-client"
 import Peer from 'peerjs';
 import axios from "axios";
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
+import ScrollToBottom from 'react-scroll-to-bottom';
+import 'regenerator-runtime/runtime';
+import Chat from "./Chat.jsx"
 const socket = io('/videoChat');
 
 // const videoGrid = React.getElementById("video-grid")
@@ -13,8 +16,6 @@ var peer = new Peer(undefined, {
   host:'/videoChat',
   port: "3000",
 });
-
-
 
 
 
@@ -72,12 +73,13 @@ const setPlayVideo = () => {
 
 
 
-function Room() {
+function Room(socket, username, room, profilePicture) {
   const roomId = 666;
   const videoGrid = useRef();
   const myVideo = useRef();
   const messages = useRef(new Array());
-
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [messageList, setMessageList] = useState([]);
   const { path, url } = useRouteMatch();
   
   //VIDEO functions
@@ -139,12 +141,12 @@ function Room() {
   //   }
   // });
   
-  socket.on('createMessage', message => {
-    console.log("this is createMessage:", message)
-    messages.current.push(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
-    // $('.messages').append(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
-    // scrollToBottom();
-  })
+  // socket.on('createMessage', message => {
+  //   console.log("this is createMessage:", message)
+  //   messages.current.push(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
+  //   // $('.messages').append(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
+  //   // scrollToBottom();
+  // })
   
   useEffect(() => {
   }, [])
@@ -181,20 +183,9 @@ function Room() {
           </div>
         </div>
       </div>
+   
       <div className="main__right">
-        <div className="main__header">
-          <h6>Chat</h6>
-        </div>
-        <div className="main__chat__window" id="main__chat__window">
-          {/* {
-            messages.current.map(message => {
-              `<li ref= {messages} className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`
-          }
-        } */}
-        </div>
-        <div className="main__message_container">
-          <input type="text" id="chat_message" placeholder="chat here"/>
-        </div>
+      <Chat />
       </div>
     </div>
   )
