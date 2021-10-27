@@ -9,7 +9,6 @@ const cors = require('cors');
 const { Server } = require('socket.io');
 const passport = require('passport');
 const auth = require('./auth');
-const { Poses } = require('./profile');
 
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
@@ -17,9 +16,10 @@ const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
 const followersRouter = require('./routes/followers');
-const {Users} = require('./routes/chat')
-const server = http.createServer(app);
+const {Users} = require('./routes/chat');
+const { Poses } = require('./routes/profile');
 
+const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection', (socket) => {

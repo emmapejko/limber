@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 const Poses = Router();
 
-const { UserPose, Pose, Flow, Following } = require('./db/sequelize');
+const { UserPose, Pose, Flow, Following } = require('../db/sequelize');
 /*
 knows pose list: select all rows from table user_poses where userPoses.userId === req.user.id && userPoses.pose_rank === 1. -----> for each row returned, find row from Poses tables where Poses.id === returned row.poseId
 
