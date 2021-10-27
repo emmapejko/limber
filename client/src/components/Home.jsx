@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
-  Switch, Route, Link, useRouteMatch,
-} from 'react-router-dom';
+  Box,
+  Paper,
+  FormControlLabel,
+  Switch,
+} from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import NavBar from './NavBar.jsx';
-import Build from './Build.jsx';
-import Connect from './Connect.jsx';
 import DashBoard from './DashBoard.jsx';
 import DashBoardCard from './DashBoardCard.jsx';
 import SavedFlow from './SavedFlow.jsx';
@@ -26,32 +22,42 @@ const color = {
   //backgroundColor: '#e0f2f1',
 };
 const Home = (props) => {
-  
-  const { path, url } = useRouteMatch();
-  const [pose, setPose] = React.useState([]);
+  const [pose, setPose] = useState([]);
+  const [teacher, setTeacher] = useState(false);
 
   // axios call to database for poseKnown
   const whatIsKnown = () => {
     axios
       .get('/profile/allPoses')
       .then((res) => {
-        
-        setPose(res.data); 
+        setPose(res.data);
+        isTeacher();
       })
       .catch((err) => {
         console.info(err, 'Error from poseKnown');
       });
-    // axios
-    // .post('/profile')
-    // .then(res => {
-    //   console.log('flag:', res.data);
-    //   setPose(res.data); // res.data?
-
-    // })
-    // .catch(err => {
-    //   console.log(err, 'Error from poses');
-    // });
   };
+
+  const isTeacher = () => {
+    axios.get('/chat/full_name')
+      .then(({ data }) => {
+        setTeacher(data.is_teacher);
+      })
+      .catch(err => {
+        console.warn(err);
+      })
+  }
+
+  const changeTeacherStatus = (e) => {
+    const is_teacher = e.target.checked;
+    axios.put(`/profile/changeTeacherStatus`, { data: { is_teacher }})
+      .then(() => {
+        isTeacher();
+      })
+      .catch(err => {
+        console.warn(err);
+      })
+  }
 
   useEffect(() => {
     whatIsKnown();
@@ -59,6 +65,9 @@ const Home = (props) => {
 
   return (
     <div>
+      <div>
+      <FormControlLabel control={<Switch checked={teacher} onChange={(e) => changeTeacherStatus(e)}/>} label={teacher ? 'Teacher' : 'Student'} />
+      </div>
       <div>
         <Box
           sx={{

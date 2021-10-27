@@ -39,21 +39,18 @@ export default function PoseKnown(props) {
   const handleChange = (event, value) => setSelectedOptions(value);
 
   const handleSubmit = () => {
-    // console.log(selectedOptions);
-
     axios.post('/profile/userPoses', { data: selectedOptions })
       .then((response) => {
-        getUserPosesId();
+        getUserPosesKnown();
       })
       .catch((err) => {
         console.warn(err, 'PoseKnown: handleSubmit error');
       });
   };
 
-  const getUserPosesId = () => {
+  const getUserPosesKnown = () => {
     axios.get('profile/userPosesKnown')
       .then(({ data }) => {
-        
         setPoses(data);
       })
       .catch((err) => {
@@ -62,7 +59,7 @@ export default function PoseKnown(props) {
   };
 
   useEffect(() => {
-    getUserPosesId();
+    getUserPosesKnown();
   }, []);
 
   return (
@@ -102,7 +99,7 @@ export default function PoseKnown(props) {
       <div>
       <Grid container spacing={1} style={props.style}>
         {
-          poses.map((pose, i) => <PoseItem key={i} pose={props.pose} style={props.style}/>)
+          poses.length ? poses.map((pose, i) => <PoseItem key={i} pose={pose} style={props.style}/>) : null
         }
        </Grid>
       </div>
