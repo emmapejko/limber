@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import Chat from './Chat.jsx';
-const socket = io.connect('http://localhost:3000/%27');
+const socket = io.connect('http://localhost:3000/');
 
 import FollowersList from './FollowersList.jsx';
 import TeacherFlowsList from './TeacherFlowsList.jsx';

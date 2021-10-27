@@ -17,6 +17,7 @@ const UserPose = db.define('user_pose', userPoseModel, { timestamps: false, unde
 const Following = db.define('following', {}, { timestamps: false, underscored: true });
 const AfterPose = db.define('after_pose', {}, { timestamps: false, underscored: true });
 const PoseBodyPart = db.define('pose_bodypart', {}, { timestamps: false, underscored: true });
+const Favorite = db.define('favorite', {}, { timestamps: false, underscored: true});
 
 User.hasMany(Flow);
 Flow.belongsTo(User);
@@ -38,6 +39,9 @@ AfterPose.belongsTo(Pose, {foreignKey: 'after_pose_id'});
 
 User.hasMany(Class);
 Class.belongsTo(User);
+
+User.belongsToMany(Flow, { through: Favorite});
+Flow.belongsToMany(User, { through: Favorite});
 
 
 User.sync()
@@ -70,13 +74,17 @@ User.sync()
                                     Class.sync()
                                       .then(() => {
                                         console.info('class connected to DB.');
+                                        Favorite.sync()
+                                          .then(() => {
+                                            console.info('favorite connected to DB.');
+                                          })
+                                          // .then(() => {
+                                          //   db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
+                                          // })
+                                          // .then(() => {
+                                          //   db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
+                                          // })
                                       })
-                                      // .then(() => {
-                                      //   db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
-                                      // })
-                                      // .then(() => {
-                                      //   db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
-                                      // })
                                   })
                               })
                           })
@@ -91,6 +99,6 @@ User.sync()
   });
 
 
-module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, db};
+module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, Favorite, db};
 
 // create npm script to seed datab
