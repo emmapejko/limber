@@ -1,11 +1,14 @@
 const { Router } = require('express');
+const { Op } = require("sequelize");
 
 const teachersRouter = Router();
 
 const { Pose, AfterPose, PoseBodyPart, User, UserPose, Flow, BodyPart, PoseFlow, Following } = require('../db/sequelize');
 
 teachersRouter.get('/', (req, res) => {
-  User.findAll({ where: { is_teacher: true }})
+  const { id } = req.user.dataValues;
+
+  User.findAll({ where: { is_teacher: true, id: { [Op.ne]: id }}})
     .then(users => {
       res.status(200).send(users);
     })
