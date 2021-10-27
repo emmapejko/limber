@@ -46,7 +46,7 @@ followersRouter.delete('/unfollow/:id&:unfollowId', (req, res) => {
       follower_id: id,
       followee_id: unfollowId
     }})
-    .then(response => {
+    .then(() => {
       res.sendStatus(200);
     })
     .catch(err => {
@@ -59,7 +59,7 @@ followersRouter.post('/follow/:id&:followId', (req, res) => {
   const { id, followId } = req.params;
 
   Following.create({ follower_id: id, followee_id: followId })
-    .then(response => {
+    .then(() => {
       res.sendStatus(201);
     })
     .catch(err => {

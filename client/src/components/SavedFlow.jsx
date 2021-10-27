@@ -80,7 +80,24 @@ export default function SavedFlow(props) {
   };
 
   const addOrRemoveFavorite = () => {
+    if (favorites.map(flow => flow.name).includes(name)) {
+      axios.delete(`/favorites/${name}`)
+        .then(() => {
+          getFavorites();
+        })
+        .catch(err => {
+          console.warn(err);
+        })
 
+    } else {
+      axios.post('/favorites/', { data: { name }})
+        .then(() => {
+          getFavorites();
+        })
+        .catch(err => {
+          console.warn(err);
+        })
+    }
   }
 
   const getFavorites = () => {
