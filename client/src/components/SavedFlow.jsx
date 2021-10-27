@@ -137,6 +137,7 @@ export default function SavedFlow(props) {
               <TabList onChange={handleTabChange} aria-label="lab API tabs example">
                 <Tab label="Your Flows" value="0" />
                 <Tab label="Shared Flows" value="1" />
+                <Tab label="Favorites" value="2" />
               </TabList>
             </Box>
             <TabPanel value="0">
@@ -163,11 +164,49 @@ export default function SavedFlow(props) {
                 }
             </TabPanel>
             <TabPanel value="1">
-              <Typography><h2 id="parent-modal-title">{name ? name : null}</h2></Typography>
+                {
+                  name ?
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                  ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
+                  <Button onClick={addOrRemoveFavorite}>
+                    {
+                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                    }
+                  </Button>
+                  </Box>
+                  : null
+                }
                 {
                   savedFlow.length ?
                   <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
                   <>{sharedFlows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
+                }
+            </TabPanel>
+            <TabPanel value="2">
+                {
+                  name ?
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                  ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
+                  <Button onClick={addOrRemoveFavorite}>
+                    {
+                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                    }
+                  </Button>
+                  </Box>
+                  : null
+                }
+                {
+                  savedFlow.length ?
+                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <>{favorites.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
                 }
             </TabPanel>
           </TabContext>
