@@ -57,7 +57,7 @@ const NavBar = () => {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography sx={{ minWidth: 100 }} style={textSizer}>LIMBER</Typography>
         <Typography sx={{ minWidth: 100 }} style={textSizer}><Link to={`${url}/build`}>Build</Link></Typography>
-        <Typography sx={{ minWidth: 100 }} style={textSizer} style={{ flex: 1 }}><Link to={`${url}/connect`}>Connect</Link></Typography>
+        <Typography sx={{ minWidth: 100, flex: 1 }} style={textSizer}><Link to={`${url}/connect`}>Connect</Link></Typography>
         <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
           <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
         <Tooltip title="Account settings">
