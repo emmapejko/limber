@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import Chat from './Chat.jsx';
+import Room from './Room.jsx';
+import {
+  Switch, Route, Link, useRouteMatch,
+} from 'react-router-dom';
 const socket = io.connect('http://localhost:3000');
 
 
@@ -12,6 +16,8 @@ function Connect() {
   const [room, setRoom] = useState('LIMBER');
   const [showChat, setShowChat] = useState(false);
   const [profilePicture, setProfilePicture] = useState('');
+
+  const { path, url } = useRouteMatch();
 
   const setFullName = () => {
     axios
@@ -24,7 +30,7 @@ function Connect() {
   }
   
   const joinRoom = () => {
-    socket.emit('join_room', room);
+    socket.emit('join_room', roomId);
     setShowChat(true);
   };
 
@@ -37,7 +43,13 @@ function Connect() {
       {!showChat ? (
         <div className="joinChatContainer">
           <h3>LIMBER CHAT</h3>
-          <button onClick={()=>open("http://localhost:3031")}>Join Chat</button>
+          <button><Link to={`${url}/videoChat`}>Limber Live</Link>
+      </button>
+      <Switch>
+        <Route path={`${path}/videoChat`}>
+          <Room />
+        </Route>
+      </Switch>
         </div>
       ) : (
         <Chat socket={socket} username={username} room={room} profilePicture={profilePicture} />

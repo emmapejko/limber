@@ -24,36 +24,36 @@ const peerServer = ExpressPeerServer(server, {
 })
 // const io = new Server(server);
 
-io.on('connection', (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+io.on('connection', socket => {
 
-  socket.on('join_room', (data) => {
-    socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
-  });
+  socket.on('join-room', (roomId, userId) => {
+    
+   socket.join(1111);
+   socket.broadcast.to(1111).emit('user-connected', userId);
+   console.log("THIS IS ON CONNECTION USERID:", userId);
+    socket.on('message', message => {
+      io.to(1111).emit('createMessage', message)
+    })
 
-  socket.on('send_message', (data) => {
-    socket.to(data.room).emit('receive_message', data);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User Disconnected', socket.id);
-  });
-});
+  })
+})
 
 server.listen(3000, () => {
   console.log('SERVER RUNNING');
 });
-app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.use(express.static(DIST_DIR));
 
 app.use('/peerjs', peerServer);
-app.get('/', (req, res) => {
-  res.redirect(`/${uuidv4()}`);
+app.get('/videoChat', (req, res) => {
+
+  res.redirect("/videoChat");
 })
 
-
+// app.get('/vidoChat/:room', (req, res) => {
+//   res.redirect('/videoChat/room', { roomId: req.params.room });
+// })
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
