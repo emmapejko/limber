@@ -51,6 +51,7 @@ const NavBar = () => {
   const textSizer = {
     fontSize: `${fontSize}px`
   }
+  
 
   return (
     <>
