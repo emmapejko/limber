@@ -12,10 +12,12 @@ const auth = require('./auth');
 
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
+
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
 const followersRouter = require('./routes/followers');
+const teachersRouter = require('./routes/teachers');
 const {Users} = require('./routes/chat');
 const { Poses } = require('./routes/profile');
 
@@ -62,6 +64,7 @@ app.use('/images', imageRouter);
 app.use('/chat', Users);
 app.use('/youtube', youTubeRouter);
 app.use('/followers', followersRouter);
+app.use('/teachers', teachersRouter);
 
 // client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
