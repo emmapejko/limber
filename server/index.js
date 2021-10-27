@@ -12,11 +12,14 @@ const auth = require('./auth');
 
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
+
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
 const followersRouter = require('./routes/followers');
-const {Users} = require('./routes/chat');
+const teachersRouter = require('./routes/teachers');
+const favoritesRouter = require('./routes/favorites');
+const { Users } = require('./routes/chat');
 const { Poses } = require('./routes/profile');
 
 const server = http.createServer(app);
@@ -39,7 +42,7 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3000, () => {
+server.listen(PORT, () => {
   console.info('SERVER RUNNING');
 });
 
@@ -62,6 +65,8 @@ app.use('/images', imageRouter);
 app.use('/chat', Users);
 app.use('/youtube', youTubeRouter);
 app.use('/followers', followersRouter);
+app.use('/teachers', teachersRouter);
+app.use('/favorites', favoritesRouter);
 
 // client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -87,7 +92,6 @@ app.get('/loggedin', authCheck, (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-  // req.session = null;
   req.logout();
   res.redirect('/');
 });
@@ -95,9 +99,5 @@ app.get('/logout', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
-
-// app.listen(PORT, () => {
-//   console.log(`server is listening at port ${PORT}`);
-// });
 
 module.exports = app;
