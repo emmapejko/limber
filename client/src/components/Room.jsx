@@ -7,7 +7,9 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
 import Chat from "./Chat.jsx"
 const socket = io('/videoChat');
-
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 // const videoGrid = React.getElementById("video-grid")
 // const myVideo = document.createElement('video')
 
@@ -17,7 +19,20 @@ var peer = new Peer(undefined, {
   port: "3000",
 });
 
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary
+}));
 
+const Img = styled('img')({
+  justifyContent: 'flex-start',
+  margin: 0,
+  display: 'block',
+  maxWidth: 'flex',
+  maxHeight: 'flex',
+});
 
 
 const muteUnmute = () => {
@@ -73,7 +88,7 @@ const setPlayVideo = () => {
 
 
 
-function Room(socket, username, room, profilePicture) {
+function Room(username, room, profilePicture) {
   const roomId = 666;
   const videoGrid = useRef();
   const myVideo = useRef();
@@ -127,6 +142,24 @@ function Room(socket, username, room, profilePicture) {
     
   } 
   
+  const sendMessage = async () => {
+    if (currentMessage !== '') {
+      const messageData = {
+        room,
+        author: username,
+        profilePicture,
+        message: currentMessage,
+        time:
+          `${new Date(Date.now()).getHours()
+          }:${
+            new Date(Date.now()).getMinutes()}`,
+      };
+
+      await socket.emit('send_message', messageData);
+      setMessageList((list) => [...list, messageData]);
+      setCurrentMessage('');
+    }
+  };
   
   
   //TEXT FUNCTIONS
@@ -155,7 +188,7 @@ function Room(socket, username, room, profilePicture) {
     <div className="main">
       <div className="main__left">
         <div className="main__videos">
-          <div ref={videoGrid} id="video-grid">video
+          <div ref={videoGrid} id="video-grid">
             <video ref={myVideo}></video>
           </div>
         </div>
@@ -185,7 +218,46 @@ function Room(socket, username, room, profilePicture) {
       </div>
    
       <div className="main__right">
-      <Chat />
+      <div>
+    
+    {messageList.map((messageContent, i) => {
+      console.log(messageContent);
+      return (
+        <div
+          id={username === messageContent.author ? 'you' : 'other'}
+        >
+          <Item>
+            <Grid container wrap="nowrap" spacing={2}>
+              <Grid item xs>
+                <Img src={messageContent.profilePicture} />
+              </Grid>
+              <Grid item xs>
+                <Typography noWrap variant="body2" component="div">{messageContent.message}</Typography>
+              </Grid>          
+              <Typography id="author">{messageContent.author}</Typography>
+              <div id="time">{messageContent.time}</div>
+               
+            </Grid>
+          </Item>
+        </div>
+      );
+    })}
+  
+  </div>
+  <div>
+    <input
+      type="text"
+      value={currentMessage}
+      placeholder="Hey..."
+      onChange={(event) => {
+        setCurrentMessage(event.target.value);
+      }}
+      onKeyPress={(event) => {
+        event.key === 'Enter' && sendMessage();
+      }}
+    />
+    <button onClick={sendMessage}>&#9658;</button>
+  </div>
       </div>
     </div>
   )
