@@ -22,8 +22,7 @@ const PoseItem = ({ pose }, props) => {
 
   return (
     <div>
-      <div style={props.style}>{pose.name}</div>
-      <img src={img} style={{maxHeight: '100px', maxWidth: '100px'}}/>
+      <img src={img} style={{maxHeight: '80px', maxWidth: '80px'}}/>
     </div>
   )
 

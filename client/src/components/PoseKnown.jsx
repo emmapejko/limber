@@ -22,18 +22,9 @@ const style = {
 };
 
 export default function PoseKnown(props) {
- 
-  const [open, setOpen] = React.useState(false);
-  const [auto, setAuto] = React.useState(false);
+  const [auto, setAuto] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [poses, setPoses] = useState([]);
-  // 1st open/close modal functions
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  // autocomplete open/close functions
-  const handleAuto = () => setAuto(true);
-  const closeAuto = () => setAuto(false);
 
   // grab data from autocomplete
   const handleChange = (event, value) => setSelectedOptions(value);
@@ -42,6 +33,7 @@ export default function PoseKnown(props) {
     axios.post('/profile/userPoses', { data: selectedOptions })
       .then((response) => {
         getUserPosesKnown();
+        setAuto(false);
       })
       .catch((err) => {
         console.warn(err, 'PoseKnown: handleSubmit error');
@@ -71,11 +63,11 @@ export default function PoseKnown(props) {
         m="auto"
       >
       <Typography style={props.style}><h4>What you know</h4></Typography>
-      <Button onClick={handleAuto}><AddIcon /></Button>
+      <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
       <Modal
         open={auto}
-        onClose={closeAuto}
+        onClose={() => setAuto(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

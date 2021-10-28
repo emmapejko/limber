@@ -96,7 +96,7 @@ const Home = (props) => {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 10,
-              width: '35%',
+              width: '36%',
               height: '30%',
             },
           }}

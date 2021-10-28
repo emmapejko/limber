@@ -22,19 +22,9 @@ const style = {
 };
 
 export default function LearningPose(props) {
-  
-  const [open, setOpen] = React.useState(false);
-  const [auto, setAuto] = React.useState(false);
+  const [auto, setAuto] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [poses, setPoses] = useState([]);
-
-  // 1st open/close modal functions
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  // autocomplete open/close functions
-  const handleAuto = () => setAuto(true);
-  const closeAuto = () => setAuto(false);
 
   // grab data from autocomplete
   const handleChange = (event, value) => setSelectedOptions(value);
@@ -43,6 +33,7 @@ export default function LearningPose(props) {
     axios.post('/profile/userPosesDontKnow', { data: selectedOptions })
       .then((response) => {
         getUserPosesId();
+        setAuto(false);
       })
       .catch((err) => {
         console.warn(err, 'PoseKnown: handleSubmit error');
@@ -72,11 +63,11 @@ export default function LearningPose(props) {
         m="auto"
       >
       <Typography style={props.style}><h4>What you're working on</h4></Typography>
-      <Button onClick={handleAuto}><AddIcon /></Button>
+      <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
       <Modal
         open={auto}
-        onClose={closeAuto}
+        onClose={() => setAuto(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         style={props.style}
@@ -101,11 +92,19 @@ export default function LearningPose(props) {
         </Box>
       </Modal>
       <div>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        m="auto"
+        padding='3px'
+      >
       <Grid container spacing={1}>
         {
           poses.length ? poses.map((pose, i) => <PoseItem key={i} pose={pose} style={props.style} />) : null
         }
        </Grid>
+       </Box>
       </div>
     </div>
   );
