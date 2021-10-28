@@ -5,4 +5,4 @@ node_modules
 client/dist/bundle.js
 client/dist/images
 .env
-
+.DS_Store

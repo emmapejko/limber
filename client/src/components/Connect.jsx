@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
-import Chat from './Chat.jsx';
+import Room from './Room.jsx';
 const socket = io.connect('http://localhost:3000/');
 
 import FollowersList from './FollowersList.jsx';
@@ -37,14 +37,14 @@ function Connect(props) {
 
   return (
     <div className="App">
-      {!showChat ? (
+      {!showChat ? 
         <div className="joinChatContainer">
           <h3>LIMBER CHAT</h3>
           <button onClick={() => { joinRoom() }}>Join Chat</button>
         </div>
-      ) : (
-        <Chat socket={socket} username={username} room={room} profilePicture={profilePicture} />
-      )}
+      :
+      <Room socket={socket} username={username} room={room} profilePicture={profilePicture} />
+        }
       <div>
         <FollowersList user={user} />
       </div>
@@ -55,3 +55,6 @@ function Connect(props) {
   );
 }
 export default Connect;
+
+
+
