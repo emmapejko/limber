@@ -22,9 +22,12 @@ const style = {
 function DashBoard(props) {
   const [open, setOpen] = React.useState(false);
   const [level, setLevel] = useState([]);
+  const [known, setKnown] = useState([]);
+  const [learn, setLearn] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
+  //refactor this so dashboard logic is outside of the axios request
   const getUserPosesKnown = () => {
     axios.get('profile/userPosesKnown')
       .then(({ data }) => {
@@ -40,7 +43,7 @@ function DashBoard(props) {
       
       skillz.sort((a, b) => b[1] - a[1]);
       const slicedRank = skillz[0].slice(0, 1);
-        
+        setKnown(data.length);
         setLevel(slicedRank);
       })
       .catch((err) => {
@@ -48,8 +51,22 @@ function DashBoard(props) {
       });
   };
 
+  const getUserPosesId = () => {
+    axios.get('profile/userPosesWorkingOn')
+      .then(({ data }) => {
+        
+        setLearn(data.length);
+        //setPoses((prev) => [...prev, data]);
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
+  
+
   useEffect(() => {
     getUserPosesKnown();
+    getUserPosesId();
   }, []);
 
   return (
@@ -70,7 +87,15 @@ function DashBoard(props) {
           sx={{ mt: 2 }}
           style={props.style}
           >
+            <div>
             Skill Level: {level}
+            </div>
+            <div>
+            # of poses mastered: {known}
+            </div>
+            <div>
+            poses still learning: {learn}
+            </div>
           </Typography>
         </Box>
       </Modal>
