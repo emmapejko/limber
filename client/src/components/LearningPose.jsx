@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import PoseItem from './PoseItem.jsx';
 
@@ -16,7 +15,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  // width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -54,9 +53,7 @@ export default function LearningPose(props) {
   const getUserPosesId = () => {
     axios.get('profile/userPosesWorkingOn')
       .then(({ data }) => {
-        
         setPoses(data);
-        //setPoses((prev) => [...prev, data]);
       })
       .catch((err) => {
         console.warn(err);
@@ -71,8 +68,6 @@ export default function LearningPose(props) {
     <div>
 
       <Button style={props.style}>What you're working on</Button>
-      
-    
       <Button onClick={handleAuto}><AddIcon /></Button>
       <Modal
         open={auto}
@@ -81,8 +76,10 @@ export default function LearningPose(props) {
         aria-describedby="modal-modal-description"
         style={props.style}
       >
-        <Box sx={style}>
-
+        <Box
+          sx={style}
+        >
+          <Typography id='modal-modal-title' variant="h6" component="h2">Add a new pose</Typography>
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -92,16 +89,12 @@ export default function LearningPose(props) {
             onChange={handleChange}
             renderOption={(props, option) => (
               <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} style={props.style}>
-
                 {option.name}
               </Box>
             )}
             renderInput={(params) => <TextField {...params} name="Poses" />}
           />
           <Button onClick={handleSubmit}><AddIcon /></Button>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} style={props.style}>
-            Add a Pose to your collection. Now.
-          </Typography>
         </Box>
       </Modal>
       <div>

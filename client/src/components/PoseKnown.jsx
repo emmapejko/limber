@@ -14,7 +14,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  // width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -71,10 +71,11 @@ export default function PoseKnown(props) {
         onClose={closeAuto}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        
       >
-        <Box sx={style}>
-
+        <Box
+          sx={style}
+        >
+          <Typography id='modal-modal-title' variant="h6" component="h2">Add a new pose</Typography>
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -84,16 +85,12 @@ export default function PoseKnown(props) {
             onChange={handleChange}
             renderOption={(props, option) => (
               <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} style={props.style}>
-
                 {option.name}
               </Box>
             )}
             renderInput={(params) => <TextField {...params} name="Poses" />}
           />
           <Button onClick={handleSubmit}><AddIcon /></Button>
-          <Typography style={props.style} id="modal-modal-description" sx={{ mt: 2 }}>
-            Add a Pose to your collection. Now.
-          </Typography>
         </Box>
       </Modal>
       <div>

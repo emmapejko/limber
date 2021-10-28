@@ -14,6 +14,7 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  Modal
 } from '@mui/material';
 
 const PoseCard = ({ pose, i, changeFlow }, props) => {
@@ -77,18 +78,26 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
 
   const poseDialog = () => {
     return (
-      <Dialog
+      <div>
+      <Modal
         open={posesOpen}
         onClose={() => setPosesOpen(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
         sx={{ justifyContent:'center' }}
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Select a new pose"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+        <Box
+          sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              bgcolor: 'background.paper',
+              border: '2px solid #000',
+              boxShadow: 24,
+              p: 4,
+          }}>
+          <Typography id='modal-modal-title' variant="h6" component="h2">Select a new pose</Typography>
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -104,9 +113,9 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
                   renderInput={(params) => <TextField {...params} name="Poses" />}
               />
               <Button onClick={switchThePose} sx={{ marginLeft: '220px' }}>Switch</Button>
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
+        </Box>
+      </Modal>
+      </div>
     )
   }
 
