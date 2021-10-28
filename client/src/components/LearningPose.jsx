@@ -54,6 +54,7 @@ export default function LearningPose(props) {
   const getUserPosesId = () => {
     axios.get('profile/userPosesWorkingOn')
       .then(({ data }) => {
+        
         setPoses(data);
         //setPoses((prev) => [...prev, data]);
       })
