@@ -15,7 +15,6 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  // width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -66,9 +65,15 @@ export default function LearningPose(props) {
 
   return (
     <div>
-
-      <Button style={props.style}>What you're working on</Button>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        m="auto"
+      >
+      <Typography style={props.style}>What you're working on...</Typography>
       <Button onClick={handleAuto}><AddIcon /></Button>
+      </Box>
       <Modal
         open={auto}
         onClose={closeAuto}
@@ -76,9 +81,7 @@ export default function LearningPose(props) {
         aria-describedby="modal-modal-description"
         style={props.style}
       >
-        <Box
-          sx={style}
-        >
+        <Box sx={style}>
           <Typography id='modal-modal-title' variant="h6" component="h2">Add a new pose</Typography>
           <Autocomplete
             disablePortal
@@ -94,7 +97,7 @@ export default function LearningPose(props) {
             )}
             renderInput={(params) => <TextField {...params} name="Poses" />}
           />
-          <Button onClick={handleSubmit}><AddIcon /></Button>
+          <Button onClick={handleSubmit} sx={{ marginLeft: '250px' }}><AddIcon /></Button>
         </Box>
       </Modal>
       <div>
