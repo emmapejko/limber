@@ -10,8 +10,8 @@ const socket = io('/videoChat');
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-// const videoGrid = React.getElementById("video-grid")
-// const myVideo = document.createElement('video')
+import Paper from '@mui/material/Paper';
+
 
 var peer = new Peer(undefined, {
   path: '/peerjs',
@@ -88,7 +88,7 @@ const setPlayVideo = () => {
 
 
 
-function Room(username, room, profilePicture) {
+function Room({username, room, profilePicture}) {
   const roomId = 666;
   const videoGrid = useRef();
   const myVideo = useRef();
@@ -253,6 +253,7 @@ function Room(username, room, profilePicture) {
         setCurrentMessage(event.target.value);
       }}
       onKeyPress={(event) => {
+        
         event.key === 'Enter' && sendMessage();
       }}
     />
