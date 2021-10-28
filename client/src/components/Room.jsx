@@ -221,7 +221,6 @@ function Room({username, room, profilePicture}) {
       <div>
     
     {messageList.map((messageContent, i) => {
-      console.log(messageContent);
       return (
         <div
           id={username === messageContent.author ? 'you' : 'other'}
