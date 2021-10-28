@@ -70,7 +70,7 @@ export default function PoseKnown(props) {
         justifyContent="center"
         m="auto"
       >
-      <Typography style={props.style}>What you know...</Typography>
+      <Typography style={props.style}><h4>What you know</h4></Typography>
       <Button onClick={handleAuto}><AddIcon /></Button>
       </Box>
       <Modal

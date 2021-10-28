@@ -71,7 +71,7 @@ export default function LearningPose(props) {
         justifyContent="center"
         m="auto"
       >
-      <Typography style={props.style}>What you're working on...</Typography>
+      <Typography style={props.style}><h4>What you're working on</h4></Typography>
       <Button onClick={handleAuto}><AddIcon /></Button>
       </Box>
       <Modal
