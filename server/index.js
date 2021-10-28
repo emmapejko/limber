@@ -8,14 +8,18 @@ const session = require('express-session');
 const { Server } = require('socket.io');
 const passport = require('passport');
 const auth = require('./auth');
-const { Poses } = require('./profile');
 
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '..', 'client/dist');
+
+const { Users } = require('./routes/chat');
+const { Poses } = require('./routes/profile');
+const followersRouter = require('./routes/followers');
+const teachersRouter = require('./routes/teachers');
+const favoritesRouter = require('./routes/favorites');
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
-const {Users} = require('./routes/chat')
 const server = require('http').Server(app);
 const io = require('socket.io')(server)
 const { ExpressPeerServer } = require("peer");
@@ -30,16 +34,32 @@ io.on('connection', socket => {
     
    socket.join(1111);
    socket.broadcast.to(1111).emit('user-connected', userId);
-   console.log("THIS IS ON CONNECTION USERID:", userId);
+  //  console.log("THIS IS ON CONNECTION USERID:", userId);
     socket.on('message', message => {
       io.to(1111).emit('createMessage', message)
     })
 
   })
 })
+// io.on('connection', (socket) => {
+//   console.info(`User Connected: ${socket.id}`);
 
-server.listen(3000, () => {
-  console.log('SERVER RUNNING');
+//   socket.on('join_room', (data) => {
+//     socket.join(data);
+//     console.info(`User with ID: ${socket.id} joined room: ${data}`);
+//   });
+
+//   socket.on('send_message', (data) => {
+//     socket.to(data.room).emit('receive_message', data);
+//   });
+
+//   socket.on('disconnect', () => {
+//     console.info('User Disconnected', socket.id);
+//   });
+// });
+
+server.listen(PORT, () => {
+  console.info('SERVER RUNNING');
 });
 
 app.use(express.json());
@@ -70,6 +90,9 @@ app.use('/profile', Poses);
 app.use('/images', imageRouter);
 app.use('/chat', Users);
 app.use('/youtube', youTubeRouter);
+app.use('/followers', followersRouter);
+app.use('/teachers', teachersRouter);
+app.use('/favorites', favoritesRouter);
 
 // client authentication for oauth2.0 -->
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -95,7 +118,6 @@ app.get('/loggedin', authCheck, (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-  // req.session = null;
   req.logout();
   res.redirect('/');
 });
@@ -103,9 +125,5 @@ app.get('/logout', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
-
-// app.listen(PORT, () => {
-//   console.log(`server is listening at port ${PORT}`);
-// });
 
 module.exports = app;

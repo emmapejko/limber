@@ -4,12 +4,13 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
 
-function App() {
+function App(props) {
+  
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Login />
+          <Login style={props.style}/>
         </Route>
         <Route path="/:user">
           <NavBar />

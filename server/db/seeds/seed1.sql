@@ -88,7 +88,3 @@ insert into poses (name, sanskrit, demo, difficulty) values ('Constructive Rest'
 insert into poses (name, sanskrit, demo, difficulty) values ('Lizard', 'Utthan Pristhasana', 'https://www.youtube.com/embed/-6MGjYmHdYQ', 'intermediate');
 insert into poses (name, sanskrit, demo, difficulty) values ('Goddess', 'Utkata Konasana', 'https://www.youtube.com/embed/wgXefCprLm0', 'beginner');
 insert into poses (name, sanskrit, demo, difficulty) values ('Pyramid', 'Parsvottanasana', 'https://www.youtube.com/embed/LTe3CO7Vtxs', 'beginner');
-
-insert into flows (name, length, difficulty, created_at, updated_at) values ('Sun Salutation A', 1, 'beginner', NOW(), NOW());
-insert into flows (name, length, difficulty, created_at, updated_at) values ('Sun Salutation B', 2, 'beginner', NOW(), NOW());
-insert into flows (name, length, difficulty, created_at, updated_at) values ('Vinyasa', 1, 'beginner', NOW(), NOW());

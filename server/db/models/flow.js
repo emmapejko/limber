@@ -15,7 +15,10 @@ const Flow = {
   difficulty: {
     type: Sequelize.STRING,
   },
-  // userId is added as FK with relationship
+  is_public: {
+    type: Sequelize.BOOLEAN,
+    default: false,
+  },
 };
 
 module.exports = Flow;

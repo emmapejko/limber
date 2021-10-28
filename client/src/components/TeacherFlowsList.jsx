@@ -107,7 +107,6 @@ const TeacherFlowsList = () => {
   const getTeacherFlows = (teacher) => {
     axios.get(`/teachers/${teacher.id}`)
       .then(({ data }) => {
-        console.log(data);
         setFlows(data);
       })
       .catch(err => {

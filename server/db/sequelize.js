@@ -17,6 +17,7 @@ const UserPose = db.define('user_pose', userPoseModel, { timestamps: false, unde
 const Following = db.define('following', {}, { timestamps: false, underscored: true });
 const AfterPose = db.define('after_pose', {}, { timestamps: false, underscored: true });
 const PoseBodyPart = db.define('pose_bodypart', {}, { timestamps: false, underscored: true });
+const Favorite = db.define('favorite', {}, { timestamps: false, underscored: true});
 
 User.hasMany(Flow);
 Flow.belongsTo(User);
@@ -39,44 +40,51 @@ AfterPose.belongsTo(Pose, {foreignKey: 'after_pose_id'});
 User.hasMany(Class);
 Class.belongsTo(User);
 
+User.belongsToMany(Flow, { through: Favorite});
+Flow.belongsToMany(User, { through: Favorite});
+
 
 User.sync()
   .then(() => {
-    console.log('user connected to DB.');
+    console.info('user connected to DB.');
     Flow.sync()
       .then(() => {
-        console.log('flow connected to DB.');
+        console.info('flow connected to DB.');
         Pose.sync()
           .then(() => {
-            console.log('pose connected to DB.');
+            console.info('pose connected to DB.');
             BodyPart.sync()
               .then(() => {
-                console.log('body_part connected to DB.');
+                console.info('body_part connected to DB.');
                 UserPose.sync()
                   .then(() => {
-                    console.log('user_pose connected to DB.');
+                    console.info('user_pose connected to DB.');
                     PoseFlow.sync()
                       .then(() => {
-                        console.log('pose_flow connected to DB.');
+                        console.info('pose_flow connected to DB.');
                         PoseBodyPart.sync()
                           .then(() => {
-                            console.log('pose_body_part connected to DB.');
+                            console.info('pose_body_part connected to DB.');
                             Following.sync()
                               .then(() => {
-                                console.log('following connected to DB.');
+                                console.info('following connected to DB.');
                                 AfterPose.sync()
                                   .then(() => {
-                                    console.log('after_pose connected to DB.');
+                                    console.info('after_pose connected to DB.');
                                     Class.sync()
                                       .then(() => {
-                                        console.log('class connected to DB.');
+                                        console.info('class connected to DB.');
+                                        Favorite.sync()
+                                          .then(() => {
+                                            console.info('favorite connected to DB.');
+                                          })
+                                          // .then(() => {
+                                          //   db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
+                                          // })
+                                          // .then(() => {
+                                          //   db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
+                                          // })
                                       })
-                                      // .then(() => {
-                                      //   db.query('ALTER TABLE "pose_flows" DROP CONSTRAINT "pose_flows_pkey"')
-                                      // })
-                                      // .then(() => {
-                                      //   db.query('ALTER TABLE "pose_flows" ADD CONSTRAINT "index" PRIMARY KEY ("pose_index", "pose_id", "flow_id")');
-                                      // })
                                   })
                               })
                           })
@@ -87,9 +95,10 @@ User.sync()
       })
   })
   .catch((err) => {
-    console.error('Unable to connect to the database:', err);
+    console.warn('Unable to connect to the database:', err);
   });
 
 
-module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, db};
+module.exports = {User, Flow, Pose, UserPose, PoseFlow, BodyPart, PoseBodyPart, Following, AfterPose, Class, Favorite, db};
 
+// create npm script to seed datab

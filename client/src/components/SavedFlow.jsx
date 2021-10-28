@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-
 import {
-  Switch, Route, Link, useRouteMatch,
-} from 'react-router-dom';
+  Box,
+  Modal,
+  Button,
+  Tab,
+  Typography,
+} from '@mui/material';
+import {
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@mui/lab';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import BuildSetUp from './BuildSetUp.jsx';
 
@@ -30,13 +36,16 @@ const color = {
   backgroundColor: '#e0f2f1',
 };
 
-export default function SavedFlow() {
-  const [open, setOpen] = React.useState(false);
+export default function SavedFlow(props) {
+  const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
-  const [savedFlow, setSavedFlow] = React.useState([]);
-  const [width, setWidth] = React.useState(400);
-  const [height, setHeight] = React.useState(300);
-  const [name, setName] = React.useState(null);
+  const [savedFlow, setSavedFlow] = useState([]);
+  const [width, setWidth] = useState(400);
+  const [height, setHeight] = useState(300);
+  const [name, setName] = useState(null);
+  const [tab, setTab] = useState('0');
+  const [sharedFlows, setSharedFlows] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -49,6 +58,14 @@ export default function SavedFlow() {
     setHeight(300);
   };
 
+  const handleTabChange = (event, newValue) => {
+    setTab(newValue);
+    setName(null);
+    setSavedFlow([]);
+    setWidth(400);
+    setHeight(300);
+  }
+
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
       .then(({ data }) => {
@@ -58,20 +75,62 @@ export default function SavedFlow() {
         setHeight('90%');
       })
       .catch(err => {
-        console.error(err);
+        console.warn(err);
       })
   };
+
+  const addOrRemoveFavorite = () => {
+    if (favorites.map(flow => flow.name).includes(name)) {
+      axios.delete(`/favorites/${name}`)
+        .then(() => {
+          getFavorites();
+        })
+        .catch(err => {
+          console.warn(err);
+        })
+
+    } else {
+      axios.post('/favorites/', { data: { name }})
+        .then(() => {
+          getFavorites();
+        })
+        .catch(err => {
+          console.warn(err);
+        })
+    }
+  }
+
+  const getFavorites = () => {
+    axios.get('/favorites/')
+      .then(({ data }) => {
+        setFavorites(data);
+      })
+      .catch(err => {
+        console.warn(err);
+      })
+  }
 
   //axios get request to flows table
   const getSavedFlows = () => {
     axios.get('/profile/savedFlows')
     .then(({ data }) => {
-      console.log('savedFlows:', data);
       setFlows(data);
+      getSharedFlows();
     })
     .catch((err) => {
-      console.log(err, 'savedFlows');
+      console.warn(err, 'savedFlows');
     });
+  }
+
+  const getSharedFlows = () => {
+    axios.get('/profile/sharedFlows')
+      .then(({ data }) => {
+        setSharedFlows(data);
+        getFavorites();
+      })
+      .catch(err => {
+        console.warn(err, 'sharedFlows');
+      })
   }
 
   useEffect(() => {
@@ -82,7 +141,7 @@ export default function SavedFlow() {
   return (
     <>
       <div style={color}>
-        <Button onClick={handleOpen}>SavedFlow</Button>
+        <Button onClick={handleOpen} style={props.style}>Flows</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -90,13 +149,84 @@ export default function SavedFlow() {
           aria-describedby="parent-modal-description"
         >
           <Box sx={{ ...style, width: width, height: height }}>
-            <h2 id="parent-modal-title">{name ? name : 'List of Flows'}</h2>
-
-            {
-              savedFlow.length ?
-              <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
-              <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
-            }
+          <TabContext value={tab}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+                <Tab label="Your Flows" value="0" />
+                <Tab label="Shared Flows" value="1" />
+                <Tab label="Favorites" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="0">
+                {
+                  name ?
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                  ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
+                  <Button onClick={addOrRemoveFavorite}>
+                    {
+                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                    }
+                  </Button>
+                  </Box>
+                  : null
+                }
+                {
+                  savedFlow.length ?
+                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
+                }
+            </TabPanel>
+            <TabPanel value="1">
+                {
+                  name ?
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                  ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
+                  <Button onClick={addOrRemoveFavorite}>
+                    {
+                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                    }
+                  </Button>
+                  </Box>
+                  : null
+                }
+                {
+                  savedFlow.length ?
+                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <>{sharedFlows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
+                }
+            </TabPanel>
+            <TabPanel value="2">
+                {
+                  name ?
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                  ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
+                  <Button onClick={addOrRemoveFavorite}>
+                    {
+                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                    }
+                  </Button>
+                  </Box>
+                  : null
+                }
+                {
+                  savedFlow.length ?
+                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <>{favorites.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
+                }
+            </TabPanel>
+          </TabContext>
           </Box>
         </Modal>
       </div>

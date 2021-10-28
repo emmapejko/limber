@@ -15,16 +15,16 @@ flowRouter.post('/', (req, res) => {
       res.status(201).send(flow);
     })
     .catch((err) => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     });
 });
 
 flowRouter.post('/saveFlow', (req, res) => {
   const { id } = req.user.dataValues;
-  const { length, flow, flowName } = req.body.data;
+  const { length, flow, flowName, is_public, difficulty } = req.body.data;
 
-  Flow.create({ name: flowName, length, userId: id })
+  Flow.create({ name: flowName, length, userId: id, is_public, difficulty })
     .then(response => {
       const flowId = response.dataValues.id;
       Promise.all(flow.map((pose, i) => PoseFlow.create({ pose_index: i, poseId: pose.id, flowId })))
@@ -32,17 +32,16 @@ flowRouter.post('/saveFlow', (req, res) => {
           res.sendStatus(201);
         })
         .catch((err) => {
-          console.log(err);
+          console.warn(err);
         });
     })
     .catch((err) => {
-      console.error(err);
+      console.warn(err);
     });
 });
 
 flowRouter.get('/getSavedFlow/:id', (req, res) => {
  const { id } = req.params;
- console.log('FLOW ID: ', id);
 
  PoseFlow.findAll({ where: { flowId: id }})
   .then(async response => {
@@ -51,7 +50,7 @@ flowRouter.get('/getSavedFlow/:id', (req, res) => {
       res.status(200).send(poses);
   })
   .catch(err => {
-    console.error(err);
+    console.warn(err);
     res.sendStatus(404);
   })
 })
