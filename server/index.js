@@ -6,6 +6,8 @@ const app = express();
 const session = require('express-session');
 // const http = require('http');
 const { Server } = require('socket.io');
+const server = require('http').Server(app);
+const io = require('socket.io')(server)
 const passport = require('passport');
 const auth = require('./auth');
 
@@ -20,43 +22,41 @@ const favoritesRouter = require('./routes/favorites');
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
-const server = require('http').Server(app);
-const io = require('socket.io')(server)
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true
 })
 // const io = new Server(server);
 
-io.on('connection', socket => {
+// io.on('connection', socket => {
+
+//   socket.on('join-room', (roomId, userId) => {
+    
+//    socket.join(1111);
+//    socket.broadcast.to(1111).emit('user-connected', userId);
+//    console.log("THIS IS ON CONNECTION USERID:", userId);
+//     socket.on('message', message => {
+//       io.to(1111).emit('createMessage', message)
+//     })
+
+//   })
+// })
+io.on('connection', (socket) => {
+  console.info(`User Connected: ${socket.id}`);
 
   socket.on('join-room', (roomId, userId) => {
-    
-   socket.join(1111);
-   socket.broadcast.to(1111).emit('user-connected', userId);
-  //  console.log("THIS IS ON CONNECTION USERID:", userId);
-    socket.on('message', message => {
-      io.to(1111).emit('createMessage', message)
-    })
+    socket.join(roomId);
+    console.info(`User with ID: ${userId} joined room: ${roomId}`);
+  });
 
-  })
-})
-// io.on('connection', (socket) => {
-//   console.info(`User Connected: ${socket.id}`);
+  socket.on('send_message', (data) => {
+    socket.to(data.room).emit('receive_message', data);
+  });
 
-//   socket.on('join_room', (data) => {
-//     socket.join(data);
-//     console.info(`User with ID: ${socket.id} joined room: ${data}`);
-//   });
-
-//   socket.on('send_message', (data) => {
-//     socket.to(data.room).emit('receive_message', data);
-//   });
-
-//   socket.on('disconnect', () => {
-//     console.info('User Disconnected', socket.id);
-//   });
-// });
+  socket.on('disconnect', () => {
+    console.info('User Disconnected', socket.id);
+  });
+});
 
 server.listen(PORT, () => {
   console.info('SERVER RUNNING');
@@ -71,9 +71,9 @@ app.get('/videoChat', (req, res) => {
   res.redirect("/videoChat");
 })
 
-// app.get('/vidoChat/:room', (req, res) => {
-//   res.redirect('/videoChat/room', { roomId: req.params.room });
-// })
+app.get('/vidoChat/:room', (req, res) => {
+  res.redirect('/videoChat/666 ', { roomId: req.params.room });
+})
 
 app.use(session({
   secret: process.env.SESSION_SECRET,

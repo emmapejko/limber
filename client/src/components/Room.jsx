@@ -5,7 +5,6 @@ import axios from "axios";
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-import Chat from "./Chat.jsx"
 const socket = io('/videoChat');
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
@@ -14,10 +13,18 @@ import Paper from '@mui/material/Paper';
 
 
 var peer = new Peer(undefined, {
-  path: '/peerjs',
-  host:'/videoChat',
-  port: "3000",
+ 
+  host:'/',
+  port: "3001",
 });
+
+const MainVideos = styled('div')({
+  flexGrow: '1',
+  backgroundColor: '#000',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+})
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -33,58 +40,33 @@ const Img = styled('img')({
   maxWidth: 'flex',
   maxHeight: 'flex',
 });
+const Main = styled('div')({
+  height: '100%',
+  display: 'flex',
+})
 
+const MainRight = styled('div')({
+  flex: 0.2,
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: '#242324',
+  borderLeft: '1px solid #3d3d42'
+})
 
-const muteUnmute = () => {
-  const enabled = myVideoStream.getAudioTracks()[0].enabled;
-  if(enabled) {
-    myVideoStream.getAudioTracks()[0].enabled = false;
-    setUnmuteButton();
-  } else {
-    setMuteButton();
-    myVideoStream.getAudioTracks()[0].enabled = true;
-    }
-  };
+const MainLeft = styled('div')({
+  flex: '0.8',
+  display: 'flex',
+  flexDirection: 'column'
+})
 
-  const setMuteButton = () => {
-    const html = `<i></i>
-    <span>Mute</span>`
-    document.querySelector('.main__mute_button').innerHTML = html;
-  }
-
-  const setUnmuteButton = () => {
-    const html = `<i></i>
-    <span>Unmute</span>`
-    document.querySelector('.main__mute_button').innerHTML = html;
-  }
-
-const playStop = () => {
-  let enabled = myVideoStream.getVideoTracks()[0].enabled;
-  if (enabled) {
-    myVideoStream.getVideoTracks()[0].enabled = false;
-    setPlayVideo()
-  } else {
-    setStopVideo()
-    myVideoStream.getVideoTracks()[0].enabled = true;
-  }
-}
-
-const setStopVideo = () => {
-  const html = `<i></i><span>Stop Video</span>`
-  document.querySelector('.main__video_button').innerHTML = html;
-}
-
-const setPlayVideo = () => {
-  const html = `<i></i><span>Play Video</span>`
-  document.querySelector('.main__video_button').innerHTML = html;
-}
-
-
-
-
-
-
-
+const MessageInput = styled('div')({
+  flexGrow: '100',
+  backgroundColor: 'transparent',
+  border: 'none',
+  color: '#f5f5f',
+  userSelect: 'none',
+  outline: 'none'
+})
 
 
 
@@ -109,37 +91,16 @@ function Room({username, room, profilePicture}) {
 
   let myVideoStream;
   
-  navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: false
-  }).then(stream => {
-    myVideoStream = stream;
-    addVideoStream(myVideo.current, stream);
-    
-    // peer.on('call', call => {
-    //   call.answer(stream)
-    //   const video = document.createElement('video')
-    //   call.on('stream', userVideoStream => {
-    //     addVideoStream(video, userVideoStream);
-    //   })
-    // })
-    
-    socket.on('user-connected', (userId) => {
-      connectToNewUser(userId, stream)
-    })
-  })
-  
   peer.on('open', id => {
     socket.emit('join-room', roomId, id);
   })
   
   const addVideoStream = (video, stream) => {
-   
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
       video.play()
     })
-    
+    // videoGrid.current.append(video);
   } 
   
   const sendMessage = async () => {
@@ -182,42 +143,43 @@ function Room({username, room, profilePicture}) {
   // })
   
   useEffect(() => {
+
+    navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false
+    }).then(stream => {
+      myVideoStream = stream;
+      // console.log('this is myVideoStream:', navigator.mediaDevices)
+      addVideoStream(myVideo.current, stream);
+      
+      peer.on('call', call => {
+        call.answer(stream)
+  
+        call.on('stream', userVideoStream => {
+          addVideoStream(myVideo, userVideoStream);
+        })
+      })
+      
+      socket.on('user-connected', (userId) => {
+        connectToNewUser(userId, stream)
+      })
+    })
   }, [])
 
   return (
-    <div className="main">
-      <div className="main__left">
-        <div className="main__videos">
+    <Main>
+      <MainLeft>
+        <MainVideos>
           <div ref={videoGrid} id="video-grid">
             <video ref={myVideo}></video>
-          </div>
-        </div>
-        <div className="main__controls">
-          <div className="main__controls_block">
-            <div className="main__controls_button main__mute_button" id="muteButton" /*onClick={muteUnmute}*/>
-              <i></i>
-              <span>Mute</span>
-            </div>
-            <div className="main__controls_button main__video_button" id="playPauseVideo" /*onClick={playStop}*/>
-              <i></i>
-              <span>Pause Video</span>
-            </div>
-          </div>
+            
 
-          <div className="main__controls_block">
-
-            <div className="main__controls_button">
-             
-            </div>
           </div>
-
-          <div className="main__controls_block">
-      
-          </div>
-        </div>
-      </div>
+        </MainVideos>
+ 
+      </MainLeft>
    
-      <div className="main__right">
+      <MainRight>
       <div>
     
     {messageList.map((messageContent, i) => {
@@ -243,7 +205,7 @@ function Room({username, room, profilePicture}) {
     })}
   
   </div>
-  <div>
+  <MessageInput>
     <input
       type="text"
       value={currentMessage}
@@ -257,9 +219,9 @@ function Room({username, room, profilePicture}) {
       }}
     />
     <button onClick={sendMessage}>&#9658;</button>
-  </div>
-      </div>
-    </div>
+  </MessageInput>
+      </MainRight>
+    </Main>
   )
 }
 
