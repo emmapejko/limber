@@ -213,7 +213,6 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 justifyContent="center"
                 m="auto"
               >
-              <Typography style={{ paddingRight: '5px' }}>Predicted Difficulty: {difficulty}</Typography>
               {length ?
               <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
               <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button></> : null }
@@ -238,6 +237,14 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                   <Button onClick={saveFlow}>Save</Button>
                 </DialogActions>
               </Dialog>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                m="auto"
+              >
+                <Typography style={{ paddingBottom: '5px' }}><em>Predicted Difficulty Level: <strong>{difficulty}</strong></em></Typography>
               </Box>
               <Grid container spacing={2}>
                 {
