@@ -34,11 +34,17 @@ io.on('connection', (socket) => {
     socket.join(roomId);
     console.info(`User with ID: ${userId} joined room: ${roomId}`);
     socket.broadcast.to(roomId).emit('user-connected', userId);
-    socket.on('send_message', (data) => {
-      socket.to(data.room).emit('receive_message', data);
-    });
+    socket.on('send_message', message => {
+      console.info('got a message ', message, 'in room ', message.room);
+      io.to(roomId).emit('createMessage', message)
+    })
   });
 
+  // socket.on('send_message', (data) => {
+  //   console.log('got a message ', data, 'in room ', data.room);
+  //   //socket.to(data.room).emit('receive_message', data);
+  //   socket.to(data.room).emit(data);
+  // });
 
   socket.on('disconnect', () => {
     console.info('User Disconnected', socket.id);
