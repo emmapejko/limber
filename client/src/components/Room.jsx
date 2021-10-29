@@ -5,18 +5,14 @@ import axios from "axios";
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-const socket = io('/videoChat');
+const socket = io.connect('/');
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
 
-var peer = new Peer(undefined, {
- 
-  host:'/',
-  port: "3001",
-});
+
 
 const MainVideos = styled('div')({
   flexGrow: '1',
@@ -71,7 +67,7 @@ const MessageInput = styled('div')({
 
 
 function Room({username, room, profilePicture}) {
-  const roomId = 666;
+  const roomId = 'LIMBER';
   const videoGrid = useRef();
   const myVideo = useRef();
   const messages = useRef(new Array());
@@ -80,6 +76,10 @@ function Room({username, room, profilePicture}) {
   const { path, url } = useRouteMatch();
   
   //VIDEO functions
+  var peer = new Peer(undefined, {
+    host:'/',
+    port: "3001",
+  });
 
   const connectToNewUser = (userId, stream) => {
       const call = peer.call(userId, stream)
@@ -91,16 +91,13 @@ function Room({username, room, profilePicture}) {
 
   let myVideoStream;
   
-  peer.on('open', id => {
-    socket.emit('join-room', roomId, id);
-  })
+  
   
   const addVideoStream = (video, stream) => {
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
       video.play()
     })
-    // videoGrid.current.append(video);
   } 
   
   const sendMessage = async () => {
@@ -143,15 +140,25 @@ function Room({username, room, profilePicture}) {
   // })
   
   useEffect(() => {
+    
+
+    peer.on('open', function(id) {
+    });
+
+    peer.on('open', id => {
+      socket.emit('join-room', roomId, id);
+    })
+
+    socket.emit('join-room', roomId)
 
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: false
     }).then(stream => {
       myVideoStream = stream;
-      // console.log('this is myVideoStream:', navigator.mediaDevices)
       addVideoStream(myVideo.current, stream);
       
+
       peer.on('call', call => {
         call.answer(stream)
   
