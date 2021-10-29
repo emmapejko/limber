@@ -5,18 +5,12 @@ import axios from "axios";
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-const socket = io('/videoChat');
+const socket = io();
+//const socket = io.connect('http://localhost:3000/');
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-
-
-var peer = new Peer(undefined, {
- 
-  host:'/',
-  port: "3001",
-});
 
 const MainVideos = styled('div')({
   flexGrow: '1',
@@ -71,9 +65,10 @@ const MessageInput = styled('div')({
 
 
 function Room({username, room, profilePicture}) {
-  const roomId = 666;
+  const roomId = 'LIMBER';
   const videoGrid = useRef();
   const myVideo = useRef();
+  const Video2 = useRef();
   const messages = useRef(new Array());
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -82,27 +77,31 @@ function Room({username, room, profilePicture}) {
   //VIDEO functions
 
   const connectToNewUser = (userId, stream) => {
+    let peer = new Peer(undefined, {
+      host:'/',
+      port: "3001",
+    });
+
       const call = peer.call(userId, stream)
-     
+      //console.log('in connectToNew User');
       call.on('stream', userVideoStream => {
-        addVideoStream(myVideo, userVideoStream);
+        //addVideoStream(myVideo, userVideoStream);
+        //console.log("in call.on('stream')")
+        addVideoStream(Video2, userVideoStream);
       })
     }
 
   let myVideoStream;
-  
-  peer.on('open', id => {
-    socket.emit('join-room', roomId, id);
-  })
-  
+
   const addVideoStream = (video, stream) => {
+    //console.log("in addVideoStream")
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
       video.play()
     })
     // videoGrid.current.append(video);
-  } 
-  
+  }
+
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
@@ -117,12 +116,11 @@ function Room({username, room, profilePicture}) {
       };
 
       await socket.emit('send_message', messageData);
-      setMessageList((list) => [...list, messageData]);
+      // setMessageList((list) => [...list, messageData]);
       setCurrentMessage('');
     }
   };
-  
-  
+
   //TEXT FUNCTIONS
 
   // let text = $("input");
@@ -134,15 +132,24 @@ function Room({username, room, profilePicture}) {
   //     text.val('')
   //   }
   // });
-  
+
   // socket.on('createMessage', message => {
   //   console.log("this is createMessage:", message)
   //   messages.current.push(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
   //   // $('.messages').append(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
   //   // scrollToBottom();
   // })
-  
+
   useEffect(() => {
+    let peer = new Peer(undefined, {
+      host:'/',
+      port: "3001",
+    });
+
+    peer.on('open', id => {
+      //console.log("in peer.on('open'). id: ", id)
+      socket.emit('join-room', roomId, id);
+    });
 
     navigator.mediaDevices.getUserMedia({
       video: true,
@@ -151,18 +158,27 @@ function Room({username, room, profilePicture}) {
       myVideoStream = stream;
       // console.log('this is myVideoStream:', navigator.mediaDevices)
       addVideoStream(myVideo.current, stream);
-      
+
       peer.on('call', call => {
+        //console.log("in peer.on('call')")
         call.answer(stream)
-  
+
         call.on('stream', userVideoStream => {
-          addVideoStream(myVideo, userVideoStream);
+          //console.log("in call.on('stream') in useEffect")
+          //addVideoStream(myVideo, userVideoStream);
+          addVideoStream(Video2, userVideoStream);
         })
       })
-      
+
       socket.on('user-connected', (userId) => {
+        //console.log("in socket.on('user-connected')")
         connectToNewUser(userId, stream)
       })
+    })
+
+    socket.on('createMessage', message => {
+      //console.log('in createMessage: ', message);
+      setMessageList((list) => [...list, message]);
     })
   }, [])
 
@@ -172,19 +188,18 @@ function Room({username, room, profilePicture}) {
         <MainVideos>
           <div ref={videoGrid} id="video-grid">
             <video ref={myVideo}></video>
-            
+            <video ref={Video2}></video>
 
           </div>
         </MainVideos>
- 
       </MainLeft>
-   
       <MainRight>
       <div>
-    
+
     {messageList.map((messageContent, i) => {
       return (
         <div
+          key={i}
           id={username === messageContent.author ? 'you' : 'other'}
         >
           <Item>
@@ -194,16 +209,15 @@ function Room({username, room, profilePicture}) {
               </Grid>
               <Grid item xs>
                 <Typography noWrap variant="body2" component="div">{messageContent.message}</Typography>
-              </Grid>          
+              </Grid>
               <Typography id="author">{messageContent.author}</Typography>
               <div id="time">{messageContent.time}</div>
-               
             </Grid>
           </Item>
         </div>
       );
     })}
-  
+
   </div>
   <MessageInput>
     <input
@@ -214,7 +228,7 @@ function Room({username, room, profilePicture}) {
         setCurrentMessage(event.target.value);
       }}
       onKeyPress={(event) => {
-        
+
         event.key === 'Enter' && sendMessage();
       }}
     />
@@ -226,9 +240,5 @@ function Room({username, room, profilePicture}) {
 }
 
 export default Room;
-// const scrollToBottom = () => {
-//   let d = $('.main__chat__window');
-//   d.scrollTop(d.prop("scrollHeight"));
 
-// }
 

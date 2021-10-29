@@ -26,32 +26,25 @@ const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true
 })
-// const io = new Server(server);
 
-// io.on('connection', socket => {
-
-//   socket.on('join-room', (roomId, userId) => {
-    
-//    socket.join(1111);
-//    socket.broadcast.to(1111).emit('user-connected', userId);
-//    console.log("THIS IS ON CONNECTION USERID:", userId);
-//     socket.on('message', message => {
-//       io.to(1111).emit('createMessage', message)
-//     })
-
-//   })
-// })
 io.on('connection', (socket) => {
   console.info(`User Connected: ${socket.id}`);
 
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId);
     console.info(`User with ID: ${userId} joined room: ${roomId}`);
+    socket.broadcast.to(roomId).emit('user-connected', userId);
+    socket.on('send_message', message => {
+      console.info('got a message ', message, 'in room ', message.room);
+      io.to(roomId).emit('createMessage', message)
+    })
   });
 
-  socket.on('send_message', (data) => {
-    socket.to(data.room).emit('receive_message', data);
-  });
+  // socket.on('send_message', (data) => {
+  //   console.log('got a message ', data, 'in room ', data.room);
+  //   //socket.to(data.room).emit('receive_message', data);
+  //   socket.to(data.room).emit(data);
+  // });
 
   socket.on('disconnect', () => {
     console.info('User Disconnected', socket.id);
