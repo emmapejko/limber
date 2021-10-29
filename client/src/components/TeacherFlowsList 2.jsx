@@ -10,6 +10,8 @@ import {
   Button,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import BuildSetUp from './BuildSetUp.jsx';
 
@@ -35,6 +37,38 @@ const TeacherFlowsList = () => {
   const [savedFlow, setSavedFlow] = useState([]);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+
+  const addOrRemoveFavorite = () => {
+    if (favorites.map(flow => flow.name).includes(name)) {
+      axios.delete(`/favorites/${name}`)
+        .then(() => {
+          getFavorites();
+        })
+        .catch(err => {
+          console.warn(err);
+        })
+
+    } else {
+      axios.post('/favorites/', { data: { name }})
+        .then(() => {
+          getFavorites();
+        })
+        .catch(err => {
+          console.warn(err);
+        })
+    }
+  }
+
+  const getFavorites = () => {
+    axios.get('/favorites/')
+      .then(({ data }) => {
+        setFavorites(data);
+      })
+      .catch(err => {
+        console.warn(err);
+      })
+  }
 
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
@@ -63,6 +97,7 @@ const TeacherFlowsList = () => {
     axios.get('/teachers/')
       .then(({ data }) => {
         setTeachers(data);
+        getFavorites();
       })
       .catch(err => {
         console.warn(err);
@@ -87,7 +122,7 @@ const TeacherFlowsList = () => {
     <Box sx={{width: '50%', marginLeft: '20px'}}>
       {
         teachers.map((teacher, i) => (
-          <Accordion expanded={expanded === i} onChange={handleChange(i)}>
+          <Accordion expanded={expanded === i} onChange={handleChange(i)} key={i}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${i}bh-content`}
@@ -108,11 +143,26 @@ const TeacherFlowsList = () => {
                     aria-describedby="parent-modal-description"
                   >
                   <Box sx={{ ...style, width: '90%', height: '90%' }}>
-                    <Typography><h2 id="parent-modal-title">{name ? name : null}</h2></Typography>
+                    {
+                      name ?
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        m="auto"
+                      ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
+                      <Button onClick={addOrRemoveFavorite}>
+                        {
+                          favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                        }
+                      </Button>
+                      </Box>
+                      : null
+                    }
                     <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} />
                   </Box>
                   </Modal>
-                  : <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)}><div key={i}>{flow.name}</div></Button>)}</>
+                  : <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
                 }
               </Typography>
             </AccordionDetails>
