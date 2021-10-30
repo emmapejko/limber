@@ -99,9 +99,17 @@ export default function LearningPose(props) {
         m="auto"
         padding='3px'
       >
-      <Grid container spacing={1}>
+      <Grid container spacing={1}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        m="auto"
+      >
         {
-          poses.length ? poses.map((pose, i) => <PoseItem key={i} pose={pose} style={props.style} />) : null
+          poses.length ? poses.map((pose, i) => (
+            (i < 5) ?
+            <PoseItem key={i} pose={pose} style={props.style} />
+            : null)) : null
         }
        </Grid>
        </Box>
