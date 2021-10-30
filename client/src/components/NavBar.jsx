@@ -57,8 +57,8 @@ const NavBar = () => {
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography sx={{ minWidth: 100 }} style={textSizer}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }} style={textSizer}><Link to={`${url}/build`}>Build</Link></Typography>
-        <Typography sx={{ minWidth: 100, flex: 1 }} style={textSizer}><Link to={`${url}/connect`}>Connect</Link></Typography>
+        <Typography sx={{ minWidth: 100 }} style={textSizer}><Link to={`${url}/build`} style={{textDecoration: 'none'}}>Build</Link></Typography>
+        <Typography sx={{ minWidth: 100, flex: 1 }} style={textSizer}><Link to={`${url}/connect`} style={{textDecoration: 'none'}}>Connect</Link></Typography>
         <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
           <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
         <Tooltip title="Account settings">
@@ -103,14 +103,14 @@ const NavBar = () => {
       >
         <MenuItem>
           <Avatar />
-          <Link to={`${url}`}>Profile</Link>
+          <Link to={`${url}`} style={{textDecoration: 'none'}}>Profile</Link>
         </MenuItem>
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          <a href="/logout">Logout</a>
+          <a href="/logout" style={{textDecoration: 'none'}}>Logout</a>
         </MenuItem>
       </Menu>
       <hr />
