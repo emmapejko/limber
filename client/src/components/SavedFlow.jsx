@@ -32,10 +32,6 @@ const style = {
   overflow: 'scroll'
 };
 
-const color = {
-  backgroundColor: '#e0f2f1',
-};
-
 export default function SavedFlow(props) {
   const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
@@ -140,7 +136,7 @@ export default function SavedFlow(props) {
 
   return (
     <>
-      <div style={color}>
+      <div>
         <Button onClick={handleOpen} style={props.style}>Flows</Button>
         <Modal
           open={open}

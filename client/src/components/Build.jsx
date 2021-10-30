@@ -20,7 +20,6 @@ const Build = (props) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [occupation, setOccupation] = useState('I spend a lot of time at a desk');
   const [bodyParts, setBodyParts] = useState([]);
-  const [mainOpen, setMainOpen] = useState(true);
 
   const occupationBuild = () => {
     if (occupation === 'I spend a lot of time at a desk') {
@@ -38,7 +37,7 @@ const Build = (props) => {
       return (
         <>
           <Skellyton bodyParts={bodyParts} handleClick={() => true} />
-          <Dialog open={mainOpen} onClose={() => setView('body')}>
+          <Dialog open={true} onClose={() => setView('body')}>
           <DialogContent>
           <Box
             display="flex"
@@ -62,7 +61,7 @@ const Build = (props) => {
                       value="I spend a lot of time at a desk"
                       control={<Radio />}
                       label="I spend a lot of time at a desk"
-                      onChange={(e) => {setOccupation(e.target.value)}}
+                      onChange={(e) => setOccupation(e.target.value)}
                     />
                     <FormControlLabel
                       value="I spend a lot of time standing up"

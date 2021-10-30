@@ -27,7 +27,7 @@ export default function BuildFlow(props) {
 
   return (
     <>
-      <Typography sx={{ minWidth: 100 }} style={props.style}><Link to={`${url}/build`}>Build A Flow</Link></Typography>
+      <Button style={props.style}><Link to={`${url}/build`} style={{textDecoration: 'none'}}>Build A Flow</Link></Button>
       <Switch>
         <Route path={`${path}/build`}>
           <Build />

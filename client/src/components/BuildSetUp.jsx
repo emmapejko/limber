@@ -89,7 +89,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
       setDifficulty('advanced');
     } else if (countObj.intermediate >= .25 * flow.length) {
       setDifficulty('intermediate');
-    } else if (countObj.advanced + countObj.intermediate >= .3 * flow.length) {
+    } else if (countObj.advanced >= 1) {
       setDifficulty('intermediate');
     } else {
       setDifficulty('beginner');
