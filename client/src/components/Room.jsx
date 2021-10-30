@@ -75,15 +75,12 @@ function Room({username, room, profilePicture}) {
   const { path, url } = useRouteMatch();
   
   //VIDEO functions
-  var peer = new Peer(undefined, {
-    host:'/',
-    port: "3001",
-  });
+ 
 
   const connectToNewUser = (userId, stream) => {
     let peer = new Peer(undefined, {
       host:'/',
-      port: "3001",
+      port: "3000",
     });
 
       const call = peer.call(userId, stream)
@@ -146,7 +143,7 @@ function Room({username, room, profilePicture}) {
   useEffect(() => {
     let peer = new Peer(undefined, {
       host:'/',
-      port: "3001",
+      port: "3000",
     });
 
     peer.on('open', id => {
@@ -162,7 +159,7 @@ function Room({username, room, profilePicture}) {
       addVideoStream(myVideo.current, stream);
 
       peer.on('call', call => {
-        //console.log("in peer.on('call')")
+        //console.log("in peer.on('call'))
         call.answer(stream)
 
         call.on('stream', userVideoStream => {
