@@ -16,11 +16,6 @@ import BuildFlowCard from './BuildFlowCard.jsx';
 import PoseKnown from './PoseKnown.jsx';
 import LearningPose from './LearningPose.jsx';
 
-
-
-const color = {
-  //backgroundColor: '#e0f2f1',
-};
 const Home = (props) => {
   const [pose, setPose] = useState([]);
   const [teacher, setTeacher] = useState(false);
@@ -80,7 +75,7 @@ const Home = (props) => {
             },
           }}
         >
-          <Paper style={color} elevation={3}>
+          <Paper elevation={3}>
             <DashBoard style={props.style}/>
             <DashBoardCard style={props.style}/>
           </Paper>
@@ -101,8 +96,8 @@ const Home = (props) => {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 10,
-              width: 450,
-              height: 100,
+              width: '36%',
+              height: '30%',
             },
           }}
         >
