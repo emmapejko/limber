@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { Button } from '@mui/material';
 import Room from './Room.jsx';
 import FollowersList from './FollowersList.jsx';
 import TeacherFlowsList from './TeacherFlowsList.jsx';
@@ -36,7 +36,7 @@ function Connect(props) {
       {!showChat ? 
         <div className="joinChatContainer">
           <h3>LIMBER CHAT</h3>
-          <button onClick={() => { joinRoom() }}>Join Chat</button>
+          <Button variant="contained" onClick={() => { joinRoom() }}>Join Chat</Button>
         </div>
       :
       <Room username={username} room={room} profilePicture={profilePicture} />
