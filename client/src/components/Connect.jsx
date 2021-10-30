@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import io from 'socket.io-client';
 import axios from 'axios';
-import Room from './Room.jsx';
-// const socket = io.connect('http://localhost:3000/');
 
+import Room from './Room.jsx';
 import FollowersList from './FollowersList.jsx';
 import TeacherFlowsList from './TeacherFlowsList.jsx';
 
 function Connect(props) {
-
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('LIMBER');
   const [showChat, setShowChat] = useState(false);
@@ -27,7 +24,6 @@ function Connect(props) {
   }
 
   const joinRoom = () => {
-    // socket.emit('join_room', room);
     setShowChat(true);
   };
 

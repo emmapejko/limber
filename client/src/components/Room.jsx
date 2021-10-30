@@ -1,16 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import { io } from "socket.io-client"
 import Peer from 'peerjs';
-import axios from "axios";
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-const socket = io();
-//const socket = io.connect('http://localhost:3000/');
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+
+const socket = io();
 
 const MainVideos = styled('div')({
   flexGrow: '1',
@@ -69,37 +67,36 @@ function Room({username, room, profilePicture}) {
   const videoGrid = useRef();
   const myVideo = useRef();
   const Video2 = useRef();
-  const messages = useRef(new Array());
+  const Video3 = useRef();
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
-  const { path, url } = useRouteMatch();
-  
-  //VIDEO functions
- 
 
-  const connectToNewUser = (userId, stream) => {
-    let peer = new Peer(undefined, {
+  const [stream, setStream] = useState({});
+  const [stream2, setStream2] = useState({});
+  const [stream3, setStream3] = useState({});
+  const [count, setCount] = useState(2);
+
+  const currentStream = useRef();
+
+  const peer = useRef(new Peer(undefined, {
+      path: '/peerjs',
       host:'/',
       port: "3000",
-    });
+  }));
 
-      const call = peer.call(userId, stream)
-      //console.log('in connectToNew User');
+  const connectToNewUser = async (userId, stream) => {
+      const call = peer.current.call(userId, currentStream.current);
       call.on('stream', userVideoStream => {
-        //addVideoStream(myVideo, userVideoStream);
-        //console.log("in call.on('stream')")
-        addVideoStream(Video2, userVideoStream);
+          addVideoStream(Video2.current, userVideoStream);
+          setStream2(userVideoStream);
       })
-    }
+  };
 
-  let myVideoStream;
   const addVideoStream = (video, stream) => {
-    //console.log("in addVideoStream")
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
       video.play()
     })
-    // videoGrid.current.append(video);
   }
 
   const sendMessage = async () => {
@@ -116,38 +113,12 @@ function Room({username, room, profilePicture}) {
       };
 
       await socket.emit('send_message', messageData);
-      // setMessageList((list) => [...list, messageData]);
       setCurrentMessage('');
     }
   };
 
-  //TEXT FUNCTIONS
-
-  // let text = $("input");
-  // // when press enter send message
-  // $('html').keydown(e => {
-  //   if (e.which == 13 && text.val().length !== 0) {
-  //     console.log(text.val())
-  //     socket.emit('message', text.val());
-  //     text.val('')
-  //   }
-  // });
-
-  // socket.on('createMessage', message => {
-  //   console.log("this is createMessage:", message)
-  //   messages.current.push(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
-  //   // $('.messages').append(`<li className="message"><img src="https://lh3.googleusercontent.com/a-/AOh14GjRMxq0Sc0NMfDaIJyw7ATUh82nZ-qvv-z_ISaDuqo=s96-c"></img><b>Luke Johnson</b><br/>${message}</li>`)
-  //   // scrollToBottom();
-  // })
-
   useEffect(() => {
-    let peer = new Peer(undefined, {
-      host:'/',
-      port: "3000",
-    });
-
-    peer.on('open', id => {
-      //console.log("in peer.on('open'). id: ", id)
+    peer.current.on('open', id => {
       socket.emit('join-room', roomId, id);
     });
 
@@ -155,31 +126,38 @@ function Room({username, room, profilePicture}) {
       video: true,
       audio: false
     }).then(stream => {
-      myVideoStream = stream;
+      setStream(stream);
+      currentStream.current = stream;
       addVideoStream(myVideo.current, stream);
 
-      peer.on('call', call => {
-        //console.log("in peer.on('call'))
-        call.answer(stream)
-
-        call.on('stream', userVideoStream => {
-          //console.log("in call.on('stream') in useEffect")
-          //addVideoStream(myVideo, userVideoStream);
-          addVideoStream(Video2, userVideoStream);
-        })
-      })
-
       socket.on('user-connected', (userId) => {
-        //console.log("in socket.on('user-connected')")
         connectToNewUser(userId, stream)
       })
+
     })
 
     socket.on('createMessage', message => {
-      //console.log('in createMessage: ', message);
       setMessageList((list) => [...list, message]);
     })
-  }, [])
+
+    // peer.current.on('call', call => {
+    //   call.answer(currentStream.current);
+    //   call.on('stream', st => {
+    //     addVideoStream(Video2.current, st);
+    //     setStream2(st);
+    //   })
+    // })
+  }, []);
+
+  useEffect(() => {
+    peer.current.on('call', call => {
+      call.answer(currentStream.current);
+      call.on('stream', st => {
+          addVideoStream(Video2.current, st);
+          setStream2(st);
+      })
+    })
+  }, [stream2, stream3]);
 
   return (
     <Main>
@@ -188,7 +166,7 @@ function Room({username, room, profilePicture}) {
           <div ref={videoGrid} id="video-grid">
             <video ref={myVideo}></video>
             <video ref={Video2}></video>
-
+            <video ref={Video3}></video>
           </div>
         </MainVideos>
       </MainLeft>

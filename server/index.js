@@ -1,10 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const { v4: uuidv4 } = require("uuid");
 const app = express();
 const session = require('express-session');
-// const http = require('http');
 const { Server } = require('socket.io');
 const server = require('http').Server(app);
 const io = require('socket.io')(server)
@@ -22,6 +20,7 @@ const favoritesRouter = require('./routes/favorites');
 const flowRouter = require('./routes/flow');
 const imageRouter = require('./routes/images');
 const youTubeRouter = require('./routes/youtube');
+
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true
@@ -35,16 +34,9 @@ io.on('connection', (socket) => {
     console.info(`User with ID: ${userId} joined room: ${roomId}`);
     socket.broadcast.to(roomId).emit('user-connected', userId);
     socket.on('send_message', message => {
-      console.info('got a message ', message, 'in room ', message.room);
       io.to(roomId).emit('createMessage', message)
     })
   });
-
-  // socket.on('send_message', (data) => {
-  //   console.log('got a message ', data, 'in room ', data.room);
-  //   //socket.to(data.room).emit('receive_message', data);
-  //   socket.to(data.room).emit(data);
-  // });
 
   socket.on('disconnect', () => {
     console.info('User Disconnected', socket.id);
@@ -59,14 +51,6 @@ app.use(express.json());
 app.use(express.static(DIST_DIR));
 
 app.use('/peerjs', peerServer);
-app.get('/videoChat', (req, res) => {
-
-  res.redirect("/videoChat");
-})
-
-app.get('/vidoChat/:room', (req, res) => {
-  res.redirect('/videoChat/666 ', { roomId: req.params.room });
-})
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -92,8 +76,6 @@ app.get('/google', passport.authenticate('google', { scope: ['profile', 'email']
 
 app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-  // let userPath = req.user.dataValues.full_name.split(' ').join('');
-  // res.redirect(`/${userPath}`);
     res.redirect('/loggedin');
   });
 
