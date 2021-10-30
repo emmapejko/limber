@@ -62,10 +62,7 @@ const Build = (props) => {
                       value="I spend a lot of time at a desk"
                       control={<Radio />}
                       label="I spend a lot of time at a desk"
-                      onChange={(e) => {
-                        setOccupation(e.target.value)
-                        setBodyParts(['neck', 'back']);
-                      }}
+                      onChange={(e) => {setOccupation(e.target.value)}}
                     />
                     <FormControlLabel
                       value="I spend a lot of time standing up"
