@@ -25,6 +25,7 @@ export default function LearningPose(props) {
   const [auto, setAuto] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [poses, setPoses] = useState([]);
+  const [openPose, setOpenPose] = useState(false);
 
   // grab data from autocomplete
   const handleChange = (event, value) => setSelectedOptions(value);
@@ -62,7 +63,7 @@ export default function LearningPose(props) {
         justifyContent="center"
         m="auto"
       >
-      <Typography style={props.style}><h4>What you're working on</h4></Typography>
+      <Button onClick={() => setOpenPose(true)}>What you're working on</Button>
       <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
       <Modal
@@ -99,13 +100,45 @@ export default function LearningPose(props) {
         m="auto"
         padding='3px'
       >
-      <Grid container spacing={1}>
+      <Grid container spacing={1}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        m="auto"
+      >
         {
-          poses.length ? poses.map((pose, i) => <PoseItem key={i} pose={pose} style={props.style} />) : null
+          poses.length ? poses.map((pose, i) => (
+            (i < 5) ?
+            <PoseItem key={i} pose={pose} style={props.style} />
+            : null)) : null
         }
        </Grid>
        </Box>
       </div>
+      <Modal
+        open={openPose}
+        onClose={() => setOpenPose(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}  style={{ width: '40%'}}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            m="auto"
+          >
+          <Typography id='modal-modal-title' variant="h6" component="h2">What you're working on</Typography>
+          <Button onClick={() => setAuto(true)}><AddIcon /></Button>
+          </Box>
+          <Grid container spacing={1}>
+          {
+            poses.length ? poses.map((pose, i) =>
+              <Grid item xs={3}><PoseItem key={i} pose={pose} style={props.style} /></Grid>) : null
+          }
+          </Grid>
+        </Box>
+      </Modal>
     </div>
   );
 }
