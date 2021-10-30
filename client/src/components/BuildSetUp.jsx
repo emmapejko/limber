@@ -22,7 +22,6 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
-import skelly from '../images/skellyton.png';
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
 import Skellyton from './Skellyton.jsx';

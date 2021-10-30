@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 
 import BuildSetUp from './BuildSetUp.jsx';
+import Skellyton from './Skellyton.jsx';
 
 const Build = (props) => {
   const [view, setView] = useState('main');
@@ -29,7 +30,6 @@ const Build = (props) => {
     } else if (occupation === 'I spend a lot of time sitting down') {
       setBodyParts(['shoulders', 'back']);
     }
-    console.info('body parts', bodyParts);
     setView('occupation');
   };
 
@@ -37,7 +37,7 @@ const Build = (props) => {
     if (view === 'main') {
       return (
         <>
-          <BuildSetUp jobBodyParts={bodyParts} video={false}/>
+          <Skellyton bodyParts={bodyParts} handleClick={() => true} />
           <Dialog open={mainOpen} onClose={() => setView('body')}>
           <DialogContent>
           <Box
