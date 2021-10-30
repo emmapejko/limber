@@ -20,6 +20,7 @@ const style = {
 };
 
 function DashBoard(props) {
+ 
   const [open, setOpen] = React.useState(false);
   const [level, setLevel] = useState([]);
   const [known, setKnown] = useState([]);
@@ -40,7 +41,7 @@ function DashBoard(props) {
         })
         
       skillz = Object.entries(skillObj);
-      
+     
       skillz.sort((a, b) => b[1] - a[1]);
       const slicedRank = skillz[0].slice(0, 1);
         setKnown(data.length);
@@ -62,6 +63,7 @@ function DashBoard(props) {
         console.warn(err);
       });
   };
+
   
 
   useEffect(() => {
@@ -80,7 +82,7 @@ function DashBoard(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            <DashTable style={props.style}/>
+            <DashTable style={props.style} />
           </Typography>
           <Typography 
           id="modal-modal-description" 

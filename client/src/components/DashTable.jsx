@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,8 +7,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Charts from './Charts.jsx';
+//import DashBoardCard from './DashBoardCard.jsx';
 
 function createData(name, pose, flows, joes, otherdata, props) {
+  
   return {
     name, pose, flows, joes, otherdata,
   };
@@ -21,37 +25,57 @@ const rows = [
   createData('dragon drop', 356, 16.0, 49, 3.9),
 ];
 
-function DashTable() {
+function DashTable(props) {
+  const [poses, setPoses] = useState([]);
+
+  const getUserPosesKnown = () => {
+    axios.get('profile/userPosesKnown')
+      .then(({ data }) => {
+        setPoses(data);
+      })
+      .catch((err) => {
+        console.warn(err, 'getUserPosesKnown');
+      });
+  };
+  useEffect(() => {
+    getUserPosesKnown();
+  }, []);
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Pose</TableCell>
-            <TableCell align="right">Flow&nbsp;(g)</TableCell>
-            <TableCell align="right">Duration&nbsp;(g)</TableCell>
-            <TableCell align="right">Yoga&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      
+      <Charts poses={poses}/>
+    </div>
+    
+    // <TableContainer component={Paper}>
+    //   <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    //     <TableHead>
+    //       <TableRow>
+    //         <TableCell>Name</TableCell>
+    //         <TableCell align="right">Pose</TableCell>
+    //         <TableCell align="right">Flow&nbsp;(g)</TableCell>
+    //         <TableCell align="right">Duration&nbsp;(g)</TableCell>
+    //         <TableCell align="right">Yoga&nbsp;(g)</TableCell>
+    //       </TableRow>
+    //     </TableHead>
+    //     <TableBody>
+    //       {rows.map((row) => (
+    //         <TableRow
+    //           key={row.name}
+    //           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+    //         >
+    //           <TableCell component="th" scope="row">
+    //             {row.name}
+    //           </TableCell>
+    //           <TableCell align="right">{row.calories}</TableCell>
+    //           <TableCell align="right">{row.fat}</TableCell>
+    //           <TableCell align="right">{row.carbs}</TableCell>
+    //           <TableCell align="right">{row.protein}</TableCell>
+    //         </TableRow>
+    //       ))}
+    //     </TableBody>
+    //   </Table>
+    // </TableContainer>
   );
 }
 
