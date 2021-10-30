@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import moment from 'moment';
 
 const socket = io();
 
@@ -18,23 +19,10 @@ const MainVideos = styled('div')({
   justifyContent: 'center',
 })
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary
-}));
-
-const Img = styled('img')({
-  justifyContent: 'flex-start',
-  margin: 0,
-  display: 'block',
-  maxWidth: 'flex',
-  maxHeight: 'flex',
-});
 const Main = styled('div')({
-  height: '100%',
+  height: '500px',
   display: 'flex',
+  maxHeight: '500px'
 })
 
 const MainRight = styled('div')({
@@ -49,15 +37,6 @@ const MainLeft = styled('div')({
   flex: '0.8',
   display: 'flex',
   flexDirection: 'column'
-})
-
-const MessageInput = styled('div')({
-  flexGrow: '100',
-  backgroundColor: 'transparent',
-  border: 'none',
-  color: '#f5f5f',
-  userSelect: 'none',
-  outline: 'none'
 })
 
 
@@ -107,9 +86,7 @@ function Room({username, room, profilePicture}) {
         profilePicture,
         message: currentMessage,
         time:
-          `${new Date(Date.now()).getHours()
-          }:${
-            new Date(Date.now()).getMinutes()}`,
+        moment(currentMessage.createdAt).fromNow(),
       };
 
       await socket.emit('send_message', messageData);
@@ -163,23 +140,102 @@ function Room({username, room, profilePicture}) {
     <Main>
       <MainLeft>
         <MainVideos>
-          <div ref={videoGrid} id="video-grid">
-            <video ref={myVideo}></video>
-            <video ref={Video2}></video>
-            <video ref={Video3}></video>
+          <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              height: '100%',
+              width: '100%',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              overflowY: 'auto',
+          }} ref={videoGrid} id="video-grid">
+            <video style={{
+              display: 'block',
+              flex: '1',
+              objectFit: 'cover',
+              border: '5px solid #000',
+              maxWidth: '600px',
+              height: '300px',
+              width: '400px',
+              objectFit: 'cover',
+              padding: '8px'
+            }} ref={myVideo}></video>
+            <video style={{
+               display: 'block',
+               flex: '1',
+               objectFit: 'cover',
+               border: '5px solid #000',
+               maxWidth: '600px',
+               height: '300px',
+               width: '400px',
+               objectFit: 'cover',
+               padding: '8px'
+            }} ref={Video2}></video>
+            <video style={{
+              display: 'block',
+              flex: '1',
+              objectFit: 'cover',
+              border: '5px solid #000',
+              maxWidth: '600px',
+              height: '300px',
+              width: '400px',
+              objectFit: 'cover',
+              padding: '8px'
+            }} ref={Video3}></video>
           </div>
         </MainVideos>
       </MainLeft>
       <MainRight>
-      <div>
 
+      <div style={{
+          flexGrow: '1',
+          overflowY: 'scroll',
+          padding: '20px 20px 0 20px'
+      }}>
     {messageList.map((messageContent, i) => {
       return (
-        <div
+        <ul style={{
+          flexGrow: '1px',
+          overflowY: 'scroll',
+          padding: '20px 20px 0 20px',
+        }} 
           key={i}
           id={username === messageContent.author ? 'you' : 'other'}
         >
-          <Item>
+            <li style={{
+          color: '#fff',
+          listStyle: 'none',
+          borderBottom: '1px solid #3d3d42',
+          padding: '10px 0'
+        }}>
+            <div>
+              <div>
+                <img style={{
+                  width:'100%',
+                  maxWidth:'30px',
+                  overflow: 'auto',
+                  float: 'left',
+                  borderRadius: '50px',
+                 
+                }} src={messageContent.profilePicture} />
+              </div>
+          
+                <div style={{
+                  float: 'right'
+                }}>{messageContent.message}</div>
+            
+              <div style={{ 
+                fontSize: '12px',
+              }} id="author">{messageContent.author}</div>
+              <div style={{
+                color: '#f5f5f5',
+                fontSize: "10px",
+                fontStyle: 'italic'
+              }}id="time">{messageContent.time}</div>
+            </div>
+          </li>
+
+          {/* <Item>
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item xs>
                 <Img src={messageContent.profilePicture} />
@@ -190,14 +246,22 @@ function Room({username, room, profilePicture}) {
               <Typography id="author">{messageContent.author}</Typography>
               <div id="time">{messageContent.time}</div>
             </Grid>
-          </Item>
-        </div>
+          </Item> */}
+        </ul>
       );
     })}
 
   </div>
-  <MessageInput>
+  
     <input
+    style={{
+      flexGrow: '1',
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: '#f5f5f5',
+      userSelect: 'none',
+      outline: 'none',
+    }}
       type="text"
       value={currentMessage}
       placeholder="Hey..."
@@ -209,8 +273,8 @@ function Room({username, room, profilePicture}) {
         event.key === 'Enter' && sendMessage();
       }}
     />
-    <button onClick={sendMessage}>&#9658;</button>
-  </MessageInput>
+    {/* <button  onClick={sendMessage}>&#9658;</button> */}
+  
       </MainRight>
     </Main>
   )

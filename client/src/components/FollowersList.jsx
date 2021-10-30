@@ -5,6 +5,7 @@ import {
   Box,
   Grid,
   Button,
+  Paper,
 } from '@mui/material';
 
 const FollowersList = ({ user }) => {
@@ -60,6 +61,7 @@ const FollowersList = ({ user }) => {
 
   return (
     <Box sx={{ flexGrow: 1, margin: '20px'}}>
+      {/* <Grid item xs={8}>Active users:</Grid> */}
       {
         users.map((u, i) => <Grid  container spacing={2} key={i} style={{ width: '20%'}}>
           <Grid item xs={8}>{u.full_name}</Grid>
