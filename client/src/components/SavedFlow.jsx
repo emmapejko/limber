@@ -14,6 +14,7 @@ import {
 } from '@mui/lab';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import BuildSetUp from './BuildSetUp.jsx';
 
@@ -42,6 +43,7 @@ export default function SavedFlow(props) {
   const [tab, setTab] = useState('0');
   const [sharedFlows, setSharedFlows] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [owner, setOwner] = useState(null);
 
   const handleOpen = () => {
     setOpen(true);
@@ -52,6 +54,7 @@ export default function SavedFlow(props) {
     setSavedFlow([]);
     setWidth(400);
     setHeight(300);
+    setOwner(null);
   };
 
   const handleTabChange = (event, newValue) => {
@@ -60,15 +63,22 @@ export default function SavedFlow(props) {
     setSavedFlow([]);
     setWidth(400);
     setHeight(300);
+    setOwner(null);
   }
 
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
       .then(({ data }) => {
-        setName(flow.name);
         setSavedFlow(data);
-        setWidth('90%');
-        setHeight('90%');
+      })
+      .then(() => {
+        axios.get(`/flow/user/${flow.userId}`)
+          .then(({ data }) => {
+            setOwner(data.full_name);
+            setWidth('90%');
+            setHeight('90%');
+            setName(flow.name);
+          })
       })
       .catch(err => {
         console.warn(err);
@@ -106,7 +116,6 @@ export default function SavedFlow(props) {
       })
   }
 
-  //axios get request to flows table
   const getSavedFlows = () => {
     axios.get('/profile/savedFlows')
     .then(({ data }) => {
@@ -126,6 +135,20 @@ export default function SavedFlow(props) {
       })
       .catch(err => {
         console.warn(err, 'sharedFlows');
+      })
+  }
+
+  const deleteFlow = () => {
+    axios.delete(`/flow/${name}`)
+      .then(() => {
+        getSavedFlows();
+        setName(null);
+        setSavedFlow([]);
+        setWidth(400);
+        setHeight(300);
+      })
+      .catch(err => {
+        console.warn(err);
       })
   }
 
@@ -167,6 +190,7 @@ export default function SavedFlow(props) {
                       favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
                     }
                   </Button>
+                  <Button onClick={deleteFlow}><DeleteIcon /></Button>
                   </Box>
                   : null
                 }
@@ -179,7 +203,7 @@ export default function SavedFlow(props) {
             <TabPanel value="1">
                 {
                   name ?
-                  <Box
+                  <><Box
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -191,6 +215,16 @@ export default function SavedFlow(props) {
                     }
                   </Button>
                   </Box>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                    paddingBottom="5px"
+                  >
+                  <Typography>By: <em>{owner}</em></Typography>
+                  </Box>
+                  </>
                   : null
                 }
                 {
@@ -202,7 +236,7 @@ export default function SavedFlow(props) {
             <TabPanel value="2">
                 {
                   name ?
-                  <Box
+                  <><Box
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -213,7 +247,26 @@ export default function SavedFlow(props) {
                       favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
                     }
                   </Button>
+                  {
+                    flows.map(flow => flow.name).includes(name) ?
+                    <Button onClick={deleteFlow}><DeleteIcon /></Button>
+                    : null
+                  }
                   </Box>
+                  {
+                    flows.map(flow => flow.name).includes(name) ?
+                    null :
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        m="auto"
+                        paddingBottom="5px"
+                      >
+                        <Typography>By: <em>{owner}</em></Typography>
+                      </Box>
+                  }
+                  </>
                   : null
                 }
                 {
