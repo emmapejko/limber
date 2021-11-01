@@ -131,7 +131,17 @@ export default function SavedFlow(props) {
   }
 
   const deleteFlow = () => {
-
+    axios.delete(`/flow/${name}`)
+      .then(() => {
+        getSavedFlows();
+        setName(null);
+        setSavedFlow([]);
+        setWidth(400);
+        setHeight(300);
+      })
+      .catch(err => {
+        console.warn(err);
+      })
   }
 
   useEffect(() => {
