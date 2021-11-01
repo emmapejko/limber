@@ -147,7 +147,7 @@ export default function LearningPose(props) {
           {
             poses.length ? poses.map((pose, i) =>
               <Grid item xs={3}>
-                <Button onClick={() => deleteByPoseId(pose.id)}><PoseItem 
+                <Button title="click here to delete" onClick={() => deleteByPoseId(pose.id)}><PoseItem 
                 key={i} 
                 pose={pose} 
                 style={props.style} 
