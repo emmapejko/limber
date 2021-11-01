@@ -3,7 +3,7 @@ const { Router } = require('express');
 const flowRouter = Router();
 
 const { build } = require('../helpers/build');
-const { Pose, AfterPose, PoseBodyPart, User, UserPose, Flow, BodyPart, PoseFlow } = require('../db/sequelize');
+const { Pose, AfterPose, PoseBodyPart, User, UserPose, Flow, BodyPart, PoseFlow, Favorite } = require('../db/sequelize');
 
 flowRouter.post('/', (req, res) => {
   //const { id } = req.user.dataValues;
@@ -53,6 +53,41 @@ flowRouter.get('/getSavedFlow/:id', (req, res) => {
     console.warn(err);
     res.sendStatus(404);
   })
+})
+
+flowRouter.delete('/:name', (req, res) => {
+  const { name } = req.params;
+
+  Flow.findOne({ where: { name }})
+    .then(flow => {
+      PoseFlow.destroy({ where: { flowId: flow.id }})
+        .then(() => {
+          Favorite.destroy({ where: { flowId: flow.id }})
+            .then(() => {
+              Flow.destroy({ where: { id: flow.id }})
+                .then(() => {
+                  res.sendStatus(200);
+                })
+            })
+        })
+    })
+    .catch(err => {
+      console.warn(err);
+      res.sendStatus(404);
+    })
+})
+
+flowRouter.get('/user/:id', (req, res) => {
+  const { id } = req.params;
+
+  User.findByPk(id)
+    .then(user => {
+      res.status(200).send(user);
+    })
+    .catch(err => {
+      console.warn(err);
+      res.sendStatus(404);
+    })
 })
 
 
