@@ -93,6 +93,8 @@ const TeacherFlowsList = () => {
     setOpen(false);
     setExpanded(false);
     setFlows([]);
+    setName(null);
+    setOwner(null);
   }
 
   const handleChange = (panel) => (event, isExpanded) => {
