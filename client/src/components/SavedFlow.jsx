@@ -14,6 +14,7 @@ import {
 } from '@mui/lab';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import BuildSetUp from './BuildSetUp.jsx';
 
@@ -129,6 +130,10 @@ export default function SavedFlow(props) {
       })
   }
 
+  const deleteFlow = () => {
+
+  }
+
   useEffect(() => {
     getSavedFlows();
   }, []);
@@ -167,6 +172,7 @@ export default function SavedFlow(props) {
                       favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
                     }
                   </Button>
+                  <Button onClick={deleteFlow}><DeleteIcon /></Button>
                   </Box>
                   : null
                 }
@@ -213,6 +219,11 @@ export default function SavedFlow(props) {
                       favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
                     }
                   </Button>
+                  {
+                    flows.map(flow => flow.name).includes(name) ?
+                    <Button onClick={deleteFlow}><DeleteIcon /></Button>
+                    : null
+                  }
                   </Box>
                   : null
                 }
