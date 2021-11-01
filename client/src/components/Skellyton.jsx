@@ -17,21 +17,23 @@ const Skellyton = ({ bodyParts, handleClick }) => {
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 401 622">
         <image width="401" height="622" xlinkHref={skelly}></image>
         <a onClick={() => handleClick('shoulders')}>
-          <rect x="118" y="94" fill="#ffb627" opacity={bodyParts.includes('shoulders') ? '95%' : '50%'} width="50" height="50"></rect>
+          <circle cx="142" cy="115" r="20" fill="#ffb627" opacity={bodyParts.includes('shoulders') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('neck')}>
-          <rect x="174" y="69" fill="#ff9505" opacity={bodyParts.includes('neck') ? '95%' : '50%'} width="52" height="50"></rect>
+          <circle cx="198" cy="90" r="20" fill="#ff9505" opacity={bodyParts.includes('neck') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('back')}>
-          <rect x="171" y="182" fill="#ff9505" opacity={bodyParts.includes('back') ? '95%' : '50%'} width="50" height="50"></rect>
+          <circle cx="195" cy="196" r="20" fill="#ff9505" opacity={bodyParts.includes('back') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('chest')}>
-          <rect x="170" y="128" fill="#e2711d" opacity={bodyParts.includes('chest') ? '95%' : '50%'} width="50" height="50"></rect>
+          <circle cx="196" cy="149" r="20" fill="#e2711d" opacity={bodyParts.includes('chest') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('hips')}>
-          <rect x="134" y="266" fill="#cc5803" opacity={bodyParts.includes('hips') ? '95%' : '50%'} width="129" height="59"></rect>
+          <circle cx="163" cy="287" r="20" fill="#cc5803" opacity={bodyParts.includes('hips') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('core')}>
-          <rect x="154" y="219" fill="#ffb627" opacity={bodyParts.includes('core') ? '95%' : '50%'} width="84" height="50"></rect>
+          <circle cx="196" cy="250" r="30" fill="#ffb627" opacity={bodyParts.includes('core') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('legs')}>
-          <rect x="139" y="371" fill="#ffb627" opacity={bodyParts.includes('legs') ? '95%' : '50%'} width="111" height="142"></rect>
+          <circle cx="184" cy="440" r="50" fill="#ffb627" opacity={bodyParts.includes('legs') ? '90%' : '50%'}/>
         </a><a onClick={() => handleClick('shoulders')}>
-          <rect x="227" y="100" fill="#ffb627" opacity={bodyParts.includes('shoulders') ? '95%' : '50%'} width="50" height="50"></rect>
+          <circle cx="251" cy="121" r="20" fill="#ffb627" opacity={bodyParts.includes('shoulders') ? '90%' : '50%'}/>
+        </a><a onClick={() => handleClick('hips')}>
+          <circle cx="240" cy="287" r="20" fill="#cc5803" opacity={bodyParts.includes('hips') ? '90%' : '50%'}/>
         </a>
       </svg>
     </Box>
