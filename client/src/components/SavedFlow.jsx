@@ -43,6 +43,7 @@ export default function SavedFlow(props) {
   const [tab, setTab] = useState('0');
   const [sharedFlows, setSharedFlows] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [owner, setOwner] = useState(null);
 
   const handleOpen = () => {
     setOpen(true);
@@ -53,6 +54,7 @@ export default function SavedFlow(props) {
     setSavedFlow([]);
     setWidth(400);
     setHeight(300);
+    setOwner(null);
   };
 
   const handleTabChange = (event, newValue) => {
@@ -61,15 +63,25 @@ export default function SavedFlow(props) {
     setSavedFlow([]);
     setWidth(400);
     setHeight(300);
+    setOwner(null);
   }
 
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
       .then(({ data }) => {
-        setName(flow.name);
+        // setName(flow.name);
         setSavedFlow(data);
-        setWidth('90%');
-        setHeight('90%');
+        // setWidth('90%');
+        // setHeight('90%');
+      })
+      .then(() => {
+        axios.get(`/flow/user/${flow.userId}`)
+          .then(({ data }) => {
+            setOwner(data.full_name);
+            setWidth('90%');
+            setHeight('90%');
+            setName(flow.name);
+          })
       })
       .catch(err => {
         console.warn(err);
@@ -195,7 +207,7 @@ export default function SavedFlow(props) {
             <TabPanel value="1">
                 {
                   name ?
-                  <Box
+                  <><Box
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -207,6 +219,16 @@ export default function SavedFlow(props) {
                     }
                   </Button>
                   </Box>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    m="auto"
+                    paddingBottom="5px"
+                  >
+                  <Typography>By: <em>{owner}</em></Typography>
+                  </Box>
+                  </>
                   : null
                 }
                 {
@@ -218,7 +240,7 @@ export default function SavedFlow(props) {
             <TabPanel value="2">
                 {
                   name ?
-                  <Box
+                  <><Box
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -235,6 +257,20 @@ export default function SavedFlow(props) {
                     : null
                   }
                   </Box>
+                  {
+                    flows.map(flow => flow.name).includes(name) ?
+                    null :
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        m="auto"
+                        paddingBottom="5px"
+                      >
+                        <Typography>By: <em>{owner}</em></Typography>
+                      </Box>
+                  }
+                  </>
                   : null
                 }
                 {

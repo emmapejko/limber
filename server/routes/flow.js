@@ -77,5 +77,18 @@ flowRouter.delete('/:name', (req, res) => {
     })
 })
 
+flowRouter.get('/user/:id', (req, res) => {
+  const { id } = req.params;
+
+  User.findByPk(id)
+    .then(user => {
+      res.status(200).send(user);
+    })
+    .catch(err => {
+      console.warn(err);
+      res.sendStatus(404);
+    })
+})
+
 
 module.exports = flowRouter;
