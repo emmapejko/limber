@@ -51,6 +51,18 @@ export default function LearningPose(props) {
       });
   };
 
+  const deleteByPoseId = (id) => {
+    axios
+      .delete(`/profile/userPosesWorkingOn/${id}`)
+      .then(() => {
+        getUserPosesId();
+        setOpenPose(false);
+      })
+      .catch(err => {
+        console.warn('Error Deleting');
+      });
+  }
+
   useEffect(() => {
     getUserPosesId();
   }, []);
@@ -134,7 +146,14 @@ export default function LearningPose(props) {
           <Grid container spacing={1}>
           {
             poses.length ? poses.map((pose, i) =>
-              <Grid item xs={3}><PoseItem key={i} pose={pose} style={props.style} /></Grid>) : null
+              <Grid item xs={3}>
+                <Button onClick={() => deleteByPoseId(pose.id)}><PoseItem 
+                key={i} 
+                pose={pose} 
+                style={props.style} 
+                /></Button>
+                </Grid>) 
+                : null
           }
           </Grid>
         </Box>
