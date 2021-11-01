@@ -69,10 +69,7 @@ export default function SavedFlow(props) {
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
       .then(({ data }) => {
-        // setName(flow.name);
         setSavedFlow(data);
-        // setWidth('90%');
-        // setHeight('90%');
       })
       .then(() => {
         axios.get(`/flow/user/${flow.userId}`)
@@ -119,7 +116,6 @@ export default function SavedFlow(props) {
       })
   }
 
-  //axios get request to flows table
   const getSavedFlows = () => {
     axios.get('/profile/savedFlows')
     .then(({ data }) => {

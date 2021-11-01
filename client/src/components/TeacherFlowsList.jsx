@@ -38,6 +38,7 @@ const TeacherFlowsList = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [owner, setOwner] = useState(null);
 
   const addOrRemoveFavorite = () => {
     if (favorites.map(flow => flow.name).includes(name)) {
@@ -73,9 +74,15 @@ const TeacherFlowsList = () => {
   const renderBuiltFlow = (flow) => {
     axios.get(`/flow/getSavedFlow/${flow.id}`)
       .then(({ data }) => {
-        setName(flow.name);
         setSavedFlow(data);
-        setOpen(true);
+      })
+      .then(() => {
+        axios.get(`/flow/user/${flow.userId}`)
+          .then(({ data }) => {
+            setOwner(data.full_name);
+            setName(flow.name);
+            setOpen(true);
+          })
       })
       .catch(err => {
         console.warn(err);
@@ -145,7 +152,7 @@ const TeacherFlowsList = () => {
                   <Box sx={{ ...style, width: '90%', height: '90%' }}>
                     {
                       name ?
-                      <Box
+                      <><Box
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
@@ -157,6 +164,16 @@ const TeacherFlowsList = () => {
                         }
                       </Button>
                       </Box>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        m="auto"
+                        paddingBottom="5px"
+                      >
+                      <Typography>By: <em>{owner}</em></Typography>
+                      </Box>
+                      </>
                       : null
                     }
                     <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} />
