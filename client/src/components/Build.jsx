@@ -13,16 +13,15 @@ import {
 } from '@mui/material';
 
 import BuildSetUp from './BuildSetUp.jsx';
+import Skellyton from './Skellyton.jsx';
 
 const Build = (props) => {
-  
   const [view, setView] = useState('main');
   const [openDialog, setOpenDialog] = useState(false);
   const [occupation, setOccupation] = useState('I spend a lot of time at a desk');
   const [bodyParts, setBodyParts] = useState([]);
 
   const occupationBuild = () => {
-   
     if (occupation === 'I spend a lot of time at a desk') {
       setBodyParts(['neck', 'back']);
     } else if (occupation === 'I spend a lot of time standing up') {
@@ -37,6 +36,9 @@ const Build = (props) => {
     if (view === 'main') {
       return (
         <>
+          <Skellyton bodyParts={bodyParts} handleClick={() => true} />
+          <Dialog open={true} onClose={() => setView('body')}>
+          <DialogContent>
           <Box
             display="flex"
             alignItems="center"
@@ -101,6 +103,8 @@ const Build = (props) => {
               i'll watch a video today
             </Button>
           </Box>
+          </DialogContent>
+          </Dialog>
         </>
       );
     } else if (view === 'video') {
