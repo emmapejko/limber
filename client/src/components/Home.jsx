@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   Switch,
   Grid,
+  Card
 } from '@mui/material';
 
 import DashBoard from './DashBoard.jsx';
@@ -65,52 +66,50 @@ const Home = (props) => {
       <FormControlLabel control={<Switch checked={teacher} onChange={(e) => changeTeacherStatus(e)}/>} label={teacher ? 'Teacher' : 'Student'} />
       </div>
       <div>
-      <Box>
-       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center"}}>
+     
+       <Grid container spacing={2} sx={{alignItems: "center", justifyContent:"center", alignItems:"stretch"}}>
        
-         <Grid item xs={12} sm={4}>
-         <Paper elevation={3} rounded>
+         <Grid item xs={12} sm={4} >
+         <Card elevation={3} style={{height: "100%"}}>
             <DashBoard style={props.style}/>
             <DashBoardCard style={props.style}/>
-          </Paper>
+          </Card>
            </Grid>
-         <Grid item xs={12} sm={4}>
-         <Paper elevation={3}>
+         <Grid item xs={12} sm={4} >
+         <Card elevation={3} style={{height: "100%"}}>
             <SavedFlow style={props.style}/>
             <SavedFlowCard style={props.style}/>
-          </Paper>
+          </Card>
          </Grid>
-         <Grid item xs={12} sm={4}>
-         <Paper elevation={3}>
+         <Grid item xs={12} sm={4} >
+         <Card elevation={3} style={{height: "100%"}}>
             <BuildFlow style={props.style}/>
             <BuildFlowCard style={props.style}/>
-          </Paper>
+          </Card>
        </Grid>
-       
        </Grid>
-       </Box>
-       <Box>
-       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center"}}>
+      
+       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center", marginTop: "1%"}}>
        
        <Grid item xs={12} sm={6}>
-       <Paper elevation={3}>
+       <Card elevation={3} style={{height: "100%"}}>
             <PoseKnown
               pose={pose}
               style={props.style}
             />
-          </Paper>
+          </Card>
        </Grid>
          <Grid item xs={12} sm={6}>
-         <Paper elevation={3}>
+         <Card elevation={3} style={{height: "100%"}}>
             <LearningPose
+            pose={pose}
             style={props.style}
-              pose={pose}
             />
-          </Paper>
+          </Card>
          </Grid>
          
        </Grid>
-       </Box>
+       
        </div>
     </div>
   );
