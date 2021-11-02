@@ -3,11 +3,15 @@ import { io } from "socket.io-client"
 import Peer from 'peerjs';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import moment from 'moment';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 
 const socket = io();
 
@@ -22,11 +26,11 @@ const MainVideos = styled('div')({
 const Main = styled('div')({
   height: '500px',
   display: 'flex',
-  maxHeight: '500px'
+
 })
 
 const MainRight = styled('div')({
-  flex: 0.2,
+  flex: '0.2',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '#242324',
@@ -135,6 +139,12 @@ function Room({username, room, profilePicture}) {
       })
     })
   }, [stream2, stream3]);
+  
+  const AlwaysScrollToBottom = () => {
+    const elementRef = useRef();
+    useEffect(() => elementRef.current.scrollIntoView());
+    return <div ref={elementRef} />;
+  };
 
   return (
     <Main>
@@ -171,22 +181,11 @@ function Room({username, room, profilePicture}) {
                objectFit: 'cover',
                padding: '8px'
             }} ref={Video2}></video>
-            <video style={{
-              display: 'block',
-              flex: '1',
-              objectFit: 'cover',
-              border: '5px solid #000',
-              maxWidth: '600px',
-              height: '300px',
-              width: '400px',
-              objectFit: 'cover',
-              padding: '8px'
-            }} ref={Video3}></video>
+           
           </div>
         </MainVideos>
       </MainLeft>
       <MainRight>
-
       <div style={{
           flexGrow: '1',
           overflowY: 'scroll',
@@ -194,6 +193,8 @@ function Room({username, room, profilePicture}) {
       }}>
     {messageList.map((messageContent, i) => {
       return (
+        <div>
+          
         <ul style={{
           flexGrow: '1px',
           overflowY: 'scroll',
@@ -219,19 +220,23 @@ function Room({username, room, profilePicture}) {
                  
                 }} src={messageContent.profilePicture} />
               </div>
-          
+          <Typography>
                 <div style={{
                   float: 'right'
                 }}>{messageContent.message}</div>
-            
+            </Typography>
+            <Typography>
               <div style={{ 
                 fontSize: '12px',
               }} id="author">{messageContent.author}</div>
+              </Typography>
+              <Typography>
               <div style={{
                 color: '#f5f5f5',
                 fontSize: "10px",
                 fontStyle: 'italic'
               }}id="time">{messageContent.time}</div>
+              </Typography>
             </div>
           </li>
 
@@ -247,12 +252,15 @@ function Room({username, room, profilePicture}) {
               <div id="time">{messageContent.time}</div>
             </Grid>
           </Item> */}
+          <AlwaysScrollToBottom />
         </ul>
+        
+        </div>
       );
     })}
 
   </div>
-  
+  <Typography>
     <input
     style={{
       flexGrow: '1',
@@ -273,8 +281,8 @@ function Room({username, room, profilePicture}) {
         event.key === 'Enter' && sendMessage();
       }}
     />
+    </Typography>
     {/* <button  onClick={sendMessage}>&#9658;</button> */}
-  
       </MainRight>
     </Main>
   )
@@ -283,3 +291,25 @@ function Room({username, room, profilePicture}) {
 export default Room;
 
 
+
+    // <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    //   <ListItem alignItems="flex-start">
+    //     <ListItemAvatar>
+    //       <Avatar alt={messageContent.author} src={messageContent.profilePicture} />
+    //     </ListItemAvatar>
+    //     <ListItemText
+    //       primary="Brunch this weekend?"
+    //       secondary={
+    //         <React.Fragment>
+    //           <Typography
+    //             sx={{ display: 'inline' }}
+    //             component="span"
+    //             variant="body2"
+    //             color="text.primary"
+    //           >
+    //             Ali Connors
+    //           </Typography>
+    //           {messageContent.message}
+    //         </React.Fragment>
+    //       }
+    //     />
