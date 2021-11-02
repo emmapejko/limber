@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
@@ -151,10 +152,10 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 }
                 {
                   !video ?
-                  <BuildCircleIcon onClick={length === ''
+                  <Button style={{ marginLeft: 0 }}><BuildCircleIcon onClick={length === ''
                     ? () => setOpenDialog(true)
                     : build}
-                  />
+                  /></Button>
                   : <Button onClick={youTubeSearch}>Search</Button>
                 }
               </Stack>
@@ -188,8 +189,12 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
               >
               {length ?
               <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
-              <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button></> : null }
-              <Dialog open={openSave} onClose={() => setOpenSave(false)}>
+              <Button><SaveAltIcon onClick={() => setOpenSave(true)} style={{ paddingLeft: '5px' }} /></Button></> : null }
+              <Dialog
+                open={openSave}
+                onClose={() => setOpenSave(false)}
+                fullWidth={true}
+              >
                 <DialogTitle>Save Flow</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
@@ -206,7 +211,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                   />
                 </DialogContent>
                 <DialogActions>
-                  <FormControlLabel control={<Switch checked={shared} onChange={(e) => setShared(e.target.checked)}/>} label={shared ? 'Public' : 'Private'} />
+                  <FormControlLabel control={<Switch checked={shared} onChange={(e) => setShared(e.target.checked)}/>} label='Public' />
                   <Button onClick={saveFlow}>Save</Button>
                 </DialogActions>
               </Dialog>
