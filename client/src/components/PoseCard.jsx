@@ -63,13 +63,19 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
         onClose={() => setDemoOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        fullWidth={true}
+        PaperProps={{
+          sx: {
+            height: '55%'
+          }
+        }}
       >
         <DialogTitle id="alert-dialog-title">
           {"Pose Tutorial"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <iframe src={`${thePose.demo}?autoplay=1`} style={{height:'400px', width:'550px'}} allow="autoplay"/>
+          <DialogContentText id="alert-dialog-description" sx={{ width: '100%', height: '100%' }}>
+            <iframe src={`${thePose.demo}?autoplay=1`} style={{ width: '100%', height: '100%' }} allow="autoplay"/>
           </DialogContentText>
         </DialogContent>
       </Dialog>
@@ -120,7 +126,7 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
   }
 
   return (
-    <Grid item xs={12} sm={4}>
+    <Grid item xs={12} sm={6} md={4}>
       <Card style={{ height: '100%' }}>
       <CardContent sx={{ flexDirection:"column", height: '100%', m:"auto" }}>
       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center", height:"100%"}}>
