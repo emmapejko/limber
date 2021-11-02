@@ -56,9 +56,9 @@ const NavBar = () => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography sx={{ minWidth: 100 }} style={textSizer}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }} style={textSizer}><Link to={`${url}/build`} style={{textDecoration: 'none'}}>Build</Link></Typography>
-        <Typography sx={{ minWidth: 100, flex: 1 }} style={textSizer}><Link to={`${url}/connect`} style={{textDecoration: 'none'}}>Connect</Link></Typography>
+        <Typography sx={{ marginRight: '12px' }} style={textSizer}>LIMBER</Typography>
+        <Typography sx={{ marginRight: '12px' }}  style={textSizer}><Link to={`${url}/build`} style={{textDecoration: 'none'}}>Build</Link></Typography>
+        <Typography sx={{ flex: 1 }} style={textSizer}><Link to={`${url}/connect`} style={{textDecoration: 'none'}}>Connect</Link></Typography>
         <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
           <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
         <Tooltip title="Account settings">
