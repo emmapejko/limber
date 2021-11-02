@@ -18,10 +18,10 @@ return (
 
   <div>
     <Chart
-    width={'600px'}
-    height={'400px'}
+    width={'420px'}
+    height={'420px'}
     chartType="PieChart"
-    loader={<div>Loading Chart</div>}
+    loader={<div>Loading Chart...</div>}
     data={[
       ['Difficulty', 'Number of Moves'],
      ...level

@@ -2,9 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
+import DashTable from './DashTable.jsx'
 
-
-import pieChart from '../images/pieChart.png';
+import progress from '../images/progress.jpg';
 
 
 
@@ -17,8 +17,8 @@ function DashBoardCard() {
   return (
     <div>
     <Box>
-     
-      <GifImg src={pieChart} />
+     {/* <DashTable /> */}
+      <GifImg src={progress} />
     </Box>
   </div>
   );
