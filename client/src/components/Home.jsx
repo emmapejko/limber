@@ -75,7 +75,7 @@ const Home = (props) => {
             },
           }}
         >
-          <Paper elevation={3}>
+          <Paper elevation={3} rounded>
             <DashBoard style={props.style}/>
             <DashBoardCard style={props.style}/>
           </Paper>
@@ -95,9 +95,12 @@ const Home = (props) => {
             display: 'flex',
             flexWrap: 'wrap',
             '& > :not(style)': {
-              m: 10,
-              width: '36%',
-              height: '30%',
+              m: 12,
+              width: 220,
+              height: 250,
+              // m: 10,
+              // width: '36%',
+              // height: '30%',
             },
           }}
         >
