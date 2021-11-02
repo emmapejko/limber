@@ -164,7 +164,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
               {
                 bodyParts.length ?
                 bodyParts.map((part, i) => <Chip key={i} label={part} variant="outlined" onDelete={() => removePart(part)} />)
-                : <Chip label={"Choose 2 body parts"} />
+                : <Chip label={"Choose up to 2 body parts"} />
                 }
                 {
                   !video ?
