@@ -18,6 +18,8 @@ import {
   Typography,
   FormControlLabel,
   Switch,
+  Chip,
+  Alert
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
@@ -37,12 +39,20 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
   const [videos, setVideos] = useState([]);
   const [difficulty, setDifficulty] = useState('');
   const [shared, setShared] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleClick = (part) => {
-    setBodyParts((prev) => [...new Set([...prev, part])]);
+    if (bodyParts.length === 2) {
+      setOpenAlert(true);
+    } else {
+      setBodyParts((prev) => [...new Set([...prev, part])]);
+    }
   };
 
   const removePart = (part) => {
+    if (openAlert) {
+      setOpenAlert(false);
+    }
     setBodyParts(bodyParts.filter((el) => el !== part));
   };
 
@@ -121,6 +131,11 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
       { !flow.length && !videos.length
         ?
         <>
+          {
+            openAlert ?
+            <Alert severity="warning">Please select a maximum of two body parts</Alert>
+          : null
+          }
           <Box
             display="flex"
             alignItems="center"
@@ -148,7 +163,9 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
             </Box>
             <Stack direction="row" spacing={1}>
               {
-                bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
+                bodyParts.length ?
+                bodyParts.map((part, i) => <Chip key={i} label={part} variant="outlined" onDelete={() => removePart(part)} />)
+                : <Chip label={"Choose 2 body parts"} />
                 }
                 {
                   !video ?
@@ -164,7 +181,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 onClose={() => setOpenDialog(false)}
               >
                 <DialogTitle id="alert-dialog-title">
-                  Please select a length for your flow
+                  Please select a length
               </DialogTitle>
               <DialogActions>
                 <Button onClick={() => setOpenDialog(false)} autoFocus>
