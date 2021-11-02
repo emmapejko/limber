@@ -50,7 +50,7 @@ export default function LearningPose(props) {
         console.warn(err);
       });
   };
-
+//added delete functionality
   const deleteByPoseId = (id) => {
     axios
       .delete(`/profile/userPosesWorkingOn/${id}`)
