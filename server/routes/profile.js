@@ -143,6 +143,21 @@ Poses.put('/changeTeacherStatus', (req, res) => {
   })
 })
 
+Poses.delete('/userPosesWorkingOn/:id', (req, res) => { 
+ 
+  UserPose.destroy({
+    where: {
+      pose_id: req.params.id, 
+      user_id: req.user.dataValues.id
+    }
+  }) // --> {id: req.params.id}
+    //.then(id => res.json({ mgs: 'Pose removed' })) 
+    .then((id) => {
+      res.sendStatus(200);
+    })
+    .catch(err => res.status(404).json({ error: 'No such pose' }));
+});
+
 // export the api calls
 module.exports = {
   Poses,

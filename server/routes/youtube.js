@@ -13,7 +13,7 @@ youTubeRouter.put('/', (req, res) => {
       res.status(200).send(data);
     })
     .catch(err => {
-      console.error(err);
+      console.warn(err);
       res.sendStatus(404);
     })
 })
