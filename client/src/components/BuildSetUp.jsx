@@ -18,9 +18,12 @@ import {
   Typography,
   FormControlLabel,
   Switch,
+  Chip,
+  Alert
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
@@ -36,12 +39,20 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
   const [videos, setVideos] = useState([]);
   const [difficulty, setDifficulty] = useState('');
   const [shared, setShared] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleClick = (part) => {
-    setBodyParts((prev) => [...new Set([...prev, part])]);
+    if (bodyParts.length === 2) {
+      setOpenAlert(true);
+    } else {
+      setBodyParts((prev) => [...new Set([...prev, part])]);
+    }
   };
 
   const removePart = (part) => {
+    if (openAlert) {
+      setOpenAlert(false);
+    }
     setBodyParts(bodyParts.filter((el) => el !== part));
   };
 
@@ -120,6 +131,11 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
       { !flow.length && !videos.length
         ?
         <>
+          {
+            openAlert ?
+            <Alert severity="warning">Please select a maximum of two body parts</Alert>
+          : null
+          }
           <Box
             display="flex"
             alignItems="center"
@@ -147,14 +163,16 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
             </Box>
             <Stack direction="row" spacing={1}>
               {
-                bodyParts.map((part, i) => <Button key={i} variant="outlined" size="small" endIcon={<DeleteIcon />} onClick={() => removePart(part)}>{part}</Button>)
+                bodyParts.length ?
+                bodyParts.map((part, i) => <Chip key={i} label={part} variant="outlined" onDelete={() => removePart(part)} />)
+                : <Chip label={"Choose 2 body parts"} />
                 }
                 {
                   !video ?
-                  <BuildCircleIcon onClick={length === ''
+                  <Button style={{ marginLeft: 0 }}><BuildCircleIcon onClick={length === ''
                     ? () => setOpenDialog(true)
                     : build}
-                  />
+                  /></Button>
                   : <Button onClick={youTubeSearch}>Search</Button>
                 }
               </Stack>
@@ -163,7 +181,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 onClose={() => setOpenDialog(false)}
               >
                 <DialogTitle id="alert-dialog-title">
-                  Please select a length for your flow
+                  Please select a length
               </DialogTitle>
               <DialogActions>
                 <Button onClick={() => setOpenDialog(false)} autoFocus>
@@ -188,8 +206,12 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
               >
               {length ?
               <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
-              <Button onClick={() => setOpenSave(true)} variant="outlined" style={{ marginLeft: '5px' }}>Save Flow</Button></> : null }
-              <Dialog open={openSave} onClose={() => setOpenSave(false)}>
+              <Button><SaveAltIcon onClick={() => setOpenSave(true)} style={{ paddingLeft: '5px' }} /></Button></> : null }
+              <Dialog
+                open={openSave}
+                onClose={() => setOpenSave(false)}
+                fullWidth={true}
+              >
                 <DialogTitle>Save Flow</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
@@ -206,7 +228,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                   />
                 </DialogContent>
                 <DialogActions>
-                  <FormControlLabel control={<Switch checked={shared} onChange={(e) => setShared(e.target.checked)}/>} label={shared ? 'Public' : 'Private'} />
+                  <FormControlLabel control={<Switch checked={shared} onChange={(e) => setShared(e.target.checked)}/>} label='Public' />
                   <Button onClick={saveFlow}>Save</Button>
                 </DialogActions>
               </Dialog>

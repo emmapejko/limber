@@ -38,7 +38,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
           alignItems: 'center',
           pl: 2,
           bgcolor: 'background.default',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <Typography><h4>{videos[activeStep].snippet.title.replace('amp;', '')}</h4></Typography>
@@ -52,8 +52,8 @@ const YouTubeVideoPlayer = ({ videos }) => {
         {videos.map((video, index) => (
           <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
-              <Box sx={{ textAlign: 'center', width: '100%'}}>
-                <iframe title={video.snippet.title} style={{ display: 'auto', width: '650px', height: '400px' }} src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
+              <Box sx={{ textAlign: 'center', width: '100%', height: '100%'}}>
+                <iframe title={video.snippet.title} style={{ display: 'auto', width: '100%', height: '50vh' }} src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
               </Box>
             ) : null}
           </div>

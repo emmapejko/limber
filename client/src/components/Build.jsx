@@ -37,16 +37,21 @@ const Build = (props) => {
       return (
         <>
           <Skellyton bodyParts={bodyParts} handleClick={() => true} />
-          <Dialog open={true} onClose={() => setView('body')}>
+          <Dialog
+            open={true}
+            onClose={() => setView('body')}
+            fullWidth={true}
+          >
+          <DialogTitle>Build your flow: </DialogTitle>
           <DialogContent>
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
-            style={{ margin: '50px' }}
+            style={{ margin: '20px' }}
           >
-            <Button variant="contained" disableElevation onClick={() => setOpenDialog(true)}>
-              build a flow based on how you spend your time
+            <Button variant="outlined" disableElevation onClick={() => setOpenDialog(true)}>
+              based on your occupation
             </Button>
             <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
               <DialogTitle>Describe your daily posture</DialogTitle>
@@ -89,18 +94,18 @@ const Build = (props) => {
             alignItems="center"
             justifyContent="center"
           >
-            <Button variant="contained" disableElevation onClick={() => setView('body')}>
-              build a flow focusing on a body part
+            <Button variant="outlined" disableElevation onClick={() => setView('body')}>
+              based on a body part
             </Button>
           </Box>
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
-            style={{ margin: '50px' }}
+            style={{ margin: '20px' }}
           >
-            <Button variant="contained" disableElevation onClick={() => setView('video')}>
-              i'll watch a video today
+            <Button variant="outlined" disableElevation onClick={() => setView('video')}>
+              find a video
             </Button>
           </Box>
           </DialogContent>
