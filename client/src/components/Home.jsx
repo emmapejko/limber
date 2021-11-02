@@ -5,6 +5,7 @@ import {
   Paper,
   FormControlLabel,
   Switch,
+  Grid,
 } from '@mui/material';
 
 import DashBoard from './DashBoard.jsx';
@@ -64,7 +65,62 @@ const Home = (props) => {
       <FormControlLabel control={<Switch checked={teacher} onChange={(e) => changeTeacherStatus(e)}/>} label={teacher ? 'Teacher' : 'Student'} />
       </div>
       <div>
-        <Box
+      <Box>
+       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center"}}>
+       
+         <Grid item xs={12} sm={4}>
+         <Paper elevation={3} rounded>
+            <DashBoard style={props.style}/>
+            <DashBoardCard style={props.style}/>
+          </Paper>
+           </Grid>
+         <Grid item xs={12} sm={4}>
+         <Paper elevation={3}>
+            <SavedFlow style={props.style}/>
+            <SavedFlowCard style={props.style}/>
+          </Paper>
+         </Grid>
+         <Grid item xs={12} sm={4}>
+         <Paper elevation={3}>
+            <BuildFlow style={props.style}/>
+            <BuildFlowCard style={props.style}/>
+          </Paper>
+       </Grid>
+       
+       </Grid>
+       </Box>
+       <Box>
+       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center"}}>
+       
+       <Grid item xs={12} sm={6}>
+       <Paper elevation={3}>
+            <PoseKnown
+              pose={pose}
+              style={props.style}
+            />
+          </Paper>
+       </Grid>
+         <Grid item xs={12} sm={6}>
+         <Paper elevation={3}>
+            <LearningPose
+            style={props.style}
+              pose={pose}
+            />
+          </Paper>
+         </Grid>
+         
+       </Grid>
+       </Box>
+       </div>
+    </div>
+  );
+};
+
+export default Home;
+
+
+
+ {/* <Box
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
@@ -90,21 +146,22 @@ const Home = (props) => {
         </Box>
       </div>
       <div>
-        <Box
+     
+        <Grid>
+        <Box      //set to 6 
+        
           sx={{
+            alignItems:"center",
+            justifyContent:"center",
             display: 'flex',
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 12,
               width: 220,
               height: 250,
-              // m: 10,
-              // width: '36%',
-              // height: '30%',
             },
           }}
         >
-
           <Paper elevation={3}>
             <PoseKnown
               pose={pose}
@@ -118,9 +175,4 @@ const Home = (props) => {
             />
           </Paper>
         </Box>
-      </div>
-    </div>
-  );
-};
-
-export default Home;
+        </Grid> */}
