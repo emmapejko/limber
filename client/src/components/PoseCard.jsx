@@ -121,9 +121,9 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
 
   return (
     <Grid item xs={12} sm={4}>
-      <Card>
-      <CardContent style={{padding: '10px'}} sx={{flexDirection:"column"}}>
-      <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center"}}>
+      <Card style={{ height: '100%' }}>
+      <CardContent sx={{ flexDirection:"column", height: '100%', m:"auto" }}>
+      <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center", height:"100%"}}>
         <Grid item xs={6}>
           <Box display="flex" sx={{alignItems:"center", justifyContent:"center"}}>
           <img src={img}
