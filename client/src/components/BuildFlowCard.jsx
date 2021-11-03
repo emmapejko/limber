@@ -5,14 +5,19 @@ import sunSal from '../images/sunSal.gif';
 
 const GifImg = styled.img`
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
 `;
 
 const BuildFlowCard = () => {
   return (
     <div>
-      <Box>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        m="auto"
+      >
         <GifImg src={sunSal} />
       </Box>
     </div>
