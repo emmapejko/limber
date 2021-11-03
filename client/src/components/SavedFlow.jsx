@@ -39,7 +39,7 @@ export default function SavedFlow(props) {
   const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
   const [savedFlow, setSavedFlow] = useState([]);
-  const [width, setWidth] = useState(400);
+  const [width, setWidth] = useState('40%');
   const [height, setHeight] = useState(300);
   const [name, setName] = useState(null);
   const [tab, setTab] = useState('0');
@@ -54,7 +54,7 @@ export default function SavedFlow(props) {
     setOpen(false);
     setName(null);
     setSavedFlow([]);
-    setWidth(400);
+    setWidth('40%');
     setHeight(300);
     setOwner(null);
   };
@@ -63,7 +63,7 @@ export default function SavedFlow(props) {
     setTab(newValue);
     setName(null);
     setSavedFlow([]);
-    setWidth(400);
+    setWidth('40%');
     setHeight(300);
     setOwner(null);
   }
