@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 
-import skelly from '../images/skelly.gif';
 import Chakras from './Chakras.jsx';
 
 const BackgroungImg = styled.img`
