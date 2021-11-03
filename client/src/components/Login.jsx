@@ -16,7 +16,7 @@ function Login({ style }) {
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
         <Typography sx={{ minWidth: 100 }} style={{ flex: 1, style }}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }} style={style}><a href='/google' style={{textDecoration: 'none'}}>Log In</a></Typography>
+        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }} style={style}><a href='/google' style={{textDecoration: 'none', color:"inherit"}}>Log In</a></Typography>
       </Box>
       <hr />
       <div>
