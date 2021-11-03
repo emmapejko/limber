@@ -59,7 +59,9 @@ const Home = (props) => {
   useEffect(() => {
     whatIsKnown();
   }, []);
-
+// const color = {
+//   backgroundColor: '#fffde7'
+// }
   return (
     <div>
       <div>

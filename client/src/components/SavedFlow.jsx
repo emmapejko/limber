@@ -157,11 +157,13 @@ export default function SavedFlow(props) {
   useEffect(() => {
     getSavedFlows();
   }, []);
-
-
+  const color = {
+    backgroundColor: '#fff8e1'
+  }
+ 
   return (
     <>
-      <div>
+      <div style={color}>
         <Button onClick={handleOpen} style={props.style}>Flows</Button>
         <Modal
           open={open}

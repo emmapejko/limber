@@ -51,13 +51,32 @@ export default function PoseKnown(props) {
       });
   };
 
+  //added delete functionality
+  const deleteByPoseId = (id) => {
+    axios
+      .delete(`/profile/userPosesWorkingOn/${id}`)
+      .then(() => {
+        getUserPosesId();
+        setOpenPose(false);
+      })
+      .catch(err => {
+        console.warn('Error Deleting');
+      });
+  }
+
   useEffect(() => {
     getUserPosesKnown();
   }, []);
 
+ 
+  const header = {
+    backgroundColor: '#fff8e1'
+  }
+
   return (
     <div>
       <Box
+        style={header}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -125,7 +144,11 @@ export default function PoseKnown(props) {
           <Grid container spacing={1}>
           {
             poses.length ? poses.map((pose, i) =>
-              <Grid item xs={6} sm={3}><PoseItem key={i} pose={pose} style={props.style} /></Grid>) : null
+              <Grid item xs={6} sm={3}>
+                <Button title="click here to delete" onClick={() => deleteByPoseId(pose.id)}>
+                <PoseItem key={i} pose={pose} style={props.style} />
+                </Button>
+                </Grid>) : null
           }
           </Grid>
         </Box>

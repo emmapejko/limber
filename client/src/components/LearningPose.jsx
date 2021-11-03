@@ -67,9 +67,14 @@ export default function LearningPose(props) {
     getUserPosesId();
   }, []);
 
+  
+  const header = {
+    backgroundColor: '#fff8e1'
+  }
   return (
     <div>
       <Box
+        style={header}
         display="flex"
         alignItems="center"
         justifyContent="center"
