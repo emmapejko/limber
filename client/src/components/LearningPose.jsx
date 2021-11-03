@@ -67,9 +67,14 @@ export default function LearningPose(props) {
     getUserPosesId();
   }, []);
 
+  
+  const header = {
+    backgroundColor: '#fff8e1'
+  }
   return (
     <div>
       <Box
+        style={header}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -133,26 +138,26 @@ export default function LearningPose(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}  style={{ width: '40%'}}>
+        <Box sx={style}  style={{ width: '40%', maxHeight: '60%', overflow: 'scroll'}}>
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
             m="auto"
           >
-          <Typography id='modal-modal-title' variant="h6" component="h2">What you're working on</Typography>
+          <Typography id='modal-modal-title' variant="h6" component="h2">Learning</Typography>
           <Button onClick={() => setAuto(true)}><AddIcon /></Button>
           </Box>
           <Grid container spacing={1}>
           {
             poses.length ? poses.map((pose, i) =>
-              <Grid item xs={3}>
-                <Button title="click here to delete" onClick={() => deleteByPoseId(pose.id)}><PoseItem 
-                key={i} 
-                pose={pose} 
-                style={props.style} 
+              <Grid item xs={6} sm={3}>
+                <Button sx={{ height: '100%'}} title="click here to delete" onClick={() => deleteByPoseId(pose.id)}><PoseItem 
+                key={i}
+                pose={pose}
+                style={props.style}
                 /></Button>
-                </Grid>) 
+                </Grid>)
                 : null
           }
           </Grid>

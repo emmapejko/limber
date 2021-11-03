@@ -204,8 +204,17 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 m="auto"
               >
               {length ?
-              <><Typography><h4>{ bodyParts.length ? `a ${length} minute flow focusing on ${bodyParts.join(' and ')}` : `a ${length} minute flow`}</h4></Typography>
-              <Button><SaveAltIcon onClick={() => setOpenSave(true)} style={{ paddingLeft: '5px' }} /></Button></> : null }
+                <>
+                <Chip label={`${length} min`} />
+                {
+                  bodyParts.length ?
+                  bodyParts.map((part, i) => <Chip key={i} label={part} style={{ marginLeft: '5px' }}/>)
+                  : null
+                }
+                <Button><SaveAltIcon onClick={() => setOpenSave(true)} /></Button>
+                </>
+              : null
+              }
               <Dialog
                 open={openSave}
                 onClose={() => setOpenSave(false)}
@@ -238,7 +247,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 justifyContent="center"
                 m="auto"
               >
-                <Typography style={{ paddingBottom: '5px' }}><em>Predicted Difficulty Level: <strong>{difficulty}</strong></em></Typography>
+                <Chip label={`Predicted Difficulty: ${difficulty}`} variant="outlined" style={{ margin: '5px' }} />
               </Box>
               <Grid container spacing={2}>
                 {

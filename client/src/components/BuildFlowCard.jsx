@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import sunSal from '../images/sunSal.gif';
 
 const GifImg = styled.img`
-    display: block;
+    display: flex;
     width: 80%;
     height: 80%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 `;
 
 const BuildFlowCard = () => {
@@ -16,7 +19,7 @@ const BuildFlowCard = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        m="auto"
+        m="15%"
       >
         <GifImg src={sunSal} />
       </Box>

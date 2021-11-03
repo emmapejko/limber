@@ -22,16 +22,26 @@ function SavedFlowCard(props) {
   useEffect(() => {
     getSavedFlows();
   }, []);
-
+  
+  const getFontSize = () => {
+    return Number(props.style.fontSize.slice(0,2)) + 4;
+  }
+  // const color = {
+  //   backgroundColor: '#fffde7'
+  // }
+  
   return (
     <div>
     <Box
-      m='4px'
+       display="flex"
+       alignItems="center"
+       justifyContent="center"
+       m="auto"
     >
-    <Typography style={props.style}>
+    <Typography style={{ fontSize: `${getFontSize()}px`}}>
       {flows.map((flow, i) => (
           (i < 8) ?
-          <div style={props.style} key={i}>{flow.name}</div>
+          <div style={{ fontSize: `${getFontSize()}px`}} key={i}>{flow.name}</div>
           : null
       ))}
     </Typography>
@@ -39,5 +49,4 @@ function SavedFlowCard(props) {
     </div>
   );
 }
-
-export default SavedFlowCard;
+export default SavedFlowCard; 
