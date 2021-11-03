@@ -6,6 +6,8 @@ import {
   Button,
   Tab,
   Typography,
+  Chip,
+  Avatar
 } from '@mui/material';
 import {
   TabContext,
@@ -74,7 +76,7 @@ export default function SavedFlow(props) {
       .then(() => {
         axios.get(`/flow/user/${flow.userId}`)
           .then(({ data }) => {
-            setOwner(data.full_name);
+            setOwner(data);
             setWidth('90%');
             setHeight('90%');
             setName(flow.name);
@@ -222,7 +224,10 @@ export default function SavedFlow(props) {
                     m="auto"
                     paddingBottom="5px"
                   >
-                  <Typography>By: <em>{owner}</em></Typography>
+                  <Chip
+                    avatar={<Avatar alt={owner.full_name} src={owner.picture} />}
+                    label={owner.full_name}
+                  />
                   </Box>
                   </>
                   : null
@@ -263,7 +268,10 @@ export default function SavedFlow(props) {
                         m="auto"
                         paddingBottom="5px"
                       >
-                        <Typography>By: <em>{owner}</em></Typography>
+                        <Chip
+                          avatar={<Avatar alt={owner.full_name} src={owner.picture} />}
+                          label={owner.full_name}
+                        />
                       </Box>
                   }
                   </>

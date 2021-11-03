@@ -119,7 +119,7 @@ export default function PoseKnown(props) {
             justifyContent="center"
             m="auto"
           >
-          <Typography id='modal-modal-title' variant="h6" component="h2">What you know</Typography>
+          <Typography id='modal-modal-title' variant="h6" component="h2">Know</Typography>
           <Button onClick={() => setAuto(true)}><AddIcon /></Button>
           </Box>
           <Grid container spacing={1}>

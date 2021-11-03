@@ -140,7 +140,7 @@ export default function LearningPose(props) {
             justifyContent="center"
             m="auto"
           >
-          <Typography id='modal-modal-title' variant="h6" component="h2">What you're working on</Typography>
+          <Typography id='modal-modal-title' variant="h6" component="h2">Learning</Typography>
           <Button onClick={() => setAuto(true)}><AddIcon /></Button>
           </Box>
           <Grid container spacing={1}>

@@ -247,7 +247,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 justifyContent="center"
                 m="auto"
               >
-                <Typography style={{ paddingBottom: '5px' }}><em>Predicted Difficulty Level: <strong>{difficulty}</strong></em></Typography>
+                <Chip label={`Predicted Difficulty: ${difficulty}`} variant="outlined" style={{ margin: '5px' }} />
               </Box>
               <Grid container spacing={2}>
                 {
