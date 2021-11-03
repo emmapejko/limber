@@ -133,7 +133,7 @@ export default function LearningPose(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}  style={{ width: '40%'}}>
+        <Box sx={style}  style={{ width: '40%', maxHeight: '60%', overflow: 'scroll'}}>
           <Box
             display="flex"
             alignItems="center"
@@ -146,13 +146,13 @@ export default function LearningPose(props) {
           <Grid container spacing={1}>
           {
             poses.length ? poses.map((pose, i) =>
-              <Grid item xs={3}>
-                <Button title="click here to delete" onClick={() => deleteByPoseId(pose.id)}><PoseItem 
-                key={i} 
-                pose={pose} 
-                style={props.style} 
+              <Grid item xs={6} sm={3}>
+                <Button sx={{ height: '100%'}} title="click here to delete" onClick={() => deleteByPoseId(pose.id)}><PoseItem 
+                key={i}
+                pose={pose}
+                style={props.style}
                 /></Button>
-                </Grid>) 
+                </Grid>)
                 : null
           }
           </Grid>
