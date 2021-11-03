@@ -69,19 +69,19 @@ const Home = (props) => {
      
        <Grid container spacing={2} sx={{alignItems: "center", justifyContent:"center", alignItems:"stretch"}}>
        
-         <Grid item xs={12} sm={4} >
+         <Grid item xs={12} sm={4}>
          <Card elevation={3} style={{height: "100%"}}>
             <DashBoard style={props.style}/>
             <DashBoardCard style={props.style}/>
           </Card>
            </Grid>
-         <Grid item xs={12} sm={4} >
+         <Grid item xs={12} sm={4}>
          <Card elevation={3} style={{height: "100%"}}>
             <SavedFlow style={props.style}/>
             <SavedFlowCard style={props.style}/>
           </Card>
          </Grid>
-         <Grid item xs={12} sm={4} >
+         <Grid item xs={12} sm={4}>
          <Card elevation={3} style={{height: "100%"}}>
             <BuildFlow style={props.style}/>
             <BuildFlowCard style={props.style}/>

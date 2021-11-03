@@ -12,7 +12,6 @@ const BackgroungImg = styled.img`
 `;
 
 function Login({ style }) {
-  
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
