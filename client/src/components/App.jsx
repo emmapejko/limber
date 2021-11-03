@@ -5,7 +5,7 @@ import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
 
 function App(props) {
-  
+ 
   return (
     <BrowserRouter>
       <Switch>

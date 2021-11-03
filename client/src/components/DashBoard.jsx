@@ -70,9 +70,12 @@ function DashBoard(props) {
     getUserPosesKnown();
     getUserPosesId();
   }, []);
+  const color = {
+    backgroundColor: '#fff8e1'
+  }
 
   return (
-    <div>
+    <div style={color}> 
       <Button onClick={handleOpen} style={props.style}>DashBoard</Button>
       <Modal
         open={open}
