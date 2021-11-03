@@ -172,7 +172,7 @@ export default function SavedFlow(props) {
           <Box sx={{ ...style, width: width, height: height }}>
           <TabContext value={tab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+              <TabList onChange={handleTabChange} aria-label="lab API tabs example" variant="scrollable">
                 <Tab label="Your Flows" value="0" />
                 <Tab label="Shared Flows" value="1" />
                 <Tab label="Favorites" value="2" />
