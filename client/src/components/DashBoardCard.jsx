@@ -13,6 +13,7 @@ const GifImg = styled.img`
     width: 80%;
     height: 80%;
 `;
+
 function DashBoardCard() {
   return (
     <div>
