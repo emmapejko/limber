@@ -9,9 +9,12 @@ import progress from '../images/progress.jpg';
 
 
 const GifImg = styled.img`
-    display: block;
+    display: flex;
     width: 80%;
     height: 80%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 `;
 function DashBoardCard() {
   return (
@@ -20,7 +23,7 @@ function DashBoardCard() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      m="auto"
+      m="10%"
     >
       <GifImg src={progress} />
     </Box>

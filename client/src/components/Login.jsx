@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 
 import skelly from '../images/skelly.gif';
+import Chakras from './Chakras.jsx';
 
 const BackgroungImg = styled.img`
     display: block;
@@ -19,9 +20,7 @@ function Login({ style }) {
         <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }} style={style}><a href='/google' style={{textDecoration: 'none', color:"inherit"}}>Log In</a></Typography>
       </Box>
       <hr />
-      <div>
-        <BackgroungImg src={skelly} />
-      </div>
+      <Chakras />
     </>
   );
 }
