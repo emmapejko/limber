@@ -13,7 +13,7 @@ const socket = io();
 
 
 
-function Room({username, room, profilePicture}) {
+const Room = ({username, room, profilePicture}) => {
   const roomId = 'LIMBER';
   const videoGrid = useRef();
   const myVideo = useRef();
