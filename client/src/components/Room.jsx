@@ -5,6 +5,7 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import moment from 'moment';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -30,7 +31,7 @@ const Main = styled('div')({
 })
 
 const MainRight = styled('div')({
-  flex: '0.2',
+  // flex: '0.2',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '#242324',
@@ -147,30 +148,32 @@ function Room({username, room, profilePicture}) {
   };
 
   return (
-    <Main>
-      <MainLeft>
-        <MainVideos>
-          <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              height: '100%',
-              width: '100%',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              overflowY: 'auto',
-          }} ref={videoGrid} id="video-grid">
-            <video style={{
-              display: 'block',
-              flex: '1',
-              objectFit: 'cover',
-              border: '5px solid #000',
-              maxWidth: '600px',
-              height: '300px',
-              width: '400px',
-              objectFit: 'cover',
-              padding: '8px'
-            }} ref={myVideo}></video>
-            <video style={{
+      // <Main>
+        <Grid container>
+          <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+      
+          <MainVideos>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                height: '100%',
+                width: '100%',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                overflowY: 'auto',
+            }} ref={videoGrid} id="video-grid">
+              <video style={{
+                display: 'block',
+                flex: '1',
+                objectFit: 'cover',
+                border: '5px solid #000',
+                maxWidth: '600px',
+                height: '300px',
+                width: '400px',
+                objectFit: 'cover',
+                padding: '8px'
+              }} ref={myVideo}></video>
+             <video style={{
                display: 'block',
                flex: '1',
                objectFit: 'cover',
@@ -181,111 +184,107 @@ function Room({username, room, profilePicture}) {
                objectFit: 'cover',
                padding: '8px'
             }} ref={Video2}></video>
-           
-          </div>
-        </MainVideos>
-      </MainLeft>
-      <MainRight>
-      <div style={{
-          flexGrow: '1',
-          overflowY: 'scroll',
-          padding: '20px 20px 0 20px'
-      }}>
-    {messageList.map((messageContent, i) => {
-      return (
-        <div>
-          
-        <ul style={{
-          flexGrow: '1px',
-          overflowY: 'scroll',
-          padding: '20px 20px 0 20px',
-        }} 
-          key={i}
-          id={username === messageContent.author ? 'you' : 'other'}
-        >
-            <li style={{
-          color: '#fff',
-          listStyle: 'none',
-          borderBottom: '1px solid #3d3d42',
-          padding: '10px 0'
+            </div>
+          </MainVideos>
+       
+        </Grid>
+        
+        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+            style={{
+            flexGrow: '1',
+            overflowY: 'scroll',
+            height: '100%',
+            flexDirection: 'column',
+            backgroundColor: '#242324',
+            borderLeft: '1px solid #3d3d42',
+            minHeight: '300px'
+            // flexDirection: 'column'
         }}>
-            <div>
+        <div>
+      {messageList.map((messageContent, i) => {
+        return (
+          <div>
+            
+          <ul style={{
+            flexGrow: '1',
+            overflowY: 'scroll',
+            padding: '20px 20px 0px 20px',
+          }} 
+            key={i}
+            id={username === messageContent.author ? 'you' : 'other'}
+          >
+              <li style={{
+            color: '#fff',
+            listStyle: 'none',
+            borderBottom: '1px solid #3d3d42',
+            padding: '10px 0'
+          }}>
               <div>
-                <img style={{
-                  width:'100%',
-                  maxWidth:'30px',
-                  overflow: 'auto',
-                  float: 'left',
-                  borderRadius: '50px',
-                 
-                }} src={messageContent.profilePicture} />
-              </div>
-          <Typography>
-                <div style={{
-                  float: 'right'
-                }}>{messageContent.message}</div>
-            </Typography>
+                <div>
+                  <img style={{
+                    width:'100%',
+                    maxWidth:'30px',
+                    overflow: 'auto',
+                    float: 'left',
+                    borderRadius: '50px',
+                  }} src={messageContent.profilePicture} />
+                </div>
             <Typography>
-              <div style={{ 
-                fontSize: '12px',
-              }} id="author">{messageContent.author}</div>
+                  <div style={{
+                    float: 'right'
+                  }}>{messageContent.message}</div>
               </Typography>
               <Typography>
-              <div style={{
-                color: '#f5f5f5',
-                fontSize: "10px",
-                fontStyle: 'italic'
-              }}id="time">{messageContent.time}</div>
-              </Typography>
-            </div>
-          </li>
+                <div style={{ 
+                  fontSize: '12px',
+                }} id="author">{messageContent.author}</div>
+                </Typography>
+                <Typography>
+                <div style={{
+                  color: '#f5f5f5',
+                  fontSize: "10px",
+                  fontStyle: 'italic'
+                }}id="time">{messageContent.time}</div>
+                </Typography>
+              </div>
+            </li>
+            <AlwaysScrollToBottom />
+          </ul>
+          
+          </div>
+        );
+      })}
 
-          {/* <Item>
-            <Grid container wrap="nowrap" spacing={2}>
-              <Grid item xs>
-                <Img src={messageContent.profilePicture} />
-              </Grid>
-              <Grid item xs>
-                <Typography noWrap variant="body2" component="div">{messageContent.message}</Typography>
-              </Grid>
-              <Typography id="author">{messageContent.author}</Typography>
-              <div id="time">{messageContent.time}</div>
-            </Grid>
-          </Item> */}
-          <AlwaysScrollToBottom />
-        </ul>
-        
-        </div>
-      );
-    })}
-
-  </div>
-  <Typography>
-    <input
-    style={{
-      flexGrow: '1',
-      backgroundColor: 'transparent',
-      border: 'none',
-      color: '#f5f5f5',
-      userSelect: 'none',
-      outline: 'none',
-    }}
-      type="text"
-      value={currentMessage}
-      placeholder="Hey..."
-      onChange={(event) => {
-        setCurrentMessage(event.target.value);
+    </div>
+    <Grid item xs={12} sm={12} item md={4} lg={4} xl={4}>
+    <Typography>
+      <input
+      style={{
+        flexGrow: '1',
+        backgroundColor: 'transparent',
+        border: 'none',
+        color: '#f5f5f5',
+        userSelect: 'none',
+        outline: 'none',
       }}
-      onKeyPress={(event) => {
+        type="text"
+        value={currentMessage}
+        placeholder="Hey..."
+        onChange={(event) => {
+          setCurrentMessage(event.target.value);
+        }}
+        onKeyPress={(event) => {
 
-        event.key === 'Enter' && sendMessage();
-      }}
-    />
-    </Typography>
-    {/* <button  onClick={sendMessage}>&#9658;</button> */}
-      </MainRight>
-    </Main>
-  )
+          event.key === 'Enter' && sendMessage();
+        }}
+      />
+      </Typography>
+      </Grid>
+      {/* <button  onClick={sendMessage}>&#9658;</button> */}
+        </Grid>
+      
+        </Grid>
+  );
 }
 
 export default Room;
