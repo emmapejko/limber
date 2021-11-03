@@ -1,6 +1,10 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Typography,
+  Chip
+} from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
 
 import Chakras from './Chakras.jsx';
 
@@ -9,7 +13,7 @@ function Login({ style }) {
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
         <Typography sx={{ minWidth: 100 }} style={{ flex: 1, style }}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }} style={style}><a href='/google' style={{textDecoration: 'none', color:"inherit"}}>Log In</a></Typography>
+        <Chip icon={<GoogleIcon />} label="Log In" variant="outlined" component="a" href="/google" clickable />
       </Box>
       <hr />
       <Chakras />
