@@ -10,14 +10,18 @@ import progress from '../images/progress.jpg';
 
 const GifImg = styled.img`
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
 `;
 function DashBoardCard() {
   return (
     <div>
-    <Box>
-     {/* <DashTable /> */}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      m="auto"
+    >
       <GifImg src={progress} />
     </Box>
   </div>

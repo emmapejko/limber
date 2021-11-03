@@ -21,7 +21,6 @@ import {
   Chip,
   Alert
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
@@ -161,11 +160,11 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 </Select>
               </FormControl>
             </Box>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} paddingLeft="15px">
               {
                 bodyParts.length ?
                 bodyParts.map((part, i) => <Chip key={i} label={part} variant="outlined" onDelete={() => removePart(part)} />)
-                : <Chip label={"Choose 2 body parts"} />
+                : <Chip label={"Choose up to 2 body parts"} />
                 }
                 {
                   !video ?
