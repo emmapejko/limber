@@ -6,6 +6,8 @@ import {
   Button,
   Tab,
   Typography,
+  Chip,
+  Avatar
 } from '@mui/material';
 import {
   TabContext,
@@ -37,7 +39,7 @@ export default function SavedFlow(props) {
   const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
   const [savedFlow, setSavedFlow] = useState([]);
-  const [width, setWidth] = useState(400);
+  const [width, setWidth] = useState('40%');
   const [height, setHeight] = useState(300);
   const [name, setName] = useState(null);
   const [tab, setTab] = useState('0');
@@ -52,7 +54,7 @@ export default function SavedFlow(props) {
     setOpen(false);
     setName(null);
     setSavedFlow([]);
-    setWidth(400);
+    setWidth('40%');
     setHeight(300);
     setOwner(null);
   };
@@ -61,7 +63,7 @@ export default function SavedFlow(props) {
     setTab(newValue);
     setName(null);
     setSavedFlow([]);
-    setWidth(400);
+    setWidth('40%');
     setHeight(300);
     setOwner(null);
   }
@@ -74,7 +76,7 @@ export default function SavedFlow(props) {
       .then(() => {
         axios.get(`/flow/user/${flow.userId}`)
           .then(({ data }) => {
-            setOwner(data.full_name);
+            setOwner(data);
             setWidth('90%');
             setHeight('90%');
             setName(flow.name);
@@ -172,7 +174,7 @@ export default function SavedFlow(props) {
           <Box sx={{ ...style, width: width, height: height }}>
           <TabContext value={tab}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+              <TabList onChange={handleTabChange} aria-label="lab API tabs example" variant="scrollable">
                 <Tab label="Your Flows" value="0" />
                 <Tab label="Shared Flows" value="1" />
                 <Tab label="Favorites" value="2" />
@@ -224,7 +226,10 @@ export default function SavedFlow(props) {
                     m="auto"
                     paddingBottom="5px"
                   >
-                  <Typography>By: <em>{owner}</em></Typography>
+                  <Chip
+                    avatar={<Avatar alt={owner.full_name} src={owner.picture} />}
+                    label={owner.full_name}
+                  />
                   </Box>
                   </>
                   : null
@@ -265,7 +270,10 @@ export default function SavedFlow(props) {
                         m="auto"
                         paddingBottom="5px"
                       >
-                        <Typography>By: <em>{owner}</em></Typography>
+                        <Chip
+                          avatar={<Avatar alt={owner.full_name} src={owner.picture} />}
+                          label={owner.full_name}
+                        />
                       </Box>
                   }
                   </>

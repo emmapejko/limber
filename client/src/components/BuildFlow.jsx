@@ -30,7 +30,7 @@ export default function BuildFlow(props) {
   return (
     <div style={color}>
     <>
-      <Button style={props.style}><Link to={`${url}/build`} style={{textDecoration: 'none'}}>Build A Flow</Link></Button>
+      <Button style={props.style}><Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit"}}>Build A Flow</Link></Button>
       <Switch>
         <Route path={`${path}/build`}>
           <Build />

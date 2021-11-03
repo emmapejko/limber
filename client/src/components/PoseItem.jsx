@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const PoseItem = ({ pose }, props) => {
-  
   const [img, setImg] = useState('');
 
   const getPoseImage = () => {
@@ -22,8 +21,8 @@ const PoseItem = ({ pose }, props) => {
   })
 
   return (
-    <div>
-      <img src={img} style={{maxHeight: '80px', maxWidth: '80px'}}/>
+    <div style={{ display: 'flex', alignItems:"center", justifyContent:"center", height:"100%"}} >
+      <img src={img} style={{maxHeight: '80px', maxWidth: '80px' }}/>
     </div>
   )
 

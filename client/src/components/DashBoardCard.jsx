@@ -1,17 +1,18 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
-import DashTable from './DashTable.jsx'
 
 import progress from '../images/progress.jpg';
 
 
 
 const GifImg = styled.img`
-    display: block;
+    display: flex;
     width: 80%;
     height: 80%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 `;
 
 function DashBoardCard() {
@@ -21,7 +22,7 @@ function DashBoardCard() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      m="auto"
+      m="10%"
     >
       <GifImg src={progress} />
     </Box>
