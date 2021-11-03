@@ -3,46 +3,13 @@ import { io } from "socket.io-client"
 import Peer from 'peerjs';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import moment from 'moment';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
 
 const socket = io();
 
-const MainVideos = styled('div')({
-  flexGrow: '1',
-  backgroundColor: '#000',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
 
-const Main = styled('div')({
-  height: '500px',
-  display: 'flex',
-
-})
-
-const MainRight = styled('div')({
-  // flex: '0.2',
-  display: 'flex',
-  flexDirection: 'column',
-  backgroundColor: '#242324',
-  borderLeft: '1px solid #3d3d42'
-})
-
-const MainLeft = styled('div')({
-  flex: '0.8',
-  display: 'flex',
-  flexDirection: 'column'
-})
 
 
 
@@ -131,6 +98,14 @@ function Room({username, room, profilePicture}) {
     // })
   }, []);
 
+  const scrollToBottom = () => {
+    messageList.current.scrollIntoView({ behavior: "smooth" })
+  }
+  
+  useEffect(() => {
+    scrollToBottom()
+  }, [messageList])
+
   useEffect(() => {
     peer.current.on('call', call => {
       call.answer(currentStream.current);
@@ -141,19 +116,17 @@ function Room({username, room, profilePicture}) {
     })
   }, [stream2, stream3]);
   
-  const AlwaysScrollToBottom = () => {
-    const elementRef = useRef();
-    useEffect(() => elementRef.current.scrollIntoView());
-    return <div ref={elementRef} />;
-  };
+  // const AlwaysScrollToBottom = () => {
+  //   const elementRef = useRef();
+  //   useEffect(() => elementRef.current.scrollIntoView());
+  //   return <div ref={elementRef} />;
+  // };
 
   return (
-      // <Main>
         <Grid container>
           <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
       
-          <MainVideos>
-            <div style={{
+          <Grid item style={{
                 display: 'flex',
                 justifyContent: 'center',
                 height: '100%',
@@ -161,64 +134,66 @@ function Room({username, room, profilePicture}) {
                 alignItems: 'center',
                 flexWrap: 'wrap',
                 overflowY: 'auto',
-            }} ref={videoGrid} id="video-grid">
+                flexDirection: 'row',
+            }} ef={videoGrid} id="video-grid">
+            {/* <div ref={videoGrid} id="video-grid"> */}
               <video style={{
                 display: 'block',
                 flex: '1',
                 objectFit: 'cover',
-                border: '5px solid #000',
+                border: '20px solid #000',
                 maxWidth: '600px',
                 height: '300px',
                 width: '400px',
                 objectFit: 'cover',
-                padding: '8px'
+                // padding: '8px'
               }} ref={myVideo}></video>
              <video style={{
                display: 'block',
                flex: '1',
                objectFit: 'cover',
-               border: '5px solid #000',
+               border: '20px solid #000',
                maxWidth: '600px',
                height: '300px',
                width: '400px',
                objectFit: 'cover',
-               padding: '8px'
+              //  padding: '8px'
             }} ref={Video2}></video>
-            </div>
-          </MainVideos>
+            {/* </div> */}
+          </Grid>
        
         </Grid>
         
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
             style={{
             flexGrow: '1',
-            overflowY: 'scroll',
-            height: '100%',
-            flexDirection: 'column',
+            overflowY: 'auto',
+            // height: '100%',
             backgroundColor: '#242324',
             borderLeft: '1px solid #3d3d42',
-            minHeight: '300px'
-            // flexDirection: 'column'
+            minHeight: '340px',
+            maxHeight : '340px',
+            // flexDirection: 'row'
         }}>
-        <div>
+        
       {messageList.map((messageContent, i) => {
         return (
-          <div>
+          <Grid item>
             
           <ul style={{
             flexGrow: '1',
-            overflowY: 'scroll',
-            padding: '20px 20px 0px 20px',
+            overflow: 'auto',
+            padding: '10px 10px 0px 10px',
           }} 
-            key={i}
+          key={i}
             id={username === messageContent.author ? 'you' : 'other'}
-          >
+            >
               <li style={{
-            color: '#fff',
-            listStyle: 'none',
-            borderBottom: '1px solid #3d3d42',
-            padding: '10px 0'
-          }}>
+                color: '#fff',
+                listStyle: 'none',
+                borderBottom: '1px solid #3d3d42',
+                padding: '10px 0'
+              }}>
               <div>
                 <div>
                   <img style={{
@@ -229,10 +204,10 @@ function Room({username, room, profilePicture}) {
                     borderRadius: '50px',
                   }} src={messageContent.profilePicture} />
                 </div>
-            <Typography>
-                  <div style={{
+            <Typography style={{
                     float: 'right'
-                  }}>{messageContent.message}</div>
+                  }}>
+                  {messageContent.message}
               </Typography>
               <Typography>
                 <div style={{ 
@@ -248,15 +223,17 @@ function Room({username, room, profilePicture}) {
                 </Typography>
               </div>
             </li>
-            <AlwaysScrollToBottom />
+            
           </ul>
           
-          </div>
+           </Grid>
         );
       })}
-
-    </div>
-    <Grid item xs={12} sm={12} item md={4} lg={4} xl={4}>
+ <div ref={messageList} />
+   
+    <Grid item xs={12} sm={12} item md={4} lg={4} xl={4} container
+    style={{flexDirection: 'row'}}>
+      
     <Typography>
       <input
       style={{
@@ -267,22 +244,21 @@ function Room({username, room, profilePicture}) {
         userSelect: 'none',
         outline: 'none',
       }}
-        type="text"
-        value={currentMessage}
-        placeholder="Hey..."
-        onChange={(event) => {
-          setCurrentMessage(event.target.value);
-        }}
-        onKeyPress={(event) => {
-
-          event.key === 'Enter' && sendMessage();
-        }}
+      type="text"
+      value={currentMessage}
+      placeholder="Hey..."
+      onChange={(event) => {
+        setCurrentMessage(event.target.value);
+      }}
+      onKeyPress={(event) => {
+        
+        event.key === 'Enter' && sendMessage();
+      }}
       />
       </Typography>
       </Grid>
-      {/* <button  onClick={sendMessage}>&#9658;</button> */}
+  
         </Grid>
-      
         </Grid>
   );
 }
