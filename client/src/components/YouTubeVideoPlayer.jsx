@@ -27,7 +27,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: '80%', flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
+    <Box sx={{ maxWidth: '70%', flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
       <SwipeableViews
         axis={'x'}
         index={activeStep}
@@ -38,7 +38,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
           <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box sx={{ textAlign: 'center', width: '100%', height: '100%'}}>
-                <iframe title={video.snippet.title} style={{ display: 'auto', width: '100%', height: '50vh' }} src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
+                <iframe title={video.snippet.title} style={{ display: 'auto', width: '100%', height: '70vh' }} src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
               </Box>
             ) : null}
           </div>
