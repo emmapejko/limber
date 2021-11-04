@@ -17,7 +17,6 @@ import Skellyton from './Skellyton.jsx';
 
 const Build = (props) => {
   const [view, setView] = useState('main');
-  const [openDialog, setOpenDialog] = useState(false);
   const [occupation, setOccupation] = useState('I spend a lot of time at a desk');
   const [bodyParts, setBodyParts] = useState([]);
 
@@ -44,20 +43,8 @@ const Build = (props) => {
             onClose={() => setView('body')}
             fullWidth={true}
           >
-          <DialogTitle>Build your flow: </DialogTitle>
+          <DialogTitle>Build your flow:</DialogTitle>
           <DialogContent>
-          {/* <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            style={{ margin: '20px' }}
-          > */}
-            {/* <Button variant="outlined" disableElevation onClick={() => setOpenDialog(true)}>
-              based on your occupation
-            </Button>
-            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-              <DialogTitle>Describe your daily posture</DialogTitle> */}
-              {/* <DialogContent> */}
               <Box
                 display="flex"
                 alignItems="center"
@@ -96,40 +83,13 @@ const Build = (props) => {
                   </RadioGroup>
                 </FormControl>
                 </Box>
-              {/* </DialogContent> */}
               <DialogActions>
-                {/* <Button onClick={() => setOpenDialog(false)}>Cancel</Button> */}
                 <Button onClick={occupationBuild}>Continue</Button>
               </DialogActions>
-            {/* </Dialog> */}
-          {/* </Box> */}
-          {/* <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Button variant="outlined" disableElevation onClick={() => setView('body')}>
-              based on a body part
-            </Button>
-          </Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            style={{ margin: '20px' }}
-          >
-            <Button variant="outlined" disableElevation onClick={() => setView('video')}>
-              find a video
-            </Button>
-          </Box> */}
           </DialogContent>
           </Dialog>
         </>
       );
-    // } else if (view === 'video') {
-    //   return (
-    //     <BuildSetUp jobBodyParts={bodyParts} video={true} />
-    //   )
     }
     return (
       <BuildSetUp jobBodyParts={bodyParts} video={false}/>
