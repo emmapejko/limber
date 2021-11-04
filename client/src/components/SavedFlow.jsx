@@ -159,13 +159,15 @@ export default function SavedFlow(props) {
     getSavedFlows();
   }, []);
   const color = {
-    backgroundColor: '#fff8e1'
+      border: '1px solid #ffb627',
+      borderRadius: '5px',
   }
  
   return (
     <>
-      <div style={color}>
+      <div>
         <Button onClick={handleOpen} style={props.style}>Flows</Button>
+        <hr style={color}/>
         <Modal
           open={open}
           onClose={handleClose}

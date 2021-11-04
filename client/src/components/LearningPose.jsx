@@ -80,7 +80,7 @@ export default function LearningPose(props) {
         justifyContent="center"
         m="auto"
       >
-      <Button onClick={() => setOpenPose(true)}>What you're working on</Button>
+      <Button style={props.style} onClick={() => setOpenPose(true)}>What you're working on</Button>
       <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
       <Modal

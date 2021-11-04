@@ -73,10 +73,15 @@ function DashBoard(props) {
   const color = {
     backgroundColor: '#fff8e1'
   }
+  const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+}
 
   return (
     <div style={color}> 
       <Button onClick={handleOpen} style={props.style}>DashBoard</Button>
+      <hr style={lineBreak} />
       <Modal
         open={open}
         onClose={handleClose}

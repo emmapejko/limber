@@ -82,7 +82,7 @@ export default function PoseKnown(props) {
         justifyContent="center"
         m="auto"
       >
-      <Button onClick={() => setOpenPose(true)}>What you know</Button>
+      <Button style={props.style} onClick={() => setOpenPose(true)}>What you know</Button>
       <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
       <Modal
