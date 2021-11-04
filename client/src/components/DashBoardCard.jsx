@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
-
-import progress from '../images/progress.jpg';
-
-
 
 const GifImg = styled.img`
     display: flex;
@@ -16,6 +14,18 @@ const GifImg = styled.img`
 `;
 
 const DashBoardCard = () => {
+  const [img, setImg] = useState('');
+
+  useEffect(() => {
+    axios.get('/images/otherImages/progress.jpg')
+      .then(({ data }) => {
+        setImg(data);
+      })
+      .catch(err => {
+        console.warn('error getting image: ', err);
+      })
+  })
+
   return (
     <div>
     <Box
@@ -24,7 +34,11 @@ const DashBoardCard = () => {
       alignItems="center"
       m="10%"
     >
-      <GifImg src={progress} />
+      {
+        img.length ?
+        <GifImg src={img} />
+        : <CircularProgress />
+      }
     </Box>
   </div>
   );
