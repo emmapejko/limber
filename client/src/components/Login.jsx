@@ -16,7 +16,13 @@ function Login({ style }) {
         <Chip icon={<GoogleIcon />} label="Log In" variant="outlined" component="a" href="/google" clickable />
       </Box>
       <hr />
-      <Chakras />
+      <Box
+        alignItems="center"
+        justifyContent="center"
+        m="auto"
+      >
+        <Chakras />
+      </Box>
     </>
   );
 }

@@ -15,14 +15,17 @@ import {
   DialogContentText,
   Grid,
   TextField,
-  Typography,
   FormControlLabel,
   Switch,
   Chip,
-  Alert
+  Alert,
+  ButtonGroup,
+  Tooltip
 } from '@mui/material';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 
 import PoseCard from './PoseCard.jsx';
 import YouTubeVideoPlayer from './YouTubeVideoPlayer.jsx';
@@ -106,6 +109,19 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
     }
   }
 
+  const backButton = () => {
+    setLength('');
+    setBodyParts(jobBodyParts);
+    setOpenDialog(false);
+    setFlow(savedFlow || []);
+    setFlowName('');
+    setVideos([]);
+    setOpenSave(false);
+    setDifficulty('');
+    setShared(false);
+    setOpenAlert(false);
+  }
+
   const youTubeSearch = () => {
     const data = {
       query: `${length} min ${bodyParts.join(' ')} yoga`
@@ -142,7 +158,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
             m="auto"
           >
             <Box sx={{
-              minWidth: 120, marginTop: '5px', marginBottom: '5px', marginRight: '5px',
+              minWidth: 100, marginTop: '5px', marginBottom: '5px', marginRight: '5px',
             }}
             >
               <FormControl fullWidth>
@@ -160,20 +176,23 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 </Select>
               </FormControl>
             </Box>
-            <Stack direction="row" spacing={1} paddingLeft="15px">
+            <Stack direction="row" spacing={1} paddingLeft="5px">
               {
                 bodyParts.length ?
                 bodyParts.map((part, i) => <Chip key={i} label={part} variant="outlined" onDelete={() => removePart(part)} />)
                 : <Chip label={"Choose up to 2 body parts"} />
                 }
-                {
-                  !video ?
-                  <Button style={{ marginLeft: 0 }}><BuildCircleIcon onClick={length === ''
-                    ? () => setOpenDialog(true)
-                    : build}
-                  /></Button>
-                  : <Button onClick={youTubeSearch}>Search</Button>
-                }
+                  <ButtonGroup disableElevation variant="contained">
+                  <Tooltip title="Build">
+                    <Button style={{ marginLeft: 0, padding: '6px' }}><BuildCircleIcon onClick={length === ''
+                      ? () => setOpenDialog(true)
+                      : build}
+                    /></Button>
+                    </Tooltip>
+                    <Tooltip title="Video">
+                    <Button onClick={youTubeSearch} style={{ marginLeft: 0, padding: '6px' }}><YouTubeIcon /></Button>
+                    </Tooltip>
+                  </ButtonGroup>
               </Stack>
               <Dialog
                 open={openDialog}
@@ -194,7 +213,10 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
         <>
         {
           !flow.length && videos.length ?
+            <>
+            <div><Button onClick={backButton}><KeyboardBackspaceIcon /></Button></div>
             <YouTubeVideoPlayer videos={videos} />
+            </>
             :
             <Box sx={{ flexGrow: 1 }}>
               <Box
@@ -205,6 +227,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
               >
               {length ?
                 <>
+                <Button onClick={backButton}><KeyboardBackspaceIcon style={{ paddingRight: '5px'}}/></Button>
                 <Chip label={`${length} min`} />
                 {
                   bodyParts.length ?
