@@ -30,6 +30,7 @@ return (
     ]}
     options={{
       title: 'Degree of Yoga Poses',
+      colors: ['#ffb627', '#ff9505', '#e2711d'],
     }}
   />
 
