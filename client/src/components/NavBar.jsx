@@ -48,10 +48,13 @@ const NavBar = () => {
   }, []);
 
   const textSizer = {
-    fontSize: `${fontSize}px`
+    fontSize: `${fontSize}px`, 
+    fontWeight: 420
   }
 
+
   return (
+    <div>
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography sx={{ marginRight: '12px' }} style={textSizer}><Link to={`${url}`} style={{textDecoration: 'none', color:"inherit"}}>LIMBER</Link></Typography>
@@ -124,6 +127,7 @@ const NavBar = () => {
         </Route>
       </Switch>
     </>
+    </div>
   );
 };
 

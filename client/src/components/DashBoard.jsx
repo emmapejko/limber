@@ -70,16 +70,16 @@ const DashBoard = (props) => {
     getUserPosesKnown();
     getUserPosesId();
   }, []);
-  const color = {
-    backgroundColor: '#fff8e1'
-  }
   const lineBreak = {
     border: '1px solid #ffb627',
     borderRadius: '5px',
 }
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
 
   return (
-    <div style={color}> 
+    <div style={banner}> 
       <Button onClick={handleOpen} style={props.style}>DashBoard</Button>
       <hr style={lineBreak} />
       <Modal

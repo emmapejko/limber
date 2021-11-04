@@ -19,15 +19,21 @@ const style = {
 
 const BuildFlow = (props) => {
   const { path, url } = useRouteMatch();
-  const color = {
-    backgroundColor: '#fff8e1'
-  }
+
+  const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+}
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
 
   return (
-    <div style={color}>
+    <div style={banner}>
     <>
       <Button style={props.style}><Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit"}}>Build A Flow</Link></Button>
       <Switch>
+      <hr style={lineBreak} />
         <Route path={`${path}/build`}>
           <Build />
         </Route>

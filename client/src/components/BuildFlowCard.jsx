@@ -20,6 +20,7 @@ const BuildFlowCard = () => {
         justifyContent="center"
         alignItems="center"
         m="15%"
+       
       >
         <GifImg src={sunSal} />
       </Box>
