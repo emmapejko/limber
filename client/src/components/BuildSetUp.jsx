@@ -148,7 +148,7 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
         <>
           {
             openAlert ?
-            <Alert severity="warning">Please select a maximum of two body parts</Alert>
+            <Alert severity="warning" onClose={() => setOpenAlert(false)}>Please select a maximum of two body parts</Alert>
           : null
           }
           <Box
@@ -223,7 +223,9 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
               >
                 {length ?
                   <>
+                  <Tooltip title="Back">
                   <Button onClick={backButton}><KeyboardBackspaceIcon style={{ paddingRight: '5px'}}/></Button>
+                  </Tooltip>
                   <Chip label={`${length} min`} />
                   {
                     bodyParts.length ?
@@ -246,14 +248,18 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
               >
               {length ?
                 <>
+                <Tooltip title="Back">
                 <Button onClick={backButton}><KeyboardBackspaceIcon style={{ paddingRight: '5px'}}/></Button>
+                </Tooltip>
                 <Chip label={`${length} min`} />
                 {
                   bodyParts.length ?
                   bodyParts.map((part, i) => <Chip key={i} label={part} style={{ marginLeft: '5px' }}/>)
                   : null
                 }
+                <Tooltip title="Save">
                 <Button><SaveAltIcon onClick={() => setOpenSave(true)} /></Button>
+                </Tooltip>
                 </>
               : null
               }
