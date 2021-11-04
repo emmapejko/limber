@@ -15,7 +15,7 @@ const GifImg = styled.img`
     margin: auto;
 `;
 
-function DashBoardCard() {
+const DashBoardCard = () => {
   return (
     <div>
     <Box

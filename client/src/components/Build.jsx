@@ -33,9 +33,10 @@ const Build = (props) => {
     setView('occupation');
   };
 
-  const renderView = () => {
-    if (view === 'main') {
-      return (
+  return (
+    <div>
+      {
+        view === 'main' ?
         <>
           <Skellyton bodyParts={bodyParts} handleClick={() => true} />
           <Dialog
@@ -89,16 +90,9 @@ const Build = (props) => {
           </DialogContent>
           </Dialog>
         </>
-      );
-    }
-    return (
-      <BuildSetUp jobBodyParts={bodyParts} video={false}/>
-    );
-  };
-
-  return (
-    <div>
-      {renderView()}
+        :
+        <BuildSetUp jobBodyParts={bodyParts} />
+      }
     </div>
   );
 };

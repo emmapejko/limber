@@ -2,9 +2,7 @@ import React from 'react';
 import {
   Switch, Route, Link, useRouteMatch,
 } from 'react-router-dom';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Build from './Build.jsx';
 
 const style = {
@@ -19,9 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function BuildFlow(props) {
-
-  //change state management to redirect on button click and remove modals
+const BuildFlow = (props) => {
   const { path, url } = useRouteMatch();
   const color = {
     backgroundColor: '#fff8e1'
@@ -40,3 +36,5 @@ export default function BuildFlow(props) {
     </div>
   );
 }
+
+export default BuildFlow;
