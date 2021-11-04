@@ -56,7 +56,7 @@ export default function PoseKnown(props) {
     axios
       .delete(`/profile/userPosesWorkingOn/${id}`)
       .then(() => {
-        getUserPosesId();
+        getUserPosesKnown();
         setOpenPose(false);
       })
       .catch(err => {
