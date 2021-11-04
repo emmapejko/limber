@@ -27,7 +27,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 700, flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
+    <Box sx={{ maxWidth: '80%', flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
       <SwipeableViews
         axis={'x'}
         index={activeStep}

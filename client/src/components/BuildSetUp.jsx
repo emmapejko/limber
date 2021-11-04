@@ -221,20 +221,17 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
                 m="auto"
                 paddingBottom='10px'
               >
-                {length ?
                   <>
                   <Tooltip title="Back">
                   <Button onClick={backButton}><KeyboardBackspaceIcon style={{ paddingRight: '5px'}}/></Button>
                   </Tooltip>
-                  <Chip label={`${length} min`} />
+                  { length ? <Chip label={`${length} min`} /> : null }
                   {
                     bodyParts.length ?
                     bodyParts.map((part, i) => <Chip key={i} label={part} style={{ marginLeft: '5px' }}/>)
                     : null
                   }
                   </>
-                : null
-              }
               </Box>
             <YouTubeVideoPlayer videos={videos} />
             </>
