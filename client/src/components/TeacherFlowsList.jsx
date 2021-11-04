@@ -8,6 +8,9 @@ import {
   Typography,
   Modal,
   Button,
+  Chip,
+  Avatar,
+  Tooltip
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -79,7 +82,7 @@ const TeacherFlowsList = () => {
       .then(() => {
         axios.get(`/flow/user/${flow.userId}`)
           .then(({ data }) => {
-            setOwner(data.full_name);
+            setOwner(data);
             setName(flow.name);
             setOpen(true);
           })
@@ -160,11 +163,20 @@ const TeacherFlowsList = () => {
                         justifyContent="center"
                         m="auto"
                       ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
-                      <Button onClick={addOrRemoveFavorite}>
-                        {
-                          favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
-                        }
-                      </Button>
+                      {
+                      favorites.map(flow => flow.name).includes(name) ?
+                        <Tooltip title="Unfavorite">
+                          <Button onClick={addOrRemoveFavorite}>
+                            <FavoriteIcon />
+                          </Button>
+                        </Tooltip>
+                        :
+                        <Tooltip title="Favorite">
+                          <Button onClick={addOrRemoveFavorite}>
+                            <FavoriteBorderIcon />
+                          </Button>
+                        </Tooltip>
+                      }
                       </Box>
                       <Box
                         display="flex"
@@ -173,7 +185,10 @@ const TeacherFlowsList = () => {
                         m="auto"
                         paddingBottom="5px"
                       >
-                      <Typography>By: <em>{owner}</em></Typography>
+                      <Chip
+                        avatar={<Avatar alt={owner.full_name} src={owner.picture} />}
+                        label={owner.full_name}
+                      />
                       </Box>
                       </>
                       : null

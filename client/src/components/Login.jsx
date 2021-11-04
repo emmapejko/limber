@@ -1,25 +1,28 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import styled from 'styled-components';
+import {
+  Box,
+  Typography,
+  Chip
+} from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
 
 import Chakras from './Chakras.jsx';
-
-const BackgroungImg = styled.img`
-    display: block;
-    width: 100%;
-    height: 100%;
-`;
 
 function Login({ style }) {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
         <Typography sx={{ minWidth: 100 }} style={{ flex: 1, style }}>LIMBER</Typography>
-        <Typography sx={{ minWidth: 100 }} sx={{ alignItems: 'center' }} style={style}><a href='/google' style={{textDecoration: 'none', color:"inherit"}}>Log In</a></Typography>
+        <Chip icon={<GoogleIcon />} label="Log In" variant="outlined" component="a" href="/google" clickable />
       </Box>
       <hr />
-      <Chakras />
+      <Box
+        alignItems="center"
+        justifyContent="center"
+        m="auto"
+      >
+        <Chakras />
+      </Box>
     </>
   );
 }

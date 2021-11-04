@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   Box,
   MobileStepper,
-  Paper,
-  Typography,
   Button,
 } from '@mui/material';
 import {
@@ -29,20 +27,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 700, flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
-      <Paper
-        square
-        elevation={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          pl: 2,
-          bgcolor: 'background.default',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography><h4>{videos[activeStep].snippet.title.replace('amp;', '')}</h4></Typography>
-      </Paper>
+    <Box sx={{ maxWidth: '70%', flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
       <SwipeableViews
         axis={'x'}
         index={activeStep}
@@ -53,7 +38,7 @@ const YouTubeVideoPlayer = ({ videos }) => {
           <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box sx={{ textAlign: 'center', width: '100%', height: '100%'}}>
-                <iframe title={video.snippet.title} style={{ display: 'auto', width: '100%', height: '50vh' }} src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
+                <iframe title={video.snippet.title} style={{ display: 'auto', width: '100%', height: '70vh' }} src={`https://www.youtube.com/embed/${video.id.videoId}`} allowFullScreen></iframe>
               </Box>
             ) : null}
           </div>

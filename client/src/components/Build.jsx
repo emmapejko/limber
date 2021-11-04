@@ -17,7 +17,6 @@ import Skellyton from './Skellyton.jsx';
 
 const Build = (props) => {
   const [view, setView] = useState('main');
-  const [openDialog, setOpenDialog] = useState(false);
   const [occupation, setOccupation] = useState('I spend a lot of time at a desk');
   const [bodyParts, setBodyParts] = useState([]);
 
@@ -28,6 +27,8 @@ const Build = (props) => {
       setBodyParts(['hips', 'back']);
     } else if (occupation === 'I spend a lot of time sitting down') {
       setBodyParts(['shoulders', 'back']);
+    } else if (occupation === "I'll choose focus areas myself") {
+      setBodyParts([]);
     }
     setView('occupation');
   };
@@ -42,20 +43,13 @@ const Build = (props) => {
             onClose={() => setView('body')}
             fullWidth={true}
           >
-          <DialogTitle>Build your flow: </DialogTitle>
+          <DialogTitle>Build your flow:</DialogTitle>
           <DialogContent>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            style={{ margin: '20px' }}
-          >
-            <Button variant="outlined" disableElevation onClick={() => setOpenDialog(true)}>
-              based on your occupation
-            </Button>
-            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-              <DialogTitle>Describe your daily posture</DialogTitle>
-              <DialogContent>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
                 <FormControl component="fieldset">
                   <RadioGroup
                     aria-label="occupation"
@@ -80,42 +74,22 @@ const Build = (props) => {
                       label="I spend a lot of time sitting down"
                       onChange={(e) => setOccupation(e.target.value)}
                     />
+                    <FormControlLabel
+                      value="I'll choose focus areas myself"
+                      control={<Radio />}
+                      label="I'll choose focus areas myself"
+                      onChange={(e) => setOccupation(e.target.value)}
+                    />
                   </RadioGroup>
                 </FormControl>
-              </DialogContent>
+                </Box>
               <DialogActions>
-                <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
                 <Button onClick={occupationBuild}>Continue</Button>
               </DialogActions>
-            </Dialog>
-          </Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Button variant="outlined" disableElevation onClick={() => setView('body')}>
-              based on a body part
-            </Button>
-          </Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            style={{ margin: '20px' }}
-          >
-            <Button variant="outlined" disableElevation onClick={() => setView('video')}>
-              find a video
-            </Button>
-          </Box>
           </DialogContent>
           </Dialog>
         </>
       );
-    } else if (view === 'video') {
-      return (
-        <BuildSetUp jobBodyParts={bodyParts} video={true} />
-      )
     }
     return (
       <BuildSetUp jobBodyParts={bodyParts} video={false}/>
