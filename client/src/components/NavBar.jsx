@@ -56,12 +56,12 @@ const NavBar = () => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography sx={{ marginRight: '12px' }} style={textSizer}>LIMBER</Typography>
+        <Typography sx={{ marginRight: '12px' }} style={textSizer}><Link to={`${url}`} style={{textDecoration: 'none', color:"inherit"}}>LIMBER</Link></Typography>
         <Typography sx={{ marginRight: '12px' }}  style={textSizer}><Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit"}}>Build</Link></Typography>
         <Typography sx={{ flex: 1 }} style={textSizer}><Link to={`${url}/connect`} style={{textDecoration: 'none', color:"inherit"}}>Connect</Link></Typography>
         <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
           <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
-        <Tooltip title="Account settings">
+        <Tooltip title="Profile">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
             <Avatar sx={{ width: 32, height: 32 }} alt={user.full_name} src={user.picture}/>
           </IconButton>

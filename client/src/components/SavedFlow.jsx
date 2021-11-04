@@ -7,7 +7,8 @@ import {
   Tab,
   Typography,
   Chip,
-  Avatar
+  Avatar,
+  Tooltip
 } from '@mui/material';
 import {
   TabContext,
@@ -189,12 +190,23 @@ export default function SavedFlow(props) {
                     justifyContent="center"
                     m="auto"
                   ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
-                  <Button onClick={addOrRemoveFavorite}>
                     {
-                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                      favorites.map(flow => flow.name).includes(name) ?
+                      <Tooltip title="Unfavorite">
+                        <Button onClick={addOrRemoveFavorite}>
+                          <FavoriteIcon />
+                        </Button>
+                      </Tooltip>
+                       :
+                       <Tooltip title="Favorite">
+                        <Button onClick={addOrRemoveFavorite}>
+                          <FavoriteBorderIcon />
+                        </Button>
+                        </Tooltip>
                     }
-                  </Button>
+                  <Tooltip title="Delete">
                   <Button onClick={deleteFlow}><DeleteIcon /></Button>
+                  </Tooltip>
                   </Box>
                   : null
                 }
@@ -213,11 +225,20 @@ export default function SavedFlow(props) {
                     justifyContent="center"
                     m="auto"
                   ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
-                  <Button onClick={addOrRemoveFavorite}>
-                    {
-                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                  {
+                      favorites.map(flow => flow.name).includes(name) ?
+                      <Tooltip title="Unfavorite">
+                        <Button onClick={addOrRemoveFavorite}>
+                          <FavoriteIcon />
+                        </Button>
+                      </Tooltip>
+                       :
+                       <Tooltip title="Favorite">
+                        <Button onClick={addOrRemoveFavorite}>
+                          <FavoriteBorderIcon />
+                        </Button>
+                        </Tooltip>
                     }
-                  </Button>
                   </Box>
                   <Box
                     display="flex"
@@ -249,14 +270,25 @@ export default function SavedFlow(props) {
                     justifyContent="center"
                     m="auto"
                   ><Typography><h2 id="parent-modal-title" style={{ paddingRight: '5px'}}>{name}</h2></Typography>
-                  <Button onClick={addOrRemoveFavorite}>
-                    {
-                      favorites.map(flow => flow.name).includes(name) ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                  {
+                      favorites.map(flow => flow.name).includes(name) ?
+                      <Tooltip title="Unfavorite">
+                        <Button onClick={addOrRemoveFavorite}>
+                          <FavoriteIcon />
+                        </Button>
+                      </Tooltip>
+                       :
+                       <Tooltip title="Favorite">
+                        <Button onClick={addOrRemoveFavorite}>
+                          <FavoriteBorderIcon />
+                        </Button>
+                        </Tooltip>
                     }
-                  </Button>
                   {
                     flows.map(flow => flow.name).includes(name) ?
+                    <Tooltip title="Delete">
                     <Button onClick={deleteFlow}><DeleteIcon /></Button>
+                    </Tooltip>
                     : null
                   }
                   </Box>
