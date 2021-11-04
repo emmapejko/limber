@@ -28,6 +28,8 @@ const Build = (props) => {
       setBodyParts(['hips', 'back']);
     } else if (occupation === 'I spend a lot of time sitting down') {
       setBodyParts(['shoulders', 'back']);
+    } else if (occupation === "I'll choose focus areas myself") {
+      setBodyParts([]);
     }
     setView('occupation');
   };
@@ -44,18 +46,23 @@ const Build = (props) => {
           >
           <DialogTitle>Build your flow: </DialogTitle>
           <DialogContent>
-          <Box
+          {/* <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
             style={{ margin: '20px' }}
-          >
-            <Button variant="outlined" disableElevation onClick={() => setOpenDialog(true)}>
+          > */}
+            {/* <Button variant="outlined" disableElevation onClick={() => setOpenDialog(true)}>
               based on your occupation
             </Button>
             <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-              <DialogTitle>Describe your daily posture</DialogTitle>
-              <DialogContent>
+              <DialogTitle>Describe your daily posture</DialogTitle> */}
+              {/* <DialogContent> */}
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
                 <FormControl component="fieldset">
                   <RadioGroup
                     aria-label="occupation"
@@ -80,16 +87,23 @@ const Build = (props) => {
                       label="I spend a lot of time sitting down"
                       onChange={(e) => setOccupation(e.target.value)}
                     />
+                    <FormControlLabel
+                      value="I'll choose focus areas myself"
+                      control={<Radio />}
+                      label="I'll choose focus areas myself"
+                      onChange={(e) => setOccupation(e.target.value)}
+                    />
                   </RadioGroup>
                 </FormControl>
-              </DialogContent>
+                </Box>
+              {/* </DialogContent> */}
               <DialogActions>
-                <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+                {/* <Button onClick={() => setOpenDialog(false)}>Cancel</Button> */}
                 <Button onClick={occupationBuild}>Continue</Button>
               </DialogActions>
-            </Dialog>
-          </Box>
-          <Box
+            {/* </Dialog> */}
+          {/* </Box> */}
+          {/* <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -107,15 +121,15 @@ const Build = (props) => {
             <Button variant="outlined" disableElevation onClick={() => setView('video')}>
               find a video
             </Button>
-          </Box>
+          </Box> */}
           </DialogContent>
           </Dialog>
         </>
       );
-    } else if (view === 'video') {
-      return (
-        <BuildSetUp jobBodyParts={bodyParts} video={true} />
-      )
+    // } else if (view === 'video') {
+    //   return (
+    //     <BuildSetUp jobBodyParts={bodyParts} video={true} />
+    //   )
     }
     return (
       <BuildSetUp jobBodyParts={bodyParts} video={false}/>
