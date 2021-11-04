@@ -214,7 +214,26 @@ const BuildSetUp = ({ jobBodyParts, video, savedFlow }, props) => {
         {
           !flow.length && videos.length ?
             <>
-            <div><Button onClick={backButton}><KeyboardBackspaceIcon /></Button></div>
+            <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                m="auto"
+                paddingBottom='10px'
+              >
+                {length ?
+                  <>
+                  <Button onClick={backButton}><KeyboardBackspaceIcon style={{ paddingRight: '5px'}}/></Button>
+                  <Chip label={`${length} min`} />
+                  {
+                    bodyParts.length ?
+                    bodyParts.map((part, i) => <Chip key={i} label={part} style={{ marginLeft: '5px' }}/>)
+                    : null
+                  }
+                  </>
+                : null
+              }
+              </Box>
             <YouTubeVideoPlayer videos={videos} />
             </>
             :

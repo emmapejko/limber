@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   Box,
   MobileStepper,
-  Paper,
-  Typography,
   Button,
 } from '@mui/material';
 import {
@@ -30,19 +28,6 @@ const YouTubeVideoPlayer = ({ videos }) => {
 
   return (
     <Box sx={{ maxWidth: 700, flexGrow: 1, alignItems: 'center', margin: 'auto'}}>
-      <Paper
-        square
-        elevation={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          pl: 2,
-          bgcolor: 'background.default',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography><h4>{videos[activeStep].snippet.title.replace('amp;', '')}</h4></Typography>
-      </Paper>
       <SwipeableViews
         axis={'x'}
         index={activeStep}
