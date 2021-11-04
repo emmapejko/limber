@@ -4,7 +4,7 @@ import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box'
 
-function SavedFlowCard(props) {
+const SavedFlowCard = (props) => {
 
   const [flows, setFlows] = useState([]);
 
@@ -22,14 +22,11 @@ function SavedFlowCard(props) {
   useEffect(() => {
     getSavedFlows();
   }, []);
-  
+
   const getFontSize = () => {
     return Number(props.style.fontSize.slice(0,2)) + 4;
   }
-  // const color = {
-  //   backgroundColor: '#fffde7'
-  // }
-  
+
   return (
     <div>
     <Box
@@ -49,4 +46,4 @@ function SavedFlowCard(props) {
     </div>
   );
 }
-export default SavedFlowCard; 
+export default SavedFlowCard;

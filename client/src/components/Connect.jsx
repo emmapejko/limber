@@ -5,7 +5,7 @@ import Room from './Room.jsx';
 import FollowersList from './FollowersList.jsx';
 import TeacherFlowsList from './TeacherFlowsList.jsx';
 
-function Connect(props) {
+const Connect = (props) => {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('LIMBER');
   const [showChat, setShowChat] = useState(false);
