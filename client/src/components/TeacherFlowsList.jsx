@@ -95,6 +95,7 @@ const TeacherFlowsList = () => {
   const handleClose = () => {
     setOpen(false);
     setExpanded(false);
+    setSavedFlow([]);
     setFlows([]);
     setName(null);
     setOwner(null);
