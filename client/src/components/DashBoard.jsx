@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-function DashBoard(props) {
+const DashBoard = (props) => {
  
   const [open, setOpen] = React.useState(false);
   const [level, setLevel] = useState([]);

@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function LearningPose(props) {
+const LearningPose = (props) => {
   const [auto, setAuto] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [poses, setPoses] = useState([]);
@@ -167,4 +167,4 @@ export default function LearningPose(props) {
   );
 }
 
-
+export default LearningPose;

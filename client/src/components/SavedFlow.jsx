@@ -36,7 +36,7 @@ const style = {
   overflow: 'scroll'
 };
 
-export default function SavedFlow(props) {
+const SavedFlow = (props) => {
   const [open, setOpen] = useState(false);
   const [flows, setFlows] = useState([]);
   const [savedFlow, setSavedFlow] = useState([]);
@@ -161,7 +161,7 @@ export default function SavedFlow(props) {
   const color = {
     backgroundColor: '#fff8e1'
   }
- 
+
   return (
     <>
       <div style={color}>
@@ -212,7 +212,7 @@ export default function SavedFlow(props) {
                 }
                 {
                   savedFlow.length ?
-                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <BuildSetUp jobBodyParts={[]} savedFlow={savedFlow} /> :
                   <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
                 }
             </TabPanel>
@@ -257,7 +257,7 @@ export default function SavedFlow(props) {
                 }
                 {
                   savedFlow.length ?
-                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <BuildSetUp jobBodyParts={[]} savedFlow={savedFlow} /> :
                   <>{sharedFlows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
                 }
             </TabPanel>
@@ -313,7 +313,7 @@ export default function SavedFlow(props) {
                 }
                 {
                   savedFlow.length ?
-                  <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} /> :
+                  <BuildSetUp jobBodyParts={[]} savedFlow={savedFlow} /> :
                   <>{favorites.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>
                 }
             </TabPanel>
@@ -324,3 +324,5 @@ export default function SavedFlow(props) {
     </>
   );
 }
+
+export default SavedFlow;

@@ -24,7 +24,7 @@ const Img = styled('img')({
   maxHeight: 'flex',
 });
 
-function Chat({ socket, username, room, profilePicture }) {
+const Chat = ({ socket, username, room, profilePicture }) => {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 

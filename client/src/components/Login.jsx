@@ -8,7 +8,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 
 import Chakras from './Chakras.jsx';
 
-function Login({ style }) {
+const Login = ({ style }) => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
@@ -26,4 +26,5 @@ function Login({ style }) {
     </>
   );
 }
+
 export default Login;

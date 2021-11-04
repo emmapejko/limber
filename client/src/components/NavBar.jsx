@@ -36,7 +36,6 @@ const NavBar = () => {
   const getProfileImage = () => {
     axios.get('/chat/full_name')
       .then(({ data }) => {
-        
         setUser(data);
       })
       .catch(err => {
@@ -51,7 +50,6 @@ const NavBar = () => {
   const textSizer = {
     fontSize: `${fontSize}px`
   }
-  
 
   return (
     <>
