@@ -4,6 +4,8 @@ import { Button } from '@mui/material';
 import Room from './Room.jsx';
 import FollowersList from './FollowersList.jsx';
 import TeacherFlowsList from './TeacherFlowsList.jsx';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 const Connect = (props) => {
   const [username, setUsername] = useState('');
@@ -41,12 +43,17 @@ const Connect = (props) => {
       :
       <Room username={username} room={room} profilePicture={profilePicture} />
         }
-      <div>
+        <Grid style={{maxHeight:'30%'}} container >
+        
+      <Grid style={{maxHeight:'100%'}} item xs={12} sm={4} >
         <FollowersList user={user} />
-      </div>
-      <div>
-        <TeacherFlowsList />
-      </div>
+      </Grid>
+      <Grid style={{maxHeight:'100%'}} item xs={12} sm={8}>
+        <TeacherFlowsList/>
+      </Grid>
+         
+        </Grid>
+    
     </div>
   );
 }

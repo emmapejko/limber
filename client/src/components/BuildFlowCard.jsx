@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
-import sunSal from '../images/sunSal.gif';
 
 const GifImg = styled.img`
     display: flex;
@@ -13,6 +14,18 @@ const GifImg = styled.img`
 `;
 
 const BuildFlowCard = () => {
+  const [img, setImg] = useState('');
+
+  useEffect(() => {
+    axios.get('/images/otherImages/sunSal.gif')
+      .then(({ data }) => {
+        setImg(data);
+      })
+      .catch(err => {
+        console.warn('error getting image: ', err);
+      })
+  })
+
   return (
     <div>
       <Box
@@ -22,7 +35,11 @@ const BuildFlowCard = () => {
         m="15%"
        
       >
-        <GifImg src={sunSal} />
+        {
+          img.length ?
+          <GifImg src={img} />
+          : <CircularProgress />
+        }
       </Box>
     </div>
   );

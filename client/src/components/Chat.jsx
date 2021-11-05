@@ -68,10 +68,10 @@ const Chat = ({ socket, username, room, profilePicture }) => {
             >
               <Item>
                 <Grid container wrap="nowrap" spacing={2}>
-                  <Grid item xs>
+                  <Grid item>
                     <Img src={messageContent.profilePicture} />
                   </Grid>
-                  <Grid item xs>
+                  <Grid item>
                     <Typography noWrap variant="body2" component="div">{messageContent.message}</Typography>
                   </Grid>          
                   <Typography id="author">{messageContent.author}</Typography>
