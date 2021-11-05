@@ -1,18 +1,20 @@
 import React from 'react';
 import {
   Box,
-  Typography,
   Chip
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 
 import Chakras from './Chakras.jsx';
+import Logo from './Logo.jsx';
 
 const Login = ({ style }) => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
-        <Typography sx={{ minWidth: 100 }} style={{ flex: 1, style }}>LIMBER</Typography>
+        <div style={{ flex: 1 }}>
+          <Logo />
+        </div>
         <Chip icon={<GoogleIcon />} label="Log In" variant="outlined" component="a" href="/google" clickable />
       </Box>
       <hr />
