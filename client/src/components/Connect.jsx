@@ -37,7 +37,7 @@ const Connect = (props) => {
     <div className="App">
       {!showChat ? 
         <div className="joinChatContainer">
-          <h3>LIMBER CHAT</h3>
+          <Typography><h3>LIMBER LIVE</h3></Typography>
           <Button variant="contained" onClick={() => { joinRoom() }}>Join Chat</Button>
         </div>
       :
