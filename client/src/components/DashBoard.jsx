@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import Grid from '@mui/material/Grid';
+import { List, ListItem, ListItemText, Chip } from '@mui/material';
 import DashTable from './DashTable.jsx';
 
 const style = {
@@ -70,38 +71,72 @@ const DashBoard = (props) => {
     getUserPosesKnown();
     getUserPosesId();
   }, []);
-  const color = {
-    backgroundColor: '#fff8e1'
-  }
+  const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+}
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
 
   return (
-    <div style={color}> 
+    <div style={banner}> 
       <Button onClick={handleOpen} style={props.style}>DashBoard</Button>
+      <hr style={lineBreak} />
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        //style={{width: '40%', height: '90%'}}
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Grid id="modal-modal-title" variant="h6" component="h2">
             <DashTable style={props.style} />
-          </Typography>
-          <Typography 
+          </Grid>
+          <Grid 
           id="modal-modal-description" 
-          sx={{ mt: 2 }}
+          sx={{ mt: 2}}
           style={props.style}
           >
-            <div>
-            Skill Level: {level}
-            </div>
-            <div>
+           
+            <Box
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             m="auto"
+            >
+            <Typography>
+            Skill Level: 
+            <Chip 
+            label={level}
+            edge="end"
+            size="small" 
+            color={level === 'beginner' ? 'secondary' : level === 'intermediate' ? 'primary' : 'success'}
+            />
+            </Typography>
+            </Box>
+            <Box
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             m="auto"
+            >
+            <Typography>
             # of poses mastered: {known}
-            </div>
-            <div>
+            </Typography>
+            </Box>
+            <Box
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             m="auto"
+            >
+            <Typography>
             poses still learning: {learn}
-            </div>
-          </Typography>
+            </Typography>
+            </Box>
+          </Grid>
         </Box>
       </Modal>
     </div>

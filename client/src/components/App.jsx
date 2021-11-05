@@ -5,6 +5,7 @@ import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
 
 const App = (props) => {
+  
   return (
     <BrowserRouter>
       <Switch>
@@ -12,7 +13,7 @@ const App = (props) => {
           <Login style={props.style}/>
         </Route>
         <Route path="/:user">
-          <NavBar />
+          <NavBar/>
         </Route>
         <Route>
           <div>404 page not available</div>

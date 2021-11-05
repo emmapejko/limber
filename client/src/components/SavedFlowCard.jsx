@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box'
+import { Box, Typography, Chip, List, ListItem, StarIcon }  from '@mui/material';
+ 
 
 const SavedFlowCard = (props) => {
 
@@ -30,20 +30,51 @@ const SavedFlowCard = (props) => {
   return (
     <div>
     <Box
-       display="flex"
-       alignItems="center"
-       justifyContent="center"
-       m="auto"
+          padding="5%"
+      //  display="flex"
+      //  alignItems="center"
+      //  justifyContent="center"
+      //  m="auto"
     >
-    <Typography style={{ fontSize: `${getFontSize()}px`}}>
-      {flows.map((flow, i) => (
-          (i < 8) ?
-          <div style={{ fontSize: `${getFontSize()}px`}} key={i}>{flow.name}</div>
+       
+      <List>
+        <Typography style={{ fontSize: `${getFontSize()}px`}}>
+           {flows.map((flow, i) => (
+              (i < 5) ?
+          <ListItem 
+          disableGutters
+          secondaryAction={
+              <Chip 
+              label={flow.difficulty} 
+              size="small" 
+              color={flow.difficulty === 'beginner' ? 'secondary' : flow.difficulty === 'intermediate' ? 'primary' : 'success'}
+              />
+              
+          }  
+              
+            style={{ fontSize: `${getFontSize()}px`}} 
+            key={i}
+            >
+              {flow.name}
+            {/* <ListItemText style={{ fontSize: `${getFontSize()}px`}} primary={flow.name} /> */}
+          </ListItem>
+        
           : null
-      ))}
-    </Typography>
+          ))}
+        </Typography>
+        
+      </List>
+          
     </Box>
     </div>
   );
 }
 export default SavedFlowCard;
+
+{/* <Typography style={{ fontSize: `${getFontSize()}px`}}>
+{flows.map((flow, i) => (
+    (i < 8) ?
+    <div style={{ fontSize: `${getFontSize()}px`}} key={i}>{flow.name}<Chip label={flow.difficulty} size="small" /></div>
+    : null
+))}
+</Typography> */}

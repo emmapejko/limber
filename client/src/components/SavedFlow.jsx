@@ -8,7 +8,8 @@ import {
   Typography,
   Chip,
   Avatar,
-  Tooltip
+  Tooltip,
+  Icon
 } from '@mui/material';
 import {
   TabContext,
@@ -158,14 +159,19 @@ const SavedFlow = (props) => {
   useEffect(() => {
     getSavedFlows();
   }, []);
-  const color = {
-    backgroundColor: '#fff8e1'
+  const lineBreak = {
+      border: '1px solid #ffb627',
+      borderRadius: '5px',
+  }
+  const banner = {
+    backgroundColor: '#F8F8FF'
   }
 
   return (
     <>
-      <div style={color}>
+      <div style={banner}>
         <Button onClick={handleOpen} style={props.style}>Flows</Button>
+        <hr style={lineBreak}/>
         <Modal
           open={open}
           onClose={handleClose}

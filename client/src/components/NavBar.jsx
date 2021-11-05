@@ -52,10 +52,22 @@ const NavBar = () => {
   }, []);
 
   const textSizer = {
-    fontSize: `${fontSize}px`
+    fontSize: `${fontSize}px`, 
+    fontWeight: 420
   }
 
+  const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+    marginTop: "0px"
+}
+
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
+
   return (
+    <div>
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Link to={`${url}`} style={{ marginRight: '10px' }}><Logo /></Link>
@@ -115,7 +127,7 @@ const NavBar = () => {
           <a href="/logout" style={{textDecoration: 'none', color:"inherit"}}>Logout</a>
         </MenuItem>
       </Menu>
-      <hr />
+      <hr style={lineBreak}/>
       <Switch>
         <Route path={`${path}/build`}>
           <Build style={textSizer}/>
@@ -128,6 +140,7 @@ const NavBar = () => {
         </Route>
       </Switch>
     </>
+    </div>
   );
 };
 

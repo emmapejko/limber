@@ -67,22 +67,29 @@ const LearningPose = (props) => {
     getUserPosesId();
   }, []);
 
-  
-  const header = {
-    backgroundColor: '#fff8e1'
-  }
+  const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+    marginTop: "0px"
+}
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
   return (
     <div>
       <Box
-        style={header}
+        style={banner}
         display="flex"
         alignItems="center"
         justifyContent="center"
         m="auto"
       >
-      <Button onClick={() => setOpenPose(true)}>What you're working on</Button>
+      <Button style={props.style} onClick={() => setOpenPose(true)}>What you're working on</Button>
+      
       <Button onClick={() => setAuto(true)}><AddIcon /></Button>
+      
       </Box>
+      <hr style={lineBreak} />
       <Modal
         open={auto}
         onClose={() => setAuto(false)}
@@ -151,13 +158,19 @@ const LearningPose = (props) => {
           <Grid container spacing={1}>
           {
             poses.length ? poses.map((pose, i) =>
-              <Grid item xs={6} sm={3}>
-                <Button sx={{ height: '100%'}} title="click here to delete" onClick={() => deleteByPoseId(pose.id)}><PoseItem 
-                key={i}
-                pose={pose}
-                style={props.style}
-                /></Button>
-                </Grid>)
+              <Grid item xs={6} sm={3} key={i}>
+                <Button 
+                  sx={{ height: '100%'}} 
+                  title="click here to delete" 
+                  key={i} 
+                  onClick={() => deleteByPoseId(pose.id)}>
+                <PoseItem 
+                 key={i}
+                  pose={pose} 
+                  style={props.style}
+                />
+                </Button>
+              </Grid>)
                 : null
           }
           </Grid>

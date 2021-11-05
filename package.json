@@ -34,7 +34,7 @@
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
-    "@mui/icons-material": "^5.0.4",
+    "@mui/icons-material": "^5.0.5",
     "@mui/lab": "^5.0.0-alpha.52",
     "@mui/material": "^5.0.4",
     "aws-sdk": "^2.1012.0",
