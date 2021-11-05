@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
+import { List, ListItem, ListItemText, Chip } from '@mui/material';
 import DashTable from './DashTable.jsx';
 
 const style = {
@@ -87,7 +88,7 @@ const banner = {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        fullWidth={false}
+        //style={{width: '40%', height: '90%'}}
       >
         <Box sx={style}>
           <Grid id="modal-modal-title" variant="h6" component="h2">
@@ -98,6 +99,7 @@ const banner = {
           sx={{ mt: 2}}
           style={props.style}
           >
+           
             <Box
              display="flex"
              alignItems="center"
@@ -105,7 +107,13 @@ const banner = {
              m="auto"
             >
             <Typography>
-            Skill Level: {level}
+            Skill Level: 
+            <Chip 
+            label={level}
+            edge="end"
+            size="small" 
+            color={level === 'beginner' ? 'secondary' : level === 'intermediate' ? 'primary' : 'success'}
+            />
             </Typography>
             </Box>
             <Box
