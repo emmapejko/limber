@@ -6,6 +6,7 @@ import {
 import skelly from '../images/skellyton.png';
 
 const Skellyton = ({ bodyParts, handleClick }) => {
+
   return (
     <Box
       display="flex"
