@@ -88,14 +88,6 @@ const Room = ({username, room, profilePicture}) => {
     socket.on('createMessage', message => {
       setMessageList((list) => [...list, message]);
     })
-
-    // peer.current.on('call', call => {
-    //   call.answer(currentStream.current);
-    //   call.on('stream', st => {
-    //     addVideoStream(Video2.current, st);
-    //     setStream2(st);
-    //   })
-    // })
   }, []);
 
   const scrollToBottom = () => {
@@ -115,12 +107,6 @@ const Room = ({username, room, profilePicture}) => {
       })
     })
   }, [stream2, stream3]);
-  
-  // const AlwaysScrollToBottom = () => {
-  //   const elementRef = useRef();
-  //   useEffect(() => elementRef.current.scrollIntoView());
-  //   return <div ref={elementRef} />;
-  // };
 
   return (
         <Grid container>
@@ -146,7 +132,6 @@ const Room = ({username, room, profilePicture}) => {
                 height: '300px',
                 width: '400px',
                 objectFit: 'cover',
-                // padding: '8px'
               }} ref={myVideo}></video>
              <video style={{
                display: 'block',
@@ -158,7 +143,6 @@ const Room = ({username, room, profilePicture}) => {
                height: '300px',
                width: '400px',
                objectFit: 'cover',
-              //  padding: '8px'
             }} ref={Video2}></video>
             {/* </div> */}
           </Grid>
@@ -169,12 +153,10 @@ const Room = ({username, room, profilePicture}) => {
             style={{
             flexGrow: '1',
             overflowY: 'auto',
-            // height: '100%',
             backgroundColor: '#242324',
             borderLeft: '1px solid #3d3d42',
             minHeight: '340px',
             maxHeight : '340px',
-            // flexDirection: 'row'
         }}>
         
       {messageList.map((messageContent, i) => {
