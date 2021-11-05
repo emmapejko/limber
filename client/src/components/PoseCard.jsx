@@ -14,7 +14,8 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  Modal
+  Modal,
+  CircularProgress
 } from '@mui/material';
 
 const PoseCard = ({ pose, i, changeFlow }, props) => {
@@ -132,10 +133,14 @@ const PoseCard = ({ pose, i, changeFlow }, props) => {
       <Grid container spacing={2} sx={{alignItems:"center", justifyContent:"center", height:"100%"}}>
         <Grid item xs={6}>
           <Box display="flex" sx={{alignItems:"center", justifyContent:"center"}}>
-          <img src={img}
+          {
+            img.length ?
+            <img src={img}
             style={{maxHeight: '100px', maxWidth: '100px'}}
             alt={thePose.name}
           />
+          : <CircularProgress />
+          }
           </Box>
           <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
             <Button size="small" onClick={() => setDemoOpen(true)}>Demo</Button>

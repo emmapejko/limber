@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const PoseItem = ({ pose }, props) => {
   const [img, setImg] = useState('');
@@ -22,7 +23,11 @@ const PoseItem = ({ pose }, props) => {
 
   return (
     <div style={{ display: 'flex', alignItems:"center", justifyContent:"center", height:"100%"}} >
-      <img src={img} style={{maxHeight: '80px', maxWidth: '80px' }}/>
+      {
+        img.length ?
+        <img src={img} style={{maxHeight: '80px', maxWidth: '80px' }}/>
+        : <CircularProgress />
+      }
     </div>
   )
 
