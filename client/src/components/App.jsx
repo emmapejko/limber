@@ -1,11 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './Home.jsx';
+
 import Login from './Login.jsx';
 import NavBar from './NavBar.jsx';
 
-function App(props) {
- 
+const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>

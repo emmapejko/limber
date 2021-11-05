@@ -94,6 +94,7 @@ const TeacherFlowsList = () => {
   const handleClose = () => {
     setOpen(false);
     setExpanded(false);
+    setSavedFlow([]);
     setFlows([]);
     setName(null);
     setOwner(null);
@@ -194,7 +195,7 @@ const TeacherFlowsList = () => {
                       </>
                       : null
                     }
-                    <BuildSetUp jobBodyParts={[]} video={false} savedFlow={savedFlow} />
+                    <BuildSetUp jobBodyParts={[]} savedFlow={savedFlow} />
                   </Box>
                   </Modal>
                   : <>{flows.map((flow, i) => <Button onClick={() => renderBuiltFlow(flow)} key={i}><div>{flow.name}</div></Button>)}</>

@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-export default function PoseKnown(props) {
+const PoseKnown = (props) => {
   const [auto, setAuto] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [poses, setPoses] = useState([]);
@@ -56,7 +56,7 @@ export default function PoseKnown(props) {
     axios
       .delete(`/profile/userPosesWorkingOn/${id}`)
       .then(() => {
-        getUserPosesId();
+        getUserPosesKnown();
         setOpenPose(false);
       })
       .catch(err => {
@@ -157,4 +157,5 @@ export default function PoseKnown(props) {
   );
 }
 
+export default PoseKnown;
 
