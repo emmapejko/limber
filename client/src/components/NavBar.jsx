@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
+import {
+  Box,
+  Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Divider,
+  IconButton,
+  Typography,
+  Tooltip,
+  Chip
+} from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
 import {
   Switch, Route, Link, useRouteMatch,
@@ -17,6 +20,7 @@ import {
 import Build from './Build.jsx';
 import Connect from './Connect.jsx';
 import Home from './Home.jsx';
+import Logo from './Logo.jsx';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,13 +58,13 @@ const NavBar = () => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography sx={{ marginRight: '12px' }} style={textSizer}><Link to={`${url}`} style={{textDecoration: 'none', color:"inherit"}}>LIMBER</Link></Typography>
-        <Typography sx={{ marginRight: '12px' }}  style={textSizer}><Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit"}}>Build</Link></Typography>
-        <Typography sx={{ flex: 1 }} style={textSizer}><Link to={`${url}/connect`} style={{textDecoration: 'none', color:"inherit"}}>Connect</Link></Typography>
+        <Link to={`${url}`} style={{ marginRight: '10px' }}><Logo /></Link>
+        <Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit", marginRight: '5px'}} ><Chip label="Build" variant="outlined" size="small" color="primary" clickable /></Link>
+        <Link to={`${url}/connect`} style={{textDecoration: 'none', color:"inherit", flex: 1 }} ><Chip label="Connect" variant="outlined" size="small" color="primary" clickable /></Link>
         <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
           <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
         <Tooltip title="Profile">
-          <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
+          <IconButton onClick={handleClick} size="small" sx={{ ml: 1 }}>
             <Avatar sx={{ width: 32, height: 32 }} alt={user.full_name} src={user.picture}/>
           </IconButton>
         </Tooltip>
