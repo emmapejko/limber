@@ -21,6 +21,7 @@ import Build from './Build.jsx';
 import Connect from './Connect.jsx';
 import Home from './Home.jsx';
 import Logo from './Logo.jsx';
+import BananaLogo from './BananaLogo.jsx';
 
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -70,7 +71,7 @@ const banner = {
     <div>
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Link to={`${url}`} style={{ marginRight: '10px' }}><Logo /></Link>
+        <Link to={`${url}`} style={{ marginRight: '10px' }}><BananaLogo /></Link>
         <Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit", marginRight: '5px'}} ><Chip label="Build" variant="outlined" size="small" color="primary" clickable /></Link>
         <Link to={`${url}/connect`} style={{textDecoration: 'none', color:"inherit", flex: 1 }} ><Chip label="Connect" variant="outlined" size="small" color="primary" clickable /></Link>
         <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
