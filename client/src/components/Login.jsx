@@ -7,13 +7,15 @@ import GoogleIcon from '@mui/icons-material/Google';
 
 import Chakras from './Chakras.jsx';
 import Logo from './Logo.jsx';
+import BananaLogo from './BananaLogo.jsx';
 
 const Login = ({ style }) => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center'}}>
         <div style={{ flex: 1 }}>
-          <Logo />
+          {/* <Logo /> */}
+          <BananaLogo />
         </div>
         <Chip icon={<GoogleIcon />} label="Log In" variant="outlined" component="a" href="/google" clickable />
       </Box>
