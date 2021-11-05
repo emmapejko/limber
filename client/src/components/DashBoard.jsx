@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import Grid from '@mui/material/Grid';
 import DashTable from './DashTable.jsx';
 
 const style = {
@@ -87,26 +87,48 @@ const banner = {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        fullWidth={false}
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Grid id="modal-modal-title" variant="h6" component="h2">
             <DashTable style={props.style} />
-          </Typography>
-          <Typography 
+          </Grid>
+          <Grid 
           id="modal-modal-description" 
-          sx={{ mt: 2 }}
+          sx={{ mt: 2}}
           style={props.style}
           >
-            <div>
+            <Box
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             m="auto"
+            >
+            <Typography>
             Skill Level: {level}
-            </div>
-            <div>
+            </Typography>
+            </Box>
+            <Box
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             m="auto"
+            >
+            <Typography>
             # of poses mastered: {known}
-            </div>
-            <div>
+            </Typography>
+            </Box>
+            <Box
+             display="flex"
+             alignItems="center"
+             justifyContent="center"
+             m="auto"
+            >
+            <Typography>
             poses still learning: {learn}
-            </div>
-          </Typography>
+            </Typography>
+            </Box>
+          </Grid>
         </Box>
       </Modal>
     </div>

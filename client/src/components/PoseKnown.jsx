@@ -71,22 +71,25 @@ const PoseKnown = (props) => {
 const lineBreak = {
     border: '1px solid #ffb627',
     borderRadius: '5px',
+    marginTop: "0px"
 }
 const banner = {
   backgroundColor: '#F8F8FF'
 }
   return (
-    <div style={banner}>
+    <div>
       <Box
+        style={banner}
         display="flex"
         alignItems="center"
         justifyContent="center"
         m="auto"
       >
       <Button style={props.style} onClick={() => setOpenPose(true)}>What you know</Button>
-      <hr style={lineBreak}/>
+      
       <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
+      <hr style={lineBreak}/>
       <Modal
         open={auto}
         onClose={() => setAuto(false)}

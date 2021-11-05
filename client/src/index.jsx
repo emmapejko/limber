@@ -12,6 +12,9 @@ const theme = createTheme({
     secondary: {
       main: '#e2711d',
       light: '#ffb627'
+    },
+    success: {
+      main: '#ffb627'
     }
   }
 });

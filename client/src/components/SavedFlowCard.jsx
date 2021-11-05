@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Box, Typography, Chip, List, ListItem, Icon }  from '@mui/material';
- //<StarIcon color="primary"/>
+import { Box, Typography, Chip, List, ListItem, StarIcon }  from '@mui/material';
+ 
 
 const SavedFlowCard = (props) => {
 
@@ -40,23 +40,29 @@ const SavedFlowCard = (props) => {
       <List>
         <Typography style={{ fontSize: `${getFontSize()}px`}}>
            {flows.map((flow, i) => (
-              (i < 8) ?
+              (i < 5) ?
           <ListItem 
           disableGutters
           secondaryAction={
               <Chip 
-              // edge="end"
               label={flow.difficulty} 
               size="small" 
+              color={flow.difficulty === 'beginner' ? 'secondary' : flow.difficulty === 'intermediate' ? 'primary' : 'success'}
               />
+              
           }  
+              
             style={{ fontSize: `${getFontSize()}px`}} 
-            key={i}>{flow.name}
-           
+            key={i}
+            >
+              {flow.name}
+            {/* <ListItemText style={{ fontSize: `${getFontSize()}px`}} primary={flow.name} /> */}
           </ListItem>
+        
           : null
           ))}
         </Typography>
+        
       </List>
           
     </Box>

@@ -52,11 +52,20 @@ const NavBar = () => {
     fontWeight: 420
   }
 
+  const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+    marginTop: "0px"
+}
+
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
 
   return (
     <div>
     <>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }} >
         <Typography sx={{ marginRight: '12px' }} style={textSizer}><Link to={`${url}`} style={{textDecoration: 'none', color:"inherit"}}>LIMBER</Link></Typography>
         <Typography sx={{ marginRight: '12px' }}  style={textSizer}><Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit"}}>Build</Link></Typography>
         <Typography sx={{ flex: 1 }} style={textSizer}><Link to={`${url}/connect`} style={{textDecoration: 'none', color:"inherit"}}>Connect</Link></Typography>
@@ -114,7 +123,7 @@ const NavBar = () => {
           <a href="/logout" style={{textDecoration: 'none', color:"inherit"}}>Logout</a>
         </MenuItem>
       </Menu>
-      <hr />
+      <hr style={lineBreak}/>
       <Switch>
         <Route path={`${path}/build`}>
           <Build style={textSizer}/>
