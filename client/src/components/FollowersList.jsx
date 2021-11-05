@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 
 import {
   Box,
   Grid,
   Button,
   Paper,
+  Typography
 } from '@mui/material';
 
 const FollowersList = ({ user }) => {
@@ -60,16 +67,24 @@ const FollowersList = ({ user }) => {
   }, [user])
 
   return (
-    <Box sx={{ flexGrow: 1, margin: '20px'}}>
-      {/* <Grid item xs={8}>Active users:</Grid> */}
-      {
-        users.map((u, i) => <Grid  container spacing={2} key={i} style={{ width: '20%'}}>
-          <Grid item xs={8}>{u.full_name}</Grid>
-          <Grid item xs={4}><Button onClick={() => followOrUnfollow(u)}>{followees.map(f => f.full_name).includes(u.full_name) ? 'Unfollow' : 'Follow'}</Button></Grid>
-          </Grid>)
-      }
-    </Box>
-  )
+    <Box sx={{overflow:'scroll', maxHeight:'200px'}}>
+      <List dense sx={{bgcolor: 'background.paper' }}>
+        {
+        users.map((u, i) => 
+         <ListItem spacing={1} key={i} >
+              <ListItemAvatar>
+                  <Avatar 
+                    src={u.picture}
+                  />
+                </ListItemAvatar>
+            <Typography sx={{ flex: 1 }}>{u.full_name}</Typography>
+              <Button onClick={() => followOrUnfollow(u)}>{followees.map(f => f.full_name).includes(u.full_name) ? <FavoriteIcon /> : <FavoriteBorderIcon />}</Button>
+          </ListItem>
+              )
+              }
+            </List>
+            </Box>
+  );
 }
 
 export default FollowersList;

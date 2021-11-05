@@ -12,10 +12,9 @@ import {
   Avatar,
   Tooltip
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import BuildSetUp from './BuildSetUp.jsx';
 
 const style = {
@@ -98,6 +97,7 @@ const TeacherFlowsList = () => {
     setFlows([]);
     setName(null);
     setOwner(null);
+
   }
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -126,12 +126,13 @@ const TeacherFlowsList = () => {
       })
   }
 
+
   useEffect(() => {
     getTeachers();
-  }, []);
+    }, []);
 
   return (
-    <Box sx={{width: '50%', marginLeft: '20px'}}>
+    <Box sx={{overflow:'scroll', maxHeight:'200px'}}>
       {
         teachers.map((teacher, i) => (
           <Accordion expanded={expanded === i} onChange={handleChange(i)} key={i}>

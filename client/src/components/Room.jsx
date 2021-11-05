@@ -150,6 +150,7 @@ const Room = ({username, room, profilePicture}) => {
               }} ref={myVideo}></video>
              <video style={{
                display: 'block',
+               backgroundColor: 'black',
                flex: '1',
                objectFit: 'cover',
                border: '20px solid #000',
