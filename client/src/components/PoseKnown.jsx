@@ -68,23 +68,28 @@ const PoseKnown = (props) => {
     getUserPosesKnown();
   }, []);
 
- 
-  const header = {
-    backgroundColor: '#fff8e1'
-  }
-
+const lineBreak = {
+    border: '1px solid #ffb627',
+    borderRadius: '5px',
+    marginTop: "0px"
+}
+const banner = {
+  backgroundColor: '#F8F8FF'
+}
   return (
     <div>
       <Box
-        style={header}
+        style={banner}
         display="flex"
         alignItems="center"
         justifyContent="center"
         m="auto"
       >
-      <Button onClick={() => setOpenPose(true)}>What you know</Button>
+      <Button style={props.style} onClick={() => setOpenPose(true)}>What you know</Button>
+      
       <Button onClick={() => setAuto(true)}><AddIcon /></Button>
       </Box>
+      <hr style={lineBreak}/>
       <Modal
         open={auto}
         onClose={() => setAuto(false)}
@@ -120,7 +125,11 @@ const PoseKnown = (props) => {
         {
           poses.length ? poses.map((pose, i) => (
             (i < 5) ?
-            <PoseItem key={i} pose={pose} style={props.style} />
+            <PoseItem 
+              key={i} 
+              pose={pose} 
+              style={props.style}
+             />
             : null)) : null
         }
        </Grid>
@@ -144,9 +153,16 @@ const PoseKnown = (props) => {
           <Grid container spacing={1}>
           {
             poses.length ? poses.map((pose, i) =>
-              <Grid item xs={6} sm={3}>
-                <Button title="click here to delete" onClick={() => deleteByPoseId(pose.id)}>
-                <PoseItem key={i} pose={pose} style={props.style} />
+              <Grid item xs={6} sm={3} key={i}>
+                <Button 
+                  title="click here to delete"
+                  key={i} 
+                  onClick={() => deleteByPoseId(pose.id)}>
+                <PoseItem 
+                  key={i} 
+                  pose={pose} 
+                  style={props.style} 
+                />
                 </Button>
                 </Grid>) : null
           }

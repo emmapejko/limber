@@ -33,6 +33,7 @@ const BuildFlowCard = () => {
         justifyContent="center"
         alignItems="center"
         m="15%"
+       
       >
         {
           img.length ?

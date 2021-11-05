@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Charts from './Charts.jsx';
-
+import Box from '@mui/material/Box'
 
 const createData = (name, pose, flows, joes, otherdata, props) => {
   return {
@@ -38,37 +38,8 @@ const DashTable = (props) => {
     <div>
       
       <Charts poses={poses}/>
-    </div>
     
-    // <TableContainer component={Paper}>
-    //   <Table sx={{ minWidth: 650 }} aria-label="simple table">
-    //     <TableHead>
-    //       <TableRow>
-    //         <TableCell>Name</TableCell>
-    //         <TableCell align="right">Pose</TableCell>
-    //         <TableCell align="right">Flow&nbsp;(g)</TableCell>
-    //         <TableCell align="right">Duration&nbsp;(g)</TableCell>
-    //         <TableCell align="right">Yoga&nbsp;(g)</TableCell>
-    //       </TableRow>
-    //     </TableHead>
-    //     <TableBody>
-    //       {rows.map((row) => (
-    //         <TableRow
-    //           key={row.name}
-    //           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    //         >
-    //           <TableCell component="th" scope="row">
-    //             {row.name}
-    //           </TableCell>
-    //           <TableCell align="right">{row.calories}</TableCell>
-    //           <TableCell align="right">{row.fat}</TableCell>
-    //           <TableCell align="right">{row.carbs}</TableCell>
-    //           <TableCell align="right">{row.protein}</TableCell>
-    //         </TableRow>
-    //       ))}
-    //     </TableBody>
-    //   </Table>
-    // </TableContainer>
+    </div>
   );
 }
 
