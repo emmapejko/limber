@@ -1,10 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 import { io } from "socket.io-client"
 import Peer from 'peerjs';
-import ScrollToBottom from 'react-scroll-to-bottom';
 import 'regenerator-runtime/runtime';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import {
+  Grid, 
+  List, 
+  Avatar,
+  Divider, 
+  ListItem,
+  Typography, 
+  ListItemText, 
+  ListItemAvatar, 
+} from '@mui/material';
 import moment from 'moment';
 
 const socket = io();
@@ -148,70 +155,52 @@ const Room = ({username, room, profilePicture}) => {
           </Grid>
        
         </Grid>
-        
         <Grid item xs={12} sm={12} md={4} lg={4} xl={4}
+        
             style={{
             flexGrow: '1',
-            overflowY: 'auto',
+            overflowX: 'auto',
+            // height: '100%',
             backgroundColor: '#242324',
             borderLeft: '1px solid #3d3d42',
             minHeight: '340px',
             maxHeight : '340px',
         }}>
-        
-      {messageList.map((messageContent, i) => {
-        return (
-          <Grid item>
-            
-          <ul style={{
+        <List style={{
             flexGrow: '1',
             overflow: 'auto',
             padding: '10px 10px 0px 10px',
-          }} 
-          key={i}
-            id={username === messageContent.author ? 'you' : 'other'}
-            >
-              <li style={{
-                color: '#fff',
-                listStyle: 'none',
-                borderBottom: '1px solid #3d3d42',
-                padding: '10px 0'
-              }}>
-              <div>
-                <div>
-                  <img style={{
-                    width:'100%',
-                    maxWidth:'30px',
-                    overflow: 'auto',
-                    float: 'left',
-                    borderRadius: '50px',
-                  }} src={messageContent.profilePicture} />
-                </div>
-            <Typography style={{
-                    float: 'right'
-                  }}>
-                  {messageContent.message}
-              </Typography>
-              <Typography>
-                <div style={{ 
-                  fontSize: '12px',
-                }} id="author">{messageContent.author}</div>
+          }} >
+      {messageList.map((messageContent, i) => {
+        return (
+          <><ListItem style={{
+            alignItems: 'flexStart',
+            color: '#fff',
+            listStyle: 'none',
+            borderBottom: '1px solid #3d3d42',
+            padding: '10px 0'
+          }}
+            key={i}>
+            <ListItemAvatar>
+              <Avatar alt={messageContent.author} src={messageContent.profilePicture} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={messageContent.author}
+              secondary={<React.Fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="whitesmoke"
+                >
+              
+                {`${messageContent.message}`}
                 </Typography>
-                <Typography>
-                <div style={{
-                  color: '#f5f5f5',
-                  fontSize: "10px",
-                  fontStyle: 'italic'
-                }}id="time">{messageContent.time}</div>
-                </Typography>
-              </div>
-            </li>
-            
-          </ul>
-          
-           </Grid>
+              </React.Fragment>} />
+          </ListItem><Divider variant="inset" component="li" /></>
         );
       })}
+      </List>
  <div ref={messageList} />
    
     <Grid item xs={12} sm={12} item md={4} lg={4} xl={4} container
@@ -240,8 +229,7 @@ const Room = ({username, room, profilePicture}) => {
       />
       </Typography>
       </Grid>
-  
-        </Grid>
+      </Grid>
         </Grid>
   );
 }
@@ -250,24 +238,3 @@ export default Room;
 
 
 
-    // <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-    //   <ListItem alignItems="flex-start">
-    //     <ListItemAvatar>
-    //       <Avatar alt={messageContent.author} src={messageContent.profilePicture} />
-    //     </ListItemAvatar>
-    //     <ListItemText
-    //       primary="Brunch this weekend?"
-    //       secondary={
-    //         <React.Fragment>
-    //           <Typography
-    //             sx={{ display: 'inline' }}
-    //             component="span"
-    //             variant="body2"
-    //             color="text.primary"
-    //           >
-    //             Ali Connors
-    //           </Typography>
-    //           {messageContent.message}
-    //         </React.Fragment>
-    //       }
-    //     />
