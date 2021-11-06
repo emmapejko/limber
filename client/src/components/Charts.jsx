@@ -9,6 +9,17 @@ const Charts = ({ poses }) => {
         let level = Object.entries(countObj);
         let count = Object.values(countObj);
         let output = ['Difficulty', 'Number of Moves'];
+    
+  let orderedArray = new Array(3);
+    level.forEach(item => {
+      if(item[0] === 'beginner') {
+        orderedArray[0] = item;
+      } else if(item[0] === 'intermediate') {
+        orderedArray[1] = item;
+      } else {
+        orderedArray[2] = item;
+      }
+    })
 
   return (
 
@@ -20,7 +31,7 @@ const Charts = ({ poses }) => {
       loader={<div>Loading Chart...</div>}
       data={[
         ['Difficulty', 'Number of Moves'],
-      ...level
+      ...orderedArray
 
 
       ]}

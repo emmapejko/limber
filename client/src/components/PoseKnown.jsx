@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
 import PoseItem from './PoseItem.jsx';
 
 const style = {
@@ -154,8 +155,8 @@ const banner = {
           {
             poses.length ? poses.map((pose, i) =>
               <Grid item xs={6} sm={3} key={i}>
+                <Tooltip title="Delete">
                 <Button 
-                  title="click here to delete"
                   key={i} 
                   onClick={() => deleteByPoseId(pose.id)}>
                 <PoseItem 
@@ -164,6 +165,7 @@ const banner = {
                   style={props.style} 
                 />
                 </Button>
+                </Tooltip>
                 </Grid>) : null
           }
           </Grid>
