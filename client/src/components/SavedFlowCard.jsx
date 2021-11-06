@@ -41,7 +41,7 @@ const SavedFlowCard = (props) => {
               <Chip 
               label={flow.difficulty} 
               size="small" 
-              color={flow.difficulty === 'beginner' ? 'secondary' : flow.difficulty === 'intermediate' ? 'primary' : 'success'}
+              color={flow.difficulty === 'beginner' ? 'success' : flow.difficulty === 'intermediate' ? 'primary' : 'secondary'}
               />
               
           }  
