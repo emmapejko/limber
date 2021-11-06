@@ -17,9 +17,9 @@ import {
   Switch, Route, Link, useRouteMatch,
 } from 'react-router-dom';
 
-import Build from './Build.jsx';
-import Connect from './Connect.jsx';
-import Home from './Home.jsx';
+import Build from '../Build/Build.jsx';
+import Connect from '../Connect/Connect.jsx';
+import Home from '../Profile/Home.jsx';
 import Logo from './Logo.jsx';
 import BananaLogo from './BananaLogo.jsx';
 

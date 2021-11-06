@@ -15,7 +15,7 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import BuildSetUp from './BuildSetUp.jsx';
+import BuildSetUp from '../Build/BuildSetUp.jsx';
 
 const style = {
   position: 'absolute',

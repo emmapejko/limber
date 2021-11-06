@@ -20,7 +20,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import BuildSetUp from './BuildSetUp.jsx';
+import BuildSetUp from '../Build/BuildSetUp.jsx';
 
 const style = {
   position: 'absolute',
