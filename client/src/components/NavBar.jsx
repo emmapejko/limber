@@ -74,8 +74,8 @@ const banner = {
         <Link to={`${url}`} style={{ marginRight: '10px' }}><BananaLogo /></Link>
         <Link to={`${url}/build`} style={{textDecoration: 'none', color:"inherit", marginRight: '5px'}} ><Chip label="Build" variant="outlined" size="small" color="primary" clickable /></Link>
         <Link to={`${url}/connect`} style={{textDecoration: 'none', color:"inherit", flex: 1 }} ><Chip label="Connect" variant="outlined" size="small" color="primary" clickable /></Link>
-        <IconButton onClick={() => setFontSize(fontSize + 2)}>+</IconButton>
-          <IconButton onClick={() => setFontSize(fontSize - 2)}>-</IconButton>
+        <IconButton onClick={() => fontSize === 24 ? setFontSize(fontSize) : setFontSize(fontSize + 2)}>+</IconButton>
+          <IconButton onClick={() => fontSize === 10 ? setFontSize(fontSize) : setFontSize(fontSize - 2)}>-</IconButton>
         <Tooltip title="Profile">
           <IconButton onClick={handleClick} size="small" sx={{ ml: 1 }}>
             <Avatar sx={{ width: 32, height: 32 }} alt={user.full_name} src={user.picture}/>

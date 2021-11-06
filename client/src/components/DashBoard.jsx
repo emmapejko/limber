@@ -24,8 +24,8 @@ const DashBoard = (props) => {
  
   const [open, setOpen] = React.useState(false);
   const [level, setLevel] = useState([]);
-  const [known, setKnown] = useState([]);
-  const [learn, setLearn] = useState([]);
+  const [known, setKnown] = useState(null);
+  const [learn, setLearn] = useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
@@ -33,7 +33,7 @@ const DashBoard = (props) => {
   const getUserPosesKnown = () => {
     axios.get('profile/userPosesKnown')
       .then(({ data }) => {
-        
+        setKnown(data.length);
         const skillObj = {};
         let skillz = [];
 
@@ -45,8 +45,9 @@ const DashBoard = (props) => {
      
       skillz.sort((a, b) => b[1] - a[1]);
       const slicedRank = skillz[0].slice(0, 1);
-        setKnown(data.length);
+        
         setLevel(slicedRank);
+        //getUserPosesId();
       })
       .catch((err) => {
         console.warn(err, 'getUserPosesKnown');
@@ -58,19 +59,20 @@ const DashBoard = (props) => {
       .then(({ data }) => {
         
         setLearn(data.length);
-        //setPoses((prev) => [...prev, data]);
+        
       })
       .catch((err) => {
         console.warn(err);
       });
   };
 
+ 
   
-
   useEffect(() => {
     getUserPosesKnown();
-    getUserPosesId();
-  }, []);
+   getUserPosesId();
+  }, [open]);
+
   const lineBreak = {
     border: '1px solid #ffb627',
     borderRadius: '5px',
