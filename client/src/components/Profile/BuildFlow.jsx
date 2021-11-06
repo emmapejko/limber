@@ -3,7 +3,7 @@ import {
   Switch, Route, Link, useRouteMatch,
 } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import Build from './Build.jsx';
+import Build from '../Build/Build.jsx';
 
 const style = {
   position: 'absolute',

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Login from './Login.jsx';
-import NavBar from './NavBar.jsx';
+import Login from './Nav/Login.jsx';
+import NavBar from './Nav/NavBar.jsx';
 
 const App = (props) => {
   

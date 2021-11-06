@@ -3,7 +3,7 @@ import {
   Box
 } from '@mui/material';
 
-import skelly from '../images/skellyton.png';
+import skelly from '../../images/skellyton.png';
 
 const Skellyton = ({ bodyParts, handleClick }) => {
 
